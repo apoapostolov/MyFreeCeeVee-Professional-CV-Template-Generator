@@ -1,4 +1,4 @@
-# MyFreeCeeVee
+# MuhFweeCeeVee
 
 Self-hosted CV templating system.
 
@@ -79,7 +79,7 @@ npm run dev:parser
 - `GET /api/export/pdf?cvId=...&templateId=...`: generate and stream real PDF.
 - `GET /api/settings/openrouter`: read OpenRouter UI settings (`hasApiKey`, model, base URL).
 - `GET /api/settings/openrouter` also returns cached OpenRouter model catalog for model dropdown population.
-- `GET /api/settings/openrouter/credit`: read OpenRouter key credit/usage status (derived from OpenRouter `/api/v1/key`).
+- `GET /api/settings/openrouter/credit`: read OpenRouter remaining-credit status (derived from OpenRouter `/api/v1/key` with `/api/v1/credits` fallback).
 - `PUT /api/settings/openrouter`: update OpenRouter API key/model/base URL from UI.
 - `POST /api/analysis/cv`: run AI scoring analysis (section-level or full CV) via OpenRouter.
 - `POST /api/cvs/sync`: sync missing fields from selected language variant to sibling language variant and translate via OpenRouter.
@@ -107,7 +107,7 @@ npm run dev:parser
   - Editor section modes:
     `Form View` (default, recursive field forms) and `YAML View` (raw section YAML)
   - OpenRouter settings panel in UI (API key/model/base URL) for AI scoring
-  - OpenRouter settings panel shows current credit/usage status and refreshes it asynchronously every 60 seconds
+  - OpenRouter settings panel shows current remaining-credit status and refreshes it asynchronously every 60 seconds
   - OpenRouter model dropdown loaded from server-side cached model catalog
     (auto refresh on app load when cache is older than 72 hours; forced refresh on settings save)
   - OpenRouter model options display free status, average mixed price per
@@ -126,6 +126,8 @@ npm run dev:parser
   - Template-controlled date display per section (`exact`, `month-year`, `year`)
     from exact YAML dates
   - Print-friendly section transition policy (`break-inside: avoid`) for cleaner page splits
+  - Europass job subsections now apply smarter page-flow hints to avoid leaving
+    tiny (<4-line) subsection fragments at the bottom of a page
   - Edinburgh profile summary supports single merged paragraph rendering
     from multi-item CV source fields
   - Edinburgh education section renders expanded education details
@@ -143,3 +145,12 @@ npm run dev:parser
   - Template gallery lane with first-page previews per implemented template,
     rendered from the most recently updated CV variant
   - Gallery previews are image renders (PNG), avoiding embedded PDF frame controls
+
+## CV Keyword Subproject
+
+- New subproject scaffold and first implementation:
+  - `cv-keyword-analysis/jd_scraper.py` (seed crawl + relevance scoring)
+  - `cv-keyword-analysis/config/relevance_keywords.json`
+  - `cv-keyword-analysis/sources/seed_urls.txt`
+  - resume-safe SQLite cache (`outputs/jd_scrape_cache.sqlite`) for stop/resume runs
+  - optional Firecrawl provider mode (`--provider firecrawl`, `FIRECRAWL_API_KEY`)

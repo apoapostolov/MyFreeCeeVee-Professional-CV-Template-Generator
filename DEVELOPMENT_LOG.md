@@ -2,7 +2,7 @@
 
 ## 2026-02-27 - Bootstrap governance and stack init
 
-Initialized repository bootstrap for MyFreeCeeVee architecture and
+Initialized repository bootstrap for MuhFweeCeeVee architecture and
 added operating docs.
 
 - Added plan document: `DEVELOPMENT_PLAN.md`.
@@ -84,10 +84,10 @@ Files touched:
 Validation commands and results:
 
 - `npm run lint` -> pass
-- `npm run typecheck` -> initially failed (`@myfreeceevee/schemas` path not
+- `npm run typecheck` -> initially failed (`@muhfweeceevee/schemas` path not
   resolved in web workspace)
 - Added `apps/web/tsconfig.json` path alias for
-  `@myfreeceevee/schemas` -> `../../packages/schemas/src/index.ts`
+  `@muhfweeceevee/schemas` -> `../../packages/schemas/src/index.ts`
 - `npm run typecheck` -> pass
 - `npm run lint` -> pass
 
@@ -693,7 +693,7 @@ Additional follow-up:
   - `PUT /api/settings/openrouter` forces model refresh after key/settings update.
 - Validation:
   - `npm run check` -> pass
-  - `npm run build --workspace @myfreeceevee/web` -> pass
+  - `npm run build --workspace @muhfweeceevee/web` -> pass
 - `apps/web/src/app/api/export/pdf/route.ts`
 - `templates/edinburgh-v1/template.yaml`
 - `templates/europass-v1/template.yaml`
@@ -1210,3 +1210,145 @@ Validation commands and results:
 
 - `npm run check` -> pass
 - `node -e '(async()=>{const r=await fetch("http://127.0.0.1:3001/api/cvs/sync/status",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({cvId:"cv_bg_001_alianz",sourceLanguage:"bg"})}); const j=await r.json(); console.log(JSON.stringify({status:r.status,canSync:j.canSync,hasMissing:j.hasMissingFields,missing:j.missingFieldCount,timestampsDiffer:j.timestampsDiffer},null,2));})().catch(e=>{console.error(e);process.exit(1);});'` -> pass
+
+## 2026-03-05 - Europass subsection pagination tweak + JD scraper kickoff
+
+Context/root cause:
+
+- Requested smarter page-flow in Print Room Europass so job subsections avoid tiny
+  (<4-line) fragments left at page bottom.
+- Requested start of CV Keyword JD scraping for target roles
+  (producer/designer/analytics/tracking-data variants).
+
+Files touched:
+
+- `apps/web/src/lib/server/renderCvTemplate.ts`
+- `cv-keyword-analysis/jd_scraper.py`
+- `cv-keyword-analysis/config/relevance_keywords.json`
+- `cv-keyword-analysis/sources/seed_urls.txt`
+- `cv-keyword-analysis/outputs/.gitkeep`
+- `cv-keyword-analysis/README.md`
+- `cv-keyword-analysis/CHANGELOG.md`
+- `cv-keyword-analysis/TODO.md`
+- `cv-keyword-analysis/DEVELOPMENT_LOG.md`
+- `README.md`
+- `CHANGELOG.md`
+- `TODO.md`
+- `DEVELOPMENT_LOG.md`
+
+Validation commands and results:
+
+- `npm run check` -> pass
+- `/usr/bin/python3 -m py_compile cv-keyword-analysis/jd_scraper.py` -> pass
+
+## 2026-03-05 - JD scraper start/resume cache + Firecrawl provider option
+
+Context/root cause:
+
+- Requested crawler stop/resume support with strict no-reprocessing behavior.
+- Requested Firecrawl-like tooling support for higher-quality JD discovery.
+
+Files touched:
+
+- `cv-keyword-analysis/jd_scraper.py`
+- `cv-keyword-analysis/README.md`
+- `cv-keyword-analysis/TODO.md`
+- `cv-keyword-analysis/CHANGELOG.md`
+- `cv-keyword-analysis/DEVELOPMENT_LOG.md`
+- `README.md`
+- `CHANGELOG.md`
+- `TODO.md`
+- `DEVELOPMENT_LOG.md`
+
+Validation commands and results:
+
+- `/usr/bin/python3 -m py_compile cv-keyword-analysis/jd_scraper.py` -> pass
+- `cd cv-keyword-analysis && /usr/bin/python3 jd_scraper.py --provider native --max-pages 60 --max-depth 1 --max-results 50 --min-score 6 --sleep-ms 0 --timeout 12` -> pass
+- Sequential rerun demonstrates cache skip behavior (`scraped_new=0`, `skipped_url_cached>0`).
+
+## 2026-03-05 - OpenRouter credit label uses remaining-credit wording only
+
+Context/root cause:
+
+- Requested OpenRouter usage text to show remaining credit instead of usage phrasing.
+- Existing fallback branches in credit label generation still emitted `OpenRouter usage: ...`.
+
+Files touched:
+
+- `apps/web/src/lib/server/openRouterCredit.ts`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run check` -> pass
+
+## 2026-03-05 - OpenRouter remaining-credit fallback message cleanup
+
+Context/root cause:
+
+- Requested remaining-credit text only, without `limit` framing in the UI label.
+- Current key payload returns `limit_remaining: null` and `limit: null`, so fallback messaging needed to stay neutral.
+
+Files touched:
+
+- `apps/web/src/lib/server/openRouterCredit.ts`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run check` -> pass
+
+## 2026-03-05 - Expanded native JD crawler seeds and executed non-Firecrawl resume run
+
+Context/root cause:
+
+- Native resume runs saturated quickly because only a handful of static seeds were crawled.
+- Needed broader non-paid discovery after Firecrawl quota limit was reached.
+
+Files touched:
+
+- `cv-keyword-analysis/jd_scraper.py`
+- `cv-keyword-analysis/config/relevance_keywords.json`
+- `cv-keyword-analysis/README.md`
+- `cv-keyword-analysis/CHANGELOG.md`
+- `cv-keyword-analysis/DEVELOPMENT_LOG.md`
+- `cv-keyword-analysis/TODO.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `/usr/bin/python3 -m py_compile cv-keyword-analysis/jd_scraper.py` -> pass
+- `/usr/bin/python3 cv-keyword-analysis/jd_scraper.py --provider native --mode resume --max-pages 400 --max-depth 1 --max-results 10000 --min-score 8 --timeout 4 --sleep-ms 0` -> pass
+- Cache totals after run: `pages_total=330`, `pages_relevant=235` -> pass
+
+## 2026-03-05 - OpenRouter remaining credit fallback to /credits endpoint
+
+Context/root cause:
+
+- Requested a numeric remaining-credit value instead of unavailable fallback text.
+- For this API key, OpenRouter `/api/v1/key` returns `limit_remaining: null` and `limit: null`.
+
+Files touched:
+
+- `apps/web/src/lib/server/openRouterCredit.ts`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `node -e '(async()=>{const fs=require("fs");const y=require("yaml");const s=y.parse(fs.readFileSync("data/settings/openrouter.yaml","utf8"));const k=(s.apiKey||"").trim();const a=await fetch("https://openrouter.ai/api/v1/key",{headers:{Authorization:"Bearer "+k}});const ja=await a.json();const b=await fetch("https://openrouter.ai/api/v1/credits",{headers:{Authorization:"Bearer "+k}});const jb=await b.json();console.log(JSON.stringify({limit_remaining:ja?.data?.limit_remaining,total_credits:jb?.data?.total_credits,total_usage:jb?.data?.total_usage,remaining:(jb?.data?.total_credits??0)-(jb?.data?.total_usage??0)},null,2));})().catch(e=>{console.error(e);process.exit(1);});'` -> pass
+- `npm run check` -> pass
+
+References checked:
+
+- `https://openrouter.ai/docs/api-reference/limits` (key endpoint and `limit_remaining`)
+- `https://openrouter.ai/docs/api-reference/credits` (`total_credits` / `total_usage`)

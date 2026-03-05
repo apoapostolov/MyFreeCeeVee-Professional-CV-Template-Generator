@@ -15,7 +15,7 @@ const titleSerif = Merriweather({
 });
 
 export const metadata: Metadata = {
-  title: "MyFreeCeeVee",
+  title: "MuhFweeCeeVee",
   description: "Professional CV template generator",
 };
 

@@ -47,5 +47,25 @@
     "what you will do",
     "apply",
     "about the role"
+  ],
+  "native_query_suffixes": [
+    "jobs",
+    "job description",
+    "careers",
+    "remote jobs",
+    "gaming",
+    "mobile games",
+    "AAA studio",
+    "free to play",
+    "live ops",
+    "analytics"
+  ],
+  "native_search_templates": [
+    "https://duckduckgo.com/html/?q={query}",
+    "https://www.bing.com/search?q={query}",
+    "https://www.indeed.com/jobs?q={query}",
+    "https://www.indeed.com/jobs?q={query}&sort=date",
+    "https://www.simplyhired.com/search?q={query}",
+    "https://www.ziprecruiter.com/jobs-search?search={query}"
   ]
 }

@@ -38,8 +38,15 @@
 - [x] Align `europass-v1` header and field coverage with source PDF + expanded `cv_bg_001`.
 - [x] Enrich seed BG CV (`cv_bg_001_alianz`) with full details from sample PDF.
 - [x] Add CV editor tab with section sub-tabs and OpenRouter-backed section/full CV scoring.
+- [x] Keep OpenRouter settings credit label focused on remaining credit wording.
+- [x] Remove OpenRouter credit `(limit unavailable)` fallback text from settings label.
+- [x] Add OpenRouter `/api/v1/credits` fallback so remaining credit can be computed when key-level limit is null.
 - [x] Add per-experience publication link support (`url` + optional auto-derived title) in CV YAML/rendering.
 - [x] Extend `edinburgh-v1` education rendering with full detail fields from YAML.
+- [x] Add Europass subsection pagination hints to avoid tiny (<4-line) carry-over fragments.
+- [x] Start `cv-keyword-analysis` JD scraper with role relevance scoring and JSON export.
+- [x] Add JD scraper start/resume cache with no-reprocessing guarantees and optional Firecrawl provider mode.
+- [x] Expand native JD seed/query discovery so resume runs can grow corpus without Firecrawl.
 - [ ] Add import/export UI for YAML packages.
 - [ ] Add template review status workflow (`pending/approved/rejected`).
 - [ ] Add visual diff tests for selected PDF golden outputs.

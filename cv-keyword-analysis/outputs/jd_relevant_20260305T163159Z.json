@@ -1,0 +1,574 @@
+{
+  "generated_at": "2026-03-05T16:31:59.479182+00:00",
+  "run_id": "20260305T163159Z",
+  "provider": "native",
+  "mode": "resume",
+  "cache_db": "/home/apoapostolov/git-public/MuhFweeCeeVee-Professional CV Template Generator/cv-keyword-analysis/outputs/jd_scrape_cache.sqlite",
+  "seed_urls": [
+    "https://boards.greenhouse.io/",
+    "https://jobs.lever.co/",
+    "https://www.indeed.com/jobs?q=game+producer",
+    "https://www.indeed.com/jobs?q=game+designer",
+    "https://www.indeed.com/jobs?q=game+data+analyst"
+  ],
+  "target_roles": [
+    "video game producer",
+    "game producer",
+    "producer",
+    "game designer",
+    "lead game designer",
+    "data analyst",
+    "game data analyst",
+    "game data designer",
+    "tracking data",
+    "data manager",
+    "analytics manager"
+  ],
+  "stats": {
+    "attempted": 5,
+    "scraped_new": 0,
+    "skipped_url_cached": 2,
+    "skipped_hash_cached": 0,
+    "errors": 3
+  },
+  "run_relevant_count": 0,
+  "cached_relevant_count": 40,
+  "items": [
+    {
+      "url": "https://www.facebook.com/leverapp",
+      "title": "Lever",
+      "score": 30.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "monetization",
+        "product",
+        "telemetry",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.facebook.com",
+      "snippet": ":root, .__fb-light-mode:root, .__fb-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.facebook.com/greenhouse.io/",
+      "title": "Greenhouse Software",
+      "score": 30.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "monetization",
+        "product",
+        "telemetry",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.facebook.com",
+      "snippet": ":root, .__fb-light-mode:root, .__fb-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.instagram.com/inside.lever/",
+      "title": "Lever (&#064;inside.lever) • Instagram photos and videos",
+      "score": 24.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "product",
+        "sql",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.instagram.com",
+      "snippet": ":root, .__ig-light-mode:root, .__ig-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.instagram.com/greenhousesoftware/",
+      "title": "Greenhouse Software (&#064;greenhousesoftware) • Instagram photos and videos",
+      "score": 24.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "product",
+        "sql",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.instagram.com",
+      "snippet": ":root, .__ig-light-mode:root, .__ig-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.youtube.com/channel/UCwLlhrx5lFssgTwKCHEuC8g",
+      "title": "Greenhouse Software - YouTube",
+      "score": 24.0,
+      "matched_keywords": [
+        "android",
+        "ios",
+        "product",
+        "sql",
+        "telemetry",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.youtube.com",
+      "snippet": "window.WIZ_global_data = {\"AfY8Hf\":true,\"FL1an\":true,\"HiPsbb\":0,\"MUE6Ne\":\"youtube_web\",\"MuJWjd\":true,\"UUFaWc\":\"%.@.null,1000,2]\",\"cfb2h\":\"youtube.web-front-end-critical_20260303.10_p0\",\"fPDxwd\":[],\"hsFLT\":\"%.@.null,1000,2]\",\"iCzhFc\":false,\"nQyAE\":{},\"oxN3nb\":{\"1\":false,\"0\":false,\"610401301\":false,\"8"
+    },
+    {
+      "url": "https://learn.greenhouse.io/",
+      "title": "Learn Greenhouse",
+      "score": 24.0,
+      "matched_keywords": [
+        "analytics",
+        "data analyst",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "data analyst"
+      ],
+      "domain": "learn.greenhouse.io",
+      "snippet": "(function() { /* Matches HTML tag injection, null bytes, CRLF header injection, and dangerous URI schemes (javascript/data/vbscript). */ var dangerousValueRe = /[<>\\x00\\r\\n]|\\b(?:javascript|data|vbscript)\\s*:/i; var searchParams = new URLSearchParams(window.location.search); var keysToDelete = []; s"
+    },
+    {
+      "url": "https://www.lever.co/advanced-analytics/",
+      "title": "AI-Powered Recruitment Analytics Software - Lever",
+      "score": 22.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/",
+      "title": "A Powerful Applicant Tracking System | LeverTRM",
+      "score": 22.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.tiktok.com/@greenhouse_software",
+      "title": "TikTok - Make Your Day",
+      "score": 20.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "monetization",
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "www.tiktok.com",
+      "snippet": "TikTok - Make Your Day {\"_r\":\"eyJjb29raWUiOnsiYmxvY2tlcnMiOlt7ImNvb2tpZXMiOlsia3RsdkRXN0lHNUNsT2N4WVRibVkiLCJNT05JVE9SX0RFVklDRV9JRCIsIk1PTklUT1JfV0VCX0lEIl0sImRvbWFpbnMiOlsidGlrdG9rLmNvbSIsInRpa3Rva3YuY29tIl19XSwiZW5hYmxlZCI6dHJ1ZSwic2FtcGxlUmF0ZSI6MC4wNywic3RhY2tDb2xsZWN0Q29va2llcyI6WyIiXSwic3RhY2"
+    },
+    {
+      "url": "https://www.lever.co/demo/",
+      "title": "Lever Demo | Streamline Your Hiring Process with Lever&#039;s ATS &amp; CRM",
+      "score": 17.0,
+      "matched_keywords": [
+        "analytics",
+        "ios",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://employinc.com",
+      "title": "Employ",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "employinc.com",
+      "snippet": "(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:\"1120240967\",accountID:\"4192913\",trustKey:\"66686\",xpid:\"UAcOU19SCxABVFBTAQgAUlQH\",lice"
+    },
+    {
+      "url": "https://www.lever.co/contact/",
+      "title": "Contact - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/customers/",
+      "title": "Lever Success Stories: How Talent Teams Thrive with LeverTRM",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/ashby-alternatives/",
+      "title": "5 Ashby Alternatives to Upgrade Your Hiring Tech Stack",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/greenhouse-alternatives/",
+      "title": "5 Greenhouse Alternatives to Power Modern Hiring Teams",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/greenhouse-vs-ashby/",
+      "title": "Greenhouse vs. Ashby: Before choosing, read this guide - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/icims-vs-smartrecruiters/",
+      "title": "iCIMS vs. SmartRecruiters: Is there a better alternative?",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-smartrecruiters/",
+      "title": "Lever vs. SmartRecruiters: Why Lever’s Best for Smart Hiring",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-workable/",
+      "title": "Lever vs. Workable: Why Modern Talent Teams Switch to Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-greenhouse/",
+      "title": "Lever vs. Greenhouse: Why Lever is the Top Talent Software",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-ashby/",
+      "title": "Lever vs. Ashby: Why Lever is the Leading Talent Software",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/blog/",
+      "title": "Talent Innovation Blog: Recruiting &amp; Hiring Insights - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/pricing/",
+      "title": "Recruitment Software Pricing &amp; Quotes | Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/onboarding/",
+      "title": "Lever | Onboarding",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/case-study/how-dream-charter-schools-build-authentic-teams/",
+      "title": "How DREAM Charter Schools Build Authentic Teams - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/why-lever/",
+      "title": "Why Lever - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/career-site-builder/",
+      "title": "Convert More Candidates with Career Site Builder",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/candidate-texting/",
+      "title": "Reach Talent with Recruitment Communication Software - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/advanced-hr/",
+      "title": "Advanced HR - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/diversity-and-inclusion-hiring/",
+      "title": "Initiate diverse and inclusive hiring with Lever | Lever Solutions",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/high-volume-hiring/",
+      "title": "Hire at scale, quickly and efficiently | Lever Solutions",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/recruitment-marketing/",
+      "title": "Attract Top Talent with Lever&#039;s Recruitment Marketing Solutions",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/ai-screening-companion/",
+      "title": "AI Screening Companion - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/ai-interview-companion/",
+      "title": "AI Interview Companion | Speed Up Hiring with Lever’s Smart Insights",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.employinc.com/employ-product-guide/",
+      "title": "Employ Product Guide - Employ",
+      "score": 10.4,
+      "matched_keywords": [
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "www.employinc.com",
+      "snippet": "(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:\"1120240967\",accountID:\"4192913\",trustKey:\"66686\",xpid:\"UAcOU19SCxABVFBTAQgAUlQH\",lice"
+    },
+    {
+      "url": "https://status.lever.co/",
+      "title": "Lever Status",
+      "score": 9.0,
+      "matched_keywords": [
+        "analytics",
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "status.lever.co",
+      "snippet": "Lever Status /* Dynamic Font Stack based on Feature Flag */ /* Using Atlassian Sans & Mono */ :root { --font-stack-a: \"Atlassian Sans\", \"Helvetica Neue\", Helvetica, Arial, Sans-Serif; --font-stack-b: \"Atlassian Mono\", \"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, "
+    },
+    {
+      "url": "https://www.employinc.com/company/",
+      "title": "Building the Future of Recruiting | Employ, Inc.",
+      "score": 9.0,
+      "matched_keywords": [
+        "analytics",
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "www.employinc.com",
+      "snippet": "(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:\"1120240967\",accountID:\"4192913\",trustKey:\"66686\",xpid:\"UAcOU19SCxABVFBTAQgAUlQH\",lice"
+    },
+    {
+      "url": "https://boards.greenhouse.io/events",
+      "title": "Jobs at Events",
+      "score": 9.0,
+      "matched_keywords": [
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "boards.greenhouse.io",
+      "snippet": "Jobs at Events Current openings at Events There are no current openings. Powered by Greenhouse ((STORAGE_KEY, restoreKey) => { if (!window.history.state || !window.history.state.key) { let key = Math.random().toString(32).slice(2); window.history.replaceState({ key }, \"\"); } try { let positions = JS"
+    },
+    {
+      "url": "https://boards.greenhouse.io/company",
+      "title": "Jobs at Company",
+      "score": 9.0,
+      "matched_keywords": [
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "boards.greenhouse.io",
+      "snippet": "Jobs at Company Current openings at Soros Fund Management There are no current openings. Powered by Greenhouse ((STORAGE_KEY, restoreKey) => { if (!window.history.state || !window.history.state.key) { let key = Math.random().toString(32).slice(2); window.history.replaceState({ key }, \"\"); } try { le"
+    },
+    {
+      "url": "https://support.greenhouse.io/hc/en-us",
+      "title": "Greenhouse Support",
+      "score": 9.0,
+      "matched_keywords": [
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "support.greenhouse.io",
+      "snippet": "Greenhouse Support function OptanonWrapper() { } (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+"
+    }
+  ]
+}

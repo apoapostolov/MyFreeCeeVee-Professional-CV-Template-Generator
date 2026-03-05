@@ -1,4 +1,4 @@
 apiKey: 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
-model: openai/gpt-5.3-codex
+model: anthropic/claude-sonnet-4.6
 baseUrl: https://openrouter.ai/api/v1/chat/completions
-updatedAt: 2026-03-05T16:08:15.266Z
+updatedAt: 2026-03-05T16:23:01.835Z

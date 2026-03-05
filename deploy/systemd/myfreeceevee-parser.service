@@ -1,11 +1,11 @@
 [Unit]
-Description=MyFreeCeeVee Parser (FastAPI)
+Description=MuhFweeCeeVee Parser (FastAPI)
 After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=%h/git-public/MyFreeCeeVee-Professional CV Template Generator/services/parser
-ExecStart=%h/git-public/MyFreeCeeVee-Professional CV Template Generator/services/parser/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8001
+WorkingDirectory=%h/git-public/MuhFweeCeeVee-Professional CV Template Generator/services/parser
+ExecStart=%h/git-public/MuhFweeCeeVee-Professional CV Template Generator/services/parser/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8001
 Restart=on-failure
 RestartSec=5
 

@@ -1,0 +1,2233 @@
+{
+  "generated_at": "2026-03-05T16:36:57.611808+00:00",
+  "run_id": "20260305T163356Z",
+  "provider": "firecrawl",
+  "mode": "resume",
+  "cache_db": "/home/apoapostolov/git-public/MuhFweeCeeVee-Professional CV Template Generator/cv-keyword-analysis/outputs/jd_scrape_cache.sqlite",
+  "seed_urls": [],
+  "target_roles": [
+    "video game producer",
+    "game producer",
+    "producer",
+    "game designer",
+    "lead game designer",
+    "data analyst",
+    "game data analyst",
+    "game data designer",
+    "tracking data",
+    "data manager",
+    "analytics manager"
+  ],
+  "stats": {
+    "attempted": 150,
+    "scraped_new": 101,
+    "skipped_url_cached": 49,
+    "skipped_hash_cached": 0,
+    "errors": 8
+  },
+  "run_relevant_count": 85,
+  "cached_relevant_count": 125,
+  "items": [
+    {
+      "url": "https://sg.jobstreet.com/lead-game-designer-jobs",
+      "title": "Lead Game Designer Jobs in Singapore (with Salaries) - Feb 2026",
+      "score": 98.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "lead game designer",
+        "live operations",
+        "mobile games",
+        "monetization",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "sg.jobstreet.com",
+      "snippet": "Lead Game Designer Jobs in Singapore (with Salaries) - Feb 2026 Responsible for core gameplay design, game worldbuilding, and overall content planning. Lead the game design team to ensure creative concepts and... By continuing to use our platform, you consent to the use of cookies as outlined within"
+    },
+    {
+      "url": "https://www.glassdoor.ca/Job/canada-video-game-producer-jobs-SRCH_IL.0,6_KO7,26.htm",
+      "title": "20 Video game producer jobs in Canada | Glassdoor",
+      "score": 98.0,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "sql",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.glassdoor.ca",
+      "snippet": "20 Video game producer jobs in Canada | Glassdoor $85K - $107K (Glassdoor Est.) At least three years of experience in a Games Industry leadership-style role with at least one released commercial project on ... Skip to main content\n\n[Skip to content](https://www.glassdoor.ca/Job/canada-video-game-pro"
+    },
+    {
+      "url": "https://ca.indeed.com/q-video-game-producer-jobs.html",
+      "title": "Discover Video Game Producer Jobs and Work Opportunities | Indeed",
+      "score": 95.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "lead game designer",
+        "producer",
+        "product",
+        "sql",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "lead game designer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "ca.indeed.com",
+      "snippet": "Discover Video Game Producer Jobs and Work Opportunities | Indeed Work with game assets (e.g., character animations, gameplay footage, in-game items) to design video ads that effectively showcase the game's features and appeal ... [Skip to main content](https://ca.indeed.com/q-video-game-producer-jo"
+    },
+    {
+      "url": "https://8bitplay.com/blog/game-producer-do-you-have-what-it-takes-to-become-a-perfect-problem-solver/",
+      "title": "Video Game Producer - role overview and career boosting tips",
+      "score": 94.0,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "mobile games",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "8bitplay.com",
+      "snippet": "Video Game Producer - role overview and career boosting tips Video Game Producer is in charge of supervising everything related to the development of the video game. 5 min read\n\n#Development Tips\n\n11.01.2023\n\n#Game design\n\n# Video Game Producer – do you have what it takes to become a perfect Problem"
+    },
+    {
+      "url": "http://www.animationarena.com/video-game-producer.html",
+      "title": "What is a Video Game Producer?",
+      "score": 89.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.animationarena.com",
+      "snippet": "What is a Video Game Producer? Who is the Video Game Producer? There are many clear-cut roles in game development: a programmer programs code; an artist creates art; an animator animates ... [![](http://www.animationarena.com/images/gsdegree.png)](http://www.animationarena.com/devry-video-game-desig"
+    },
+    {
+      "url": "https://www.gameindustrycareerguide.com/how-to-become-a-video-game-producer-2/",
+      "title": "How To Become A Video Game Producer",
+      "score": 89.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.gameindustrycareerguide.com",
+      "snippet": "How To Become A Video Game Producer The producer is responsible for assembling and managing a team of engineers, designers and artists; outlining, scheduling and tracking tasks (project management); ... [↓ Skip to Main Content](https://www.gameindustrycareerguide.com/how-to-become-a-video-game-produ"
+    },
+    {
+      "url": "https://losangeles.gladeo.org/career/video-game-producer",
+      "title": "Career or Job Opportunities as Video Game Producer - Gladeo",
+      "score": 89.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "mobile games",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "losangeles.gladeo.org",
+      "snippet": "Career or Job Opportunities as Video Game Producer - Gladeo From testing ideas and obtaining funding to finding the right talent and getting games published, they're responsible for managing game projects from start to ... ## [Edit Profile Settings](https://losangeles.gladeo.org/user-settings)\n\n![Ex"
+    },
+    {
+      "url": "https://www.careerexplorer.com/careers/video-game-producer/",
+      "title": "What does a video game producer do? - CareerExplorer",
+      "score": 89.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "monetization",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.careerexplorer.com",
+      "snippet": "What does a video game producer do? - CareerExplorer A video game producer is a key figure in the development process of a video game, responsible for overseeing and coordinating various aspects of production. Start your free career test\n\nWe’ll email you a link to let you log back into your account."
+    },
+    {
+      "url": "https://www.indeed.com/hire/job-description/game-designer",
+      "title": "Game Designer Job Description [Updated for 2026] - Indeed",
+      "score": 85.8,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "live operations",
+        "live service",
+        "monetization",
+        "producer",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "www.indeed.com",
+      "snippet": "Game Designer Job Description [Updated for 2026] - Indeed A Lead Designer, though, would focus more on organizing the team's ideas, creating design documentation and creating and enforcing a project calendar. Other ... [![Resources](https://d341ezm4iqaae0.cloudfront.net/assets/2021/03/16195655/Emplo"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Video_game_producer",
+      "title": "Video game producer - Wikipedia",
+      "score": 84.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "en.wikipedia.org",
+      "snippet": "Video game producer - Wikipedia A video game producer is the top person in charge of overseeing development of a video game. [1] [2] [Jump to content](https://en.wikipedia.org/wiki/Video_game_producer#bodyContent)\n\n[![Wiki Loves Ramadan logo](https://upload.wikimedia.org/wikipedia/commons/c/c1/Wiki_"
+    },
+    {
+      "url": "https://www.remoteworldwide.net/jobs/video-game-producer-30b30b56885a9d0fd4c8cd1bf14b001751153150610",
+      "title": "Video Game Producer - Remoteworldwide",
+      "score": 83.0,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "live operations",
+        "live ops",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.remoteworldwide.net",
+      "snippet": "Video Game Producer - Remoteworldwide About the role ... We are looking for a Producer with experience in AA or AAA games who is autonomous, highly organized, and passionate about live ... # This job has expired\n\nJob Description\n\n# Video Game Producer\n\nPosted: 28/06/2025\n\n## Anywhere in the world\n\n#"
+    },
+    {
+      "url": "https://www.quora.com/What-does-a-game-producer-do",
+      "title": "What does a game producer do? - Quora",
+      "score": 81.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "mobile games",
+        "producer",
+        "product",
+        "telemetry",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.quora.com",
+      "snippet": "What does a game producer do? - Quora It is a producer's job to ship a game on time, and under budget. Preferably with minimum causalities on the team and maximal transparency to ... Something went wrong. Wait a moment and try again.\n\nTry again\n\nSkip to content\n\nSkip to search\n\n[Go to Quora Home](ht"
+    },
+    {
+      "url": "https://www.masterclass.com/articles/how-to-become-a-video-game-producer",
+      "title": "How to Become a Video Game Producer - 2026 - MasterClass",
+      "score": 81.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.masterclass.com",
+      "snippet": "How to Become a Video Game Producer - 2026 - MasterClass A video game producer handles the business and marketing side of game development, including budget management and contract negotiation. The ... * * *\n\n[All](https://www.masterclass.com/articles/categories/all-classes)[Community and Government"
+    },
+    {
+      "url": "https://www.coursera.org/articles/game-producer",
+      "title": "How Do You Become a Video Game Producer? - Coursera",
+      "score": 81.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.coursera.org",
+      "snippet": "How Do You Become a Video Game Producer? - Coursera A video game producer is the project lead responsible for coordinating the employees and schedules to ensure deadlines are met. How to become a ... # How Do You Become a Video Game Producer?\n\nWritten by Coursera Staff • Updated on Oct 22, 2025\n\nSha"
+    },
+    {
+      "url": "https://gamedesigning.org/career/video-game-producer/",
+      "title": "The Role of A Video Game Producer",
+      "score": 81.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "gamedesigning.org",
+      "snippet": "The Role of A Video Game Producer Basically, a liaison for nearly all teams, making sure the schedule is going well, deadlines are met, and quality testing the product. Video ... - [News](https://gamedesigning.org/category/news/)\n- [Schools](https://www.gamedesigning.org/category/schools/)\n  - [Onli"
+    },
+    {
+      "url": "https://www.ziprecruiter.com/Jobs/Video-Game-Producer/--in-British-Columbia",
+      "title": "$66k-$229k Video Game Producer Jobs in British Columbia",
+      "score": 81.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.ziprecruiter.com",
+      "snippet": "$66k-$229k Video Game Producer Jobs in British Columbia As a producer their duties may also include meeting with financiers to get the project funded, working with marketers to advertise the video game, or working ... # Video Game Producer Jobs in British Columbia (NOW HIRING)\n\n[Scarab Digital](http"
+    },
+    {
+      "url": "https://www.ziprecruiter.com/career/Video-Game-Producer/What-Is-How-to-Become",
+      "title": "Video Game Producer: What Is It? and How to Become One?",
+      "score": 81.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.ziprecruiter.com",
+      "snippet": "Video Game Producer: What Is It? and How to Become One? As a producer their duties may also include meeting with financiers to get the project funded, working with marketers to advertise the video game, or working ... Video Game Producer\n\n- [Career Path](https://www.ziprecruiter.com/career/Video-Gam"
+    },
+    {
+      "url": "https://www.ziprecruiter.com/Jobs/Game-Producer/--in-British-Columbia",
+      "title": "$60k-$229k Game Producer Jobs in British Columbia - ZipRecruiter",
+      "score": 78.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "live ops",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.ziprecruiter.com",
+      "snippet": "$60k-$229k Game Producer Jobs in British Columbia - ZipRecruiter They coordinate the work of different teams, manage budgets and timelines, and ensure that the game meets quality standards and project goals. # Game Producer Jobs in British Columbia (NOW HIRING)\n\n[Thinkingbox](https://www.ziprecruite"
+    },
+    {
+      "url": "https://www.computerscience.org/careers/video-game-designer/",
+      "title": "What Is a Video Game Designer? | Skills and Career Paths",
+      "score": 77.8,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.computerscience.org",
+      "snippet": "What Is a Video Game Designer? | Skills and Career Paths A video game designer helps create the design, layout, and story of a video game. They develop a game's characters, parameters, and scenarios from their ideas ... [![Facebook](https://res.cloudinary.com/highereducation/images/v1635366072/BestC"
+    },
+    {
+      "url": "https://ca.indeed.com/q-game-producer-l-vancouver,-bc-jobs.html",
+      "title": "Game Producer jobs in Vancouver, Bc - Indeed",
+      "score": 77.2,
+      "matched_keywords": [
+        "game data",
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "live ops",
+        "mobile games",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer"
+      ],
+      "domain": "ca.indeed.com",
+      "snippet": "Game Producer jobs in Vancouver, Bc - Indeed Work with game assets (e.g., character animations, gameplay footage, in-game items) to design video ads that effectively showcase the game's features and appeal ... [Skip to main content](https://ca.indeed.com/q-game-producer-l-vancouver,-bc-jobs.html?vjk"
+    },
+    {
+      "url": "https://www.quora.com/What-is-the-difference-between-a-video-game-director-and-a-lead-game-designer",
+      "title": "What is the difference between a video game director and a lead ...",
+      "score": 77.0,
+      "matched_keywords": [
+        "data analyst",
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "lead game designer",
+        "monetization",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "data analyst",
+        "game designer",
+        "game producer",
+        "lead game designer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.quora.com",
+      "snippet": "What is the difference between a video game director and a lead ... A game designer is responsible for specifying a game's mechanics and other gameplay elements, as well as narrative content (characters, ... Something went wrong. Wait a moment and try again.\n\nTry again\n\nSkip to content\n\nSkip to sear"
+    },
+    {
+      "url": "https://100hires.com/game-designer-job-description.html",
+      "title": "Game Designer Job Description - 100Hires",
+      "score": 75.8,
+      "matched_keywords": [
+        "android",
+        "game design",
+        "game designer",
+        "lead game designer",
+        "live operations",
+        "mobile games",
+        "monetization",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "100hires.com",
+      "snippet": "Game Designer Job Description - 100Hires Lead your design team to define the creative vision, technical specifications, fun factor and product content for assigned software products. # Game Designer Job Description\n\n### Job summary 1\n\nIn this [Game Designer](https://100hires.com/game-designer-job-de"
+    },
+    {
+      "url": "https://www.glassdoor.ca/Job/canada-game-producer-jobs-SRCH_IL.0,6_KO7,20.htm",
+      "title": "56 Game producer jobs in Canada | Glassdoor",
+      "score": 74.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "live service",
+        "monetization",
+        "producer",
+        "product",
+        "sql"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer"
+      ],
+      "domain": "www.glassdoor.ca",
+      "snippet": "56 Game producer jobs in Canada | Glassdoor $84K - $107K (Glassdoor Est.) At least three years of experience in a Games Industry leadership-style role with at least one released commercial project on ... Skip to main content\n\n[Skip to content](https://www.glassdoor.ca/Job/canada-game-producer-jobs-S"
+    },
+    {
+      "url": "https://www.hotheadgames.com/jobs/lead-game-designer-",
+      "title": "Lead Game Designer - Hothead Games",
+      "score": 74.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "lead game designer",
+        "mobile games",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "www.hotheadgames.com",
+      "snippet": "Lead Game Designer - Hothead Games You will be responsible for developing game concepts and pitching them to potential clients, working closely with the Executive & Sr Producer, Creative Director ... top of page\n\nSkip to Main Content\n\n![Purple Podiums_edited.jpg](https://static.wixstatic.com/media/7"
+    },
+    {
+      "url": "https://careers.stateuniversity.com/pages/7767/Video-Game-Producer.html",
+      "title": "Video Game Producer Job Description, Career as a Video Game ...",
+      "score": 74.0,
+      "matched_keywords": [
+        "game design",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "careers.stateuniversity.com",
+      "snippet": "Video Game Producer Job Description, Career as a Video Game ... External producers work for game publishers, and are responsible for managing multiple projects on which several different groups of developers work. They are ... 3 minute read\n\n# Video Game Producer Job Description, Career as a Video G"
+    },
+    {
+      "url": "https://www.techneeds.com/2025/12/10/understanding-the-video-game-producer-job-roles-and-skills-explained/",
+      "title": "Understanding the Video Game Producer Job: Roles and Skills ...",
+      "score": 74.0,
+      "matched_keywords": [
+        "game design",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.techneeds.com",
+      "snippet": "Understanding the Video Game Producer Job: Roles and Skills ... A video game producer supervises the production of a video game from its initial concept to final release, managing aspects like budget, ... [Skip to main content](https://www.techneeds.com/2025/12/10/understanding-the-video-game-produc"
+    },
+    {
+      "url": "https://www.careerexplorer.com/careers/game-designer/",
+      "title": "What does a game designer do? - CareerExplorer",
+      "score": 73.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "monetization",
+        "producer",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.careerexplorer.com",
+      "snippet": "What does a game designer do? - CareerExplorer They conceptualize game worlds, characters, and storylines, determining the game's objectives, rules, challenges, and rewards. Game designers often work closely ... Start your free career test\n\nWe’ll email you a link to let you log back into your accoun"
+    },
+    {
+      "url": "https://www.indeed.com/q-game-producer-jobs.html",
+      "title": "Game Producer Jobs, Employment - Indeed",
+      "score": 73.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.indeed.com",
+      "snippet": "Game Producer Jobs, Employment - Indeed Deep understanding of AAA game design principles, production quality expectations, and player experience standards. In this role, you will act as the critical ... [Skip to main content](https://www.indeed.com/q-game-producer-jobs.html?vjk=c2c2de18b30d35c9#gnav"
+    },
+    {
+      "url": "https://sg.indeed.com/career-advice/finding-a-job/what-does-game-producer-do",
+      "title": "What Does a Game Producer Do? And How to Become One - Indeed",
+      "score": 73.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "sg.indeed.com",
+      "snippet": "What Does a Game Producer Do? And How to Become One - Indeed A game producer is responsible for overseeing all aspects of video game development, including managing project schedules, budgets, and team ... # What Does a Game Producer Do? And How to Become One\n\nWritten by\n\nIndeed Editorial Team\n\nUpda"
+    },
+    {
+      "url": "https://ca.indeed.com/career-advice/finding-a-job/how-to-become-game-producer",
+      "title": "How To Become a Game Producer (Plus Salary and Job Outlook)",
+      "score": 73.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "ca.indeed.com",
+      "snippet": "How To Become a Game Producer (Plus Salary and Job Outlook) A game producer's main role is to oversee the entire creation of a video game and manage the development team, production schedule, licensors, ... # How To Become a Game Producer (Plus Salary and Job Outlook)\n\nWritten by\n\nIndeed Editorial T"
+    },
+    {
+      "url": "https://gamingcampus.com/careers/video-game-producer.html",
+      "title": "Video game producer - job description with missions, studies, salary",
+      "score": 73.0,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "mobile games",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "gamingcampus.com",
+      "snippet": "Video game producer - job description with missions, studies, salary A producer is above all a project and team manager. They must complete a project while trying to achieve the best time, budget and quality objectives. |     |     |\n| --- | --- |\n| Level of studies: | master’s degree |\n| Recommende"
+    },
+    {
+      "url": "https://www.quora.com/What-are-or-are-not-the-authorities-and-responsibilities-of-a-lead-game-designer",
+      "title": "the authorities and responsibilities of a lead game designer? - Quora",
+      "score": 72.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "www.quora.com",
+      "snippet": "the authorities and responsibilities of a lead game designer? - Quora Design leads are expected to have a wide range of experience in the thing they are designing, and be able to lead a team of designers to achieve ... Something went wrong. Wait a moment and try again.\n\nTry again\n\nSkip to content\n\nS"
+    },
+    {
+      "url": "https://www.owlguru.com/career/game-producers/",
+      "title": "What Does A Game Producer Do (including Their Typical Day at Work)",
+      "score": 71.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.owlguru.com",
+      "snippet": "What Does A Game Producer Do (including Their Typical Day at Work) Game Producers are responsible for the overall development of video game projects. They are involved in every step, from hiring Designers and Artists to ... ## Salary, Job Description, How To Become One, and Quiz\n\n![](https://www.owl"
+    },
+    {
+      "url": "https://www.franklin.edu/career-guide/web-&-digital-interface-designers/what-do-lead-game-designers-do",
+      "title": "What Do Lead Game Designers Do: Daily Work & Skills",
+      "score": 70.0,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "www.franklin.edu",
+      "snippet": "What Do Lead Game Designers Do: Daily Work & Skills Lead Game Designers design digital user interfaces or websites. Develop and test layouts, interfaces, functionality, and navigation menus to ensure ... Best Colleges\n\nColleges Near Me\n\nFind by Location\n\nAlabamaAlaskaArizonaArkansasCaliforniaColorad"
+    },
+    {
+      "url": "https://www.techneeds.com/2025/12/11/5-key-elements-for-a-video-game-producer-job-description/",
+      "title": "5 Key Elements for a Video Game Producer Job Description",
+      "score": 70.0,
+      "matched_keywords": [
+        "analytics",
+        "game producer",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.techneeds.com",
+      "snippet": "5 Key Elements for a Video Game Producer Job Description The video game producer oversees the entire production process of a game, guiding it from the initial concept to the final release, coordinating ... [Skip to main content](https://www.techneeds.com/2025/12/11/5-key-elements-for-a-video-game-pr"
+    },
+    {
+      "url": "https://jooble.org/job-description/arts-and-design/lead-game-designer/",
+      "title": "Lead Game Designer Job Description - Jooble",
+      "score": 69.0,
+      "matched_keywords": [
+        "game data",
+        "game design",
+        "game designer",
+        "lead game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "jooble.org",
+      "snippet": "Lead Game Designer Job Description - Jooble Implement designs for gameplay and systems in Unity, in collaboration with the engineering team;; Find opportunities for, and ideate on, new game systems, ... [Skip to content](https://jooble.org/job-description/arts-and-design/lead-game-designer/#content "
+    },
+    {
+      "url": "https://www.glassdoor.com/Job/lead-game-designer-jobs-SRCH_KO0,18.htm",
+      "title": "12 Lead game designer jobs in United States | Glassdoor",
+      "score": 69.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "product",
+        "sql"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "www.glassdoor.com",
+      "snippet": "12 Lead game designer jobs in United States | Glassdoor Search Lead game designer jobs. Get the right Lead game designer job with company ratings & salaries. 12 open jobs for Lead game designer. Skip to main content\n\n[Skip to content](https://www.glassdoor.com/Job/lead-game-designer-jobs-SRCH_KO0,18"
+    },
+    {
+      "url": "https://es.talent.com/view?id=7f4dd1222a8f",
+      "title": "Lead Game Designer (PC/Console, Premium) - Talent.com",
+      "score": 69.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "lead game designer",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "es.talent.com",
+      "snippet": "Lead Game Designer (PC/Console, Premium) - Talent.com Collaborate with the Creative Director, Studio Manager, Game Manager, and other team leads to define and execute the game vision. · Direct the tone, gameplay, ... Buscar ofertas\n\n![Lead Game Designer (PC/Console, Premium)](https://cdn-logos.talen"
+    },
+    {
+      "url": "https://c.smartrecruiters.com/sr-company-attachments-prod-aws-dc5/653b0bdcc5e1655d6a67e976/eee2f0ec-7f97-48d2-9ea6-224b880ac2b1?r=s3-eu-central-1",
+      "title": "[PDF] Lead Game Designer - SmartRecruiters",
+      "score": 69.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "lead game designer",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "c.smartrecruiters.com",
+      "snippet": "[PDF] Lead Game Designer - SmartRecruiters The Lead Game Designer is responsible for designing systems and features that deliver on the core vision of our games. Key Accountabilities & ... # Lead Game Designer\n\nReports to: Creative Director Location: Miramar, Wellington\n\n## Role Purpose\n\nThe Game St"
+    },
+    {
+      "url": "https://www.jobbank.gc.ca/marketreport/occupation/27218/ca",
+      "title": "Job description Video Game Producer in Canada",
+      "score": 68.0,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.jobbank.gc.ca",
+      "snippet": "Job description Video Game Producer in Canada Plan, organize and direct the artistic aspects of motion pictures, video games, stage productions and television shows by overseeing the design ... # Job descriptionVideo Game Producer in Canada\n\n- [Explore job profile](https://www.jobbank.gc.ca/marketre"
+    },
+    {
+      "url": "https://8bitplay.com/blog/game-producer-job-roles-explained-a-recruiter-guide/",
+      "title": "Game Producer Jobs: Recruitment Guide to the GameDev Roles",
+      "score": 66.2,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "8bitplay.com",
+      "snippet": "Game Producer Jobs: Recruitment Guide to the GameDev Roles The game producer's job is to manage daily tasks and operations. They tend to the schedule of work, assigning specific tasks to the team members ... 4 min read\n\n#Development Tips\n\n#Recruiting\n\n05.11.2021\n\n#Game production\n\n# Ultimate Super T"
+    },
+    {
+      "url": "https://www.champlain.edu/blog/stories/game-designer-roles-responsibilities-career-paths/",
+      "title": "What Does a Game Designer Do? Roles & Career Paths",
+      "score": 65.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "monetization",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "www.champlain.edu",
+      "snippet": "What Does a Game Designer Do? Roles & Career Paths Lead game designer – In this leadership role, you may oversee teams of game designers and junior designers. Creative director – These ... # What Does a Game Designer Do? Roles, Responsibilities, and Career Paths\n\nShare[Post on Facebook](https://www."
+    },
+    {
+      "url": "https://www.davedryden.com/blog/what-is-a-game-producer",
+      "title": "What is a Game Producer - Dave Dryden's Honey Hound Games",
+      "score": 65.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer"
+      ],
+      "domain": "www.davedryden.com",
+      "snippet": "What is a Game Producer - Dave Dryden's Honey Hound Games Game Producers are responsible for shipping and maintaining the game. Producers can define goals, similar to a designer. [0](https://www.davedryden.com/cart)\n\n# What is a Game Producer\n\nAug 13\n\nWritten By [David Dryden](https://www.davedryden"
+    },
+    {
+      "url": "https://ca.indeed.com/q-game-producer-l-montr%C3%A9al,-qc-jobs.html",
+      "title": "Game Producer jobs in Montréal, Qc - Indeed",
+      "score": 65.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "mobile games",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer"
+      ],
+      "domain": "ca.indeed.com",
+      "snippet": "Game Producer jobs in Montréal, Qc - Indeed Brainstorming game concepts, design elements, and specifications with the game design team. Participate in program design & architecture, determining what ... [Skip to main content](https://ca.indeed.com/q-game-producer-l-montr%C3%A9al,-qc-jobs.html?vjk=7d"
+    },
+    {
+      "url": "https://www.esma-3d.fr/en/news/the-guide-to-becoming-a-lead-game-designer/",
+      "title": "The guide to becoming a lead game designer - Esma 3D",
+      "score": 65.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "www.esma-3d.fr",
+      "snippet": "The guide to becoming a lead game designer - Esma 3D It is the lead game designer who will oversee the construction of the gameplay, based on the concept he or she has drawn up. [Skip to content](https://www.esma-3d.fr/en/news/the-guide-to-becoming-a-lead-game-designer/#wp--skip-link--target)\n\nThema"
+    },
+    {
+      "url": "https://www.manatal.com/job-description/video-game-designer-job-description",
+      "title": "Video Game Designer Job Description Template - Manatal.com",
+      "score": 63.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer"
+      ],
+      "domain": "www.manatal.com",
+      "snippet": "Video Game Designer Job Description Template - Manatal.com Conceptualize and design video game mechanics, gameplay features, and overall game structure. Create storylines, characters, and game worlds that align with the ... Meet Manatal AI Interviewer, your recruiting agent to interview one or thous"
+    },
+    {
+      "url": "https://www.manatal.com/job-description/assistant-game-producer-job-description",
+      "title": "Assistant Game Producer Job Description Template for Recruiters",
+      "score": 62.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "producer",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer"
+      ],
+      "domain": "www.manatal.com",
+      "snippet": "Assistant Game Producer Job Description Template for Recruiters The Assistant Game Producer plays a major role in coordinating and managing game development projects, ensuring smooth operations and successful game launches. Meet Manatal AI Interviewer, your recruiting agent to interview one or thous"
+    },
+    {
+      "url": "https://www.gametion.com/jobApplicatation/27",
+      "title": "Game Producer/Senior Game Producer Job - Gametion",
+      "score": 62.2,
+      "matched_keywords": [
+        "game design",
+        "game producer",
+        "live ops",
+        "monetization",
+        "producer",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer"
+      ],
+      "domain": "www.gametion.com",
+      "snippet": "Game Producer/Senior Game Producer Job - Gametion Be responsible for assembling and managing a team of engineers, designers, and artists along with outlining, scheduling, and tracking tasks. Make sure the ... 27\n\n# Game Producer/Senior Game Producer\n\nTake care of the whole product lifecycle starting"
+    },
+    {
+      "url": "https://www.ziprecruiter.com/career/Lead-Game-Designer/What-Is-How-to-Become",
+      "title": "Lead Game Designer: What Is It? and How to Become One?",
+      "score": 62.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "lead game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "www.ziprecruiter.com",
+      "snippet": "Lead Game Designer: What Is It? and How to Become One? A lead game designer takes the general ideas for a video game and turns them into an executable project. Lead Game Designer\n\n- [Career Path](https://www.ziprecruiter.com/career/Lead-Game-Designer/What-Is-How-to-Become)\n- [Salary](https://www.zip"
+    },
+    {
+      "url": "https://www.zippia.com/lead-game-designer-jobs/",
+      "title": "What is a lead game designer and how to become one - Zippia",
+      "score": 61.0,
+      "matched_keywords": [
+        "android",
+        "game design",
+        "game designer",
+        "lead game designer"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "www.zippia.com",
+      "snippet": "What is a lead game designer and how to become one - Zippia Design the project's path, and manage an android programmer, a graphic designer and a musician. Collaborate with fellow programmer to program a ... Verifying you are human. This may take a few seconds.\n\nChecking your Browser…"
+    },
+    {
+      "url": "https://www.isart.com/game-designer/",
+      "title": "Game Designer - Job description | ISART Digital",
+      "score": 60.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer",
+        "producer"
+      ],
+      "domain": "www.isart.com",
+      "snippet": "Game Designer - Job description | ISART Digital He/she creates prototypes of situations or game mechanics for research or demonstration purposes. He/she designs and integrates “level design” game levels. [Skip to content](https://www.isart.com/metier-game-designer/#content)\n\n# GAME DESIGNER - JOB DE"
+    },
+    {
+      "url": "https://speedrun.substack.com/p/game-producer-the-role-everyone-loves",
+      "title": "Game Producer: The Role Everyone Loves to Debate",
+      "score": 60.2,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "game producer",
+        "ios",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "game producer",
+        "producer"
+      ],
+      "domain": "speedrun.substack.com",
+      "snippet": "Game Producer: The Role Everyone Loves to Debate Producers basically manage the relationship with the artist. They find the talent, work out product deals, get contracts signed, manage them, ... [![a16z speedrun](https://substackcdn.com/image/fetch/$s_!LCSU!,w_40,h_40,c_fill,f_auto,q_auto:good,fl_pr"
+    },
+    {
+      "url": "https://www.isart.com/producer/",
+      "title": "Producer - Job description - www.isart.com",
+      "score": 58.4,
+      "matched_keywords": [
+        "game design",
+        "game producer",
+        "ios",
+        "monetization",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.isart.com",
+      "snippet": "Producer - Job description - www.isart.com What are the skills required for a Video Game Producer? · Conduct market research, analyze the technology, industry, trends, and products of the video game ... [Skip to content](https://www.isart.com/producer/#content)\n\n# PRODUCER\n\nMissions, skills, trainin"
+    },
+    {
+      "url": "https://www.ziprecruiter.com/e/How-Do-I-Become-a-Lead-Game-Designer",
+      "title": "How Do I Become a Lead Game Designer? - ZipRecruiter",
+      "score": 58.0,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "lead game designer"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "www.ziprecruiter.com",
+      "snippet": "How Do I Become a Lead Game Designer? - ZipRecruiter As this is a leadership position, you need to have extensive experience in the industry. Lead Game Designers coordinate the duties and responsibilities of the ... # How Do I Become a Lead Game Designer?\n\nCareer: Game Designer\n\nTo become a Lead Gam"
+    },
+    {
+      "url": "https://kaiwueest.com/insights/production/",
+      "title": "What Does a Game Producer Do? - Kai Wüest",
+      "score": 57.2,
+      "matched_keywords": [
+        "game producer",
+        "producer",
+        "product",
+        "tracking",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "kaiwueest.com",
+      "snippet": "What Does a Game Producer Do? - Kai Wüest A game producer is responsible for ensuring that a game is delivered on time, within budget, and at an acceptable level of quality. Unlike ... ![](https://i0.wp.com/kaiwueest.com/wp-content/uploads/2025/04/I_Produce_Stuff-scaled.jpg?resize=1200%2C675&ssl=1)\n"
+    },
+    {
+      "url": "https://www.gamesindustry.biz/how-to-get-a-job-as-a-game-producer",
+      "title": "How to get a job as a game producer | GamesIndustry.biz",
+      "score": 56.2,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "sql",
+        "tracking"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "tracking data"
+      ],
+      "domain": "www.gamesindustry.biz",
+      "snippet": "How to get a job as a game producer | GamesIndustry.biz \"As a junior producer, you usually handle more of the micro-level work such as inputting tasks and estimates, making sure the bug/task tracking ... _Finding a job is no easy task. Our guides can help you to find the right path to the games indu"
+    },
+    {
+      "url": "https://gamedesignskills.com/game-design/game-designer/",
+      "title": "Video Game Designer: Definition, Skills, Facts, Responsibilities",
+      "score": 53.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "lead game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "lead game designer"
+      ],
+      "domain": "gamedesignskills.com",
+      "snippet": "Video Game Designer: Definition, Skills, Facts, Responsibilities The responsibilities of a game designer are as many as there are paths. Developing maps, designing game rules, polishing the gameplay experience ... [Skip to content](https://gamedesignskills.com/game-design/game-designer/#content)\n\n[!"
+    },
+    {
+      "url": "https://gamejobs.co/Associate-Game-Producer-at-Gameloft",
+      "title": "Associate Game Producer at Gameloft - GameJobs.co",
+      "score": 53.2,
+      "matched_keywords": [
+        "android",
+        "game design",
+        "game producer",
+        "ios",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer"
+      ],
+      "domain": "gamejobs.co",
+      "snippet": "Associate Game Producer at Gameloft - GameJobs.co Job Description · Junior producers perform daily tasks assigned by the producers. · Macro and Micro management of the development teams. · Planning and follow-up ... This job might no longer be available.\n\n# Associate Game Producer\n\n[Gameloft](https:"
+    },
+    {
+      "url": "https://www.tealhq.com/career-paths/video-game-designer",
+      "title": "Video Game Designer - Career Paths - Teal",
+      "score": 50.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "producer"
+      ],
+      "domain": "www.tealhq.com",
+      "snippet": "Video Game Designer - Career Paths - Teal Definition of a Video Game Designer. A video game designer is a creative professional who conceptualizes and defines the core elements that shape digital games. [![Teal](https://cdn.prod.website-files.com/62775a91cc3db44c787149de/62775d8abf9f57629c567a0a_Gro"
+    },
+    {
+      "url": "https://www.velvetjobs.com/job-descriptions/game-designer",
+      "title": "Game Designer Job Description | Velvet Jobs",
+      "score": 50.8,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "monetization",
+        "product"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "www.velvetjobs.com",
+      "snippet": "Game Designer Job Description | Velvet Jobs Game designer provides clear and concise communication of the product vision, design approaches and requirements to team members, product owners, senior ... [Job Descriptions](https://www.velvetjobs.com/job-descriptions)\n\nGame Designer\nJob Description\n\n# *"
+    },
+    {
+      "url": "https://substack.com/home/post/p-155104384?utm_campaign=post&utm_medium=web",
+      "title": "What is a Game Producer? - Substack",
+      "score": 49.2,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "live ops",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer"
+      ],
+      "domain": "substack.com",
+      "snippet": "What is a Game Producer? - Substack A project manager responsible for the task management, scheduling, meetings, and tactical execution of a team. And at some studios, it's all ... [![The Unknown Game Producer](https://substackcdn.com/image/fetch/$s_!kn4Y!,w_40,h_40,c_fill,f_auto,q_auto:good,fl_prog"
+    },
+    {
+      "url": "https://www.paulinegepilano.com/blog/becoming-a-game-producer",
+      "title": "Becoming a Game Producer - Pauline Gepilano",
+      "score": 49.2,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer"
+      ],
+      "domain": "www.paulinegepilano.com",
+      "snippet": "Becoming a Game Producer - Pauline Gepilano While I meme about it above, game producers are usually in charge of tracking development milestones and work, ensuring teams have what they ... [0](https://www.paulinegepilano.com/cart)\n\n# Becoming a Game Producer\n\n[Production](https://www.paulinegepilano"
+    },
+    {
+      "url": "https://www.cgspectrum.com/career-pathways/game-designer",
+      "title": "Game Designer Job Description, Salary, Skills & Software",
+      "score": 48.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "www.cgspectrum.com",
+      "snippet": "Game Designer Job Description, Salary, Skills & Software Game designers focus on the function of a game, creating systems, rules, and gameplay, and help with world-building (story and IP) to ensure it's playable, fun ... ![level-designer-header-01-1](https://www.cgspectrum.com/hs-fs/hubfs/level-desi"
+    },
+    {
+      "url": "https://business.linkedin.com/en-in/talent-solutions/resources/talent-acquisition/job-descriptions/game-designer",
+      "title": "Game Designer Job Description Template - business with LinkedIn",
+      "score": 47.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "producer"
+      ],
+      "domain": "business.linkedin.com",
+      "snippet": "Game Designer Job Description Template - business with LinkedIn Game designers develop a video game's core concepts, mechanics, and overall structure. They are the creative force behind the development of a game. linkedin-logo-fulllinkedin-logo-iconlogo-404-frontlogo-404-backLinkedIn logoLinkedIn lo"
+    },
+    {
+      "url": "https://snaphunt.com/resources/job-descriptions/game-designer-job-description",
+      "title": "Game Designer Job Description - Snaphunt",
+      "score": 45.8,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "snaphunt.com",
+      "snippet": "Game Designer Job Description - Snaphunt Game designers are responsible for creating the concept, story, characters, rules, mechanics, and overall gameplay of a video game. ![company logo](https://images.snaphunt.com/assets/vectors/icons/w_300/logo3.svg)\n\n- Jobseekers\n- Find jobs\n- Solutions\n- Resou"
+    },
+    {
+      "url": "https://gameproductionalchemist.substack.com/p/production-101-2-producers-job-roles",
+      "title": "Production 101 – #2 Producer's Job Roles Within a Studio",
+      "score": 45.8,
+      "matched_keywords": [
+        "game design",
+        "game producer",
+        "live operations",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer"
+      ],
+      "domain": "gameproductionalchemist.substack.com",
+      "snippet": "Production 101 – #2 Producer's Job Roles Within a Studio The Producer is crucial in leading and coordinating all aspects of game development, ensuring the project stays on track, within budget, and ... [![Game Production Alchemist](https://substackcdn.com/image/fetch/$s_!jlza!,w_40,h_40,c_fill,f_aut"
+    },
+    {
+      "url": "https://targetjobs.co.uk/careers-advice/job-descriptions/video-game-designer-job-description",
+      "title": "Video game designer: job description - TargetJobs",
+      "score": 44.8,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "ios"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "targetjobs.co.uk",
+      "snippet": "Video game designer: job description - TargetJobs Video game designers, also known as games designers, design games for a variety of formats, such as consoles, wireless applications, the internet and mobile ... #### Job descriptions and industry overviews\n\n# Video game designer: job description\n\n[Ol"
+    },
+    {
+      "url": "https://www.indeed.com/hire/job-description/video-game-designer",
+      "title": "Video Game Designer Job Description [Updated for 2026] - Indeed",
+      "score": 43.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "product"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "www.indeed.com",
+      "snippet": "Video Game Designer Job Description [Updated for 2026] - Indeed Build your own Video Game Designer job description using our guide on the top Video Game Designer skills, education, experience and more. [![Resources](https://d341ezm4iqaae0.cloudfront.net/assets/2021/03/16195655/Employer-Guide-Stacked"
+    },
+    {
+      "url": "https://jobs.community.kaplan.com/career/game-designer",
+      "title": "What does a Game Designer do? Career Overview, Roles, Jobs",
+      "score": 43.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "product"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "jobs.community.kaplan.com",
+      "snippet": "What does a Game Designer do? Career Overview, Roles, Jobs A Game Designer is a key creative force in the video game industry, responsible for conceiving and designing the fundamental elements of a game. [![](https://jobs.community.kaplan.com/themes/kaplan/images/logo.png)](https://kaplan.com/)\n\nA G"
+    },
+    {
+      "url": "https://www.gamesindustry.biz/an-introduction-to-video-game-production",
+      "title": "An introduction to video game production - GamesIndustry.biz",
+      "score": 42.4,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.gamesindustry.biz",
+      "snippet": "An introduction to video game production - GamesIndustry.biz Media Molecule's Steven Taarland explains the role of a producer, and why it's all about prioritization, trust, and learning to be comfortable with ambiguity. _This article is part of_ [_our Get into Games special_](https://www.gamesindust"
+    },
+    {
+      "url": "https://www.screenskills.com/job-profiles/browse/games/production/games-producer-games/",
+      "title": "Games producer in the games industry - ScreenSkills",
+      "score": 42.4,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "producer",
+        "product",
+        "video game producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer",
+        "video game producer"
+      ],
+      "domain": "www.screenskills.com",
+      "snippet": "Games producer in the games industry - ScreenSkills Producers work closely with the publisher to agree changes to the way the game is developing. They are often the people who speak about the game to the media ... Games\n\n# Games producer (Games)\n\nAlso known as:\nBrand manager, Internal producer, Prod"
+    },
+    {
+      "url": "https://ca.linkedin.com/jobs/game-producer-jobs",
+      "title": "87 Game Producer jobs in Canada - LinkedIn",
+      "score": 42.2,
+      "matched_keywords": [
+        "game producer",
+        "live operations",
+        "producer"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer"
+      ],
+      "domain": "ca.linkedin.com",
+      "snippet": "87 Game Producer jobs in Canada - LinkedIn 87 Game Producer Jobs in Canada · Assistant Producer - EA SPORTS™ FC · Senior Producer · Executive Producer · Senior Producer, Live Operations - Marvel Strike Force."
+    },
+    {
+      "url": "https://resources.workable.com/video-game-designer-job-description/",
+      "title": "Video Game Designer job description - Recruiting Resources",
+      "score": 40.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "resources.workable.com",
+      "snippet": "Video Game Designer job description - Recruiting Resources A Video Game Designer is a professional who is responsible for creating the rules, characters and stories of new games. They use computer ... [Skip to content](https://resources.workable.com/video-game-designer-job-description/#content)\n\n3 m"
+    },
+    {
+      "url": "https://blog.udemy.com/game-designer-job-description/",
+      "title": "Game Designer Job Description, Roles, Salary And More!",
+      "score": 40.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "blog.udemy.com",
+      "snippet": "Game Designer Job Description, Roles, Salary And More! As a game designer, you are responsible for constructing different computerized games, or video games. Ideal candidates are comfortable working in a fast-paced ... Design\n\n# Game Designer Job Description, Roles, Salary And More!\n\n_Page Last Upda"
+    },
+    {
+      "url": "https://www.ied.edu/profession/game-designer",
+      "title": "Game Designers: who they are, what they do and how to become one",
+      "score": 40.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "www.ied.edu",
+      "snippet": "Game Designers: who they are, what they do and how to become one The Game Designer is a key figure in the video game industry, responsible for the design and development of digital computer games. A Game Designer is a creator ... ![Game Designers: what they do, how much they earn and how to become o"
+    },
+    {
+      "url": "https://www.computerscience.org/careers/video-game-designer/career-outlook-and-salary/",
+      "title": "Video Game Designer Career and Salary Outlook",
+      "score": 39.8,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "www.computerscience.org",
+      "snippet": "Video Game Designer Career and Salary Outlook Video game designers make both creative and technical contributions to video game development. However, their duties, job options, and salaries vary depending ... [![Facebook](https://res.cloudinary.com/highereducation/images/v1635366072/BestColleges.com"
+    },
+    {
+      "url": "https://www.bigvikinggames.com/what-it-means-to-be-a-producer-in-video-games/",
+      "title": "What it Means to be a Producer in Video Games - Big Viking Games",
+      "score": 38.4,
+      "matched_keywords": [
+        "analytics",
+        "game design",
+        "game designer",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "producer"
+      ],
+      "domain": "www.bigvikinggames.com",
+      "snippet": "What it Means to be a Producer in Video Games - Big Viking Games Thankfully at BVG it is a very defined role: managing the team and working with the Product Manager to deliver a game. The Product Manager ... - [No menu assigned!](https://www.bigvikinggames.com/what-it-means-to-be-a-producer-in-video"
+    },
+    {
+      "url": "https://www.coursera.org/articles/video-game-designer",
+      "title": "What Is a Video Game Designer? Career Overview + FAQ - Coursera",
+      "score": 36.8,
+      "matched_keywords": [
+        "game design",
+        "game designer"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "www.coursera.org",
+      "snippet": "What Is a Video Game Designer? Career Overview + FAQ - Coursera A video game designer creates a game's theme, characters, plot, and skill levels. A game developer works on the coding, programming, and testing ... # What Is a Video Game Designer? Career Overview + FAQ\n\nWritten by Coursera Staff • Upd"
+    },
+    {
+      "url": "https://www.gamedeveloper.com/production/clarifying-the-producer-s-role",
+      "title": "Clarifying The Producer's Role - Game Developer",
+      "score": 36.4,
+      "matched_keywords": [
+        "game design",
+        "game designer",
+        "ios",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game designer",
+        "producer"
+      ],
+      "domain": "www.gamedeveloper.com",
+      "snippet": "Clarifying The Producer's Role - Game Developer Some will think of it as a project manager, mostly responsible for managing tasks, risks, dependencies and schedules. Others will see this role closer to game ... Sponsored By\n\n- [Production](https://www.gamedeveloper.com/production)\n- [Commentary](htt"
+    },
+    {
+      "url": "https://www.velvetjobs.com/job-descriptions/lead-designer",
+      "title": "Lead Designer Job Description | Velvet Jobs",
+      "score": 35.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "game design",
+        "game designer",
+        "ios",
+        "product",
+        "sql"
+      ],
+      "role_hits": [
+        "game designer"
+      ],
+      "domain": "www.velvetjobs.com",
+      "snippet": "Lead Designer Job Description | Velvet Jobs Lead designer provides guidance and mentoring to other game designers with methodologies and effective techniques for game designing and researching. [Job Descriptions](https://www.velvetjobs.com/job-descriptions)\n\nLead Designer\nJob Description\n\n# **Lead D"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=d-GNPNLkK98",
+      "title": "The Role of a Producer in games development - YouTube",
+      "score": 31.4,
+      "matched_keywords": [
+        "game producer",
+        "ios",
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "game producer",
+        "producer"
+      ],
+      "domain": "www.youtube.com",
+      "snippet": "The Role of a Producer in games development - YouTube Game producers are essential in games development, especially at the AAA level, where studios have multiple departments with hundreds of ... ![Thumbnail (1920x1080)](https://i.ytimg.com/vi_webp/d-GNPNLkK98/maxresdefault.webp)\n# [The Role of a Pro"
+    },
+    {
+      "url": "https://www.facebook.com/leverapp",
+      "title": "Lever",
+      "score": 30.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "monetization",
+        "product",
+        "telemetry",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.facebook.com",
+      "snippet": ":root, .__fb-light-mode:root, .__fb-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.facebook.com/greenhouse.io/",
+      "title": "Greenhouse Software",
+      "score": 30.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "monetization",
+        "product",
+        "telemetry",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.facebook.com",
+      "snippet": ":root, .__fb-light-mode:root, .__fb-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.instagram.com/inside.lever/",
+      "title": "Lever (&#064;inside.lever) • Instagram photos and videos",
+      "score": 24.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "product",
+        "sql",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.instagram.com",
+      "snippet": ":root, .__ig-light-mode:root, .__ig-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.instagram.com/greenhousesoftware/",
+      "title": "Greenhouse Software (&#064;greenhousesoftware) • Instagram photos and videos",
+      "score": 24.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "product",
+        "sql",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.instagram.com",
+      "snippet": ":root, .__ig-light-mode:root, .__ig-light-mode {--fds-black:#000000;--fds-black-alpha-05:rgba(0, 0, 0, 0.05);--fds-black-alpha-10:rgba(0, 0, 0, 0.1);--fds-black-alpha-15:rgba(0, 0, 0, 0.15);--fds-black-alpha-20:rgba(0, 0, 0, 0.2);--fds-black-alpha-30:rgba(0, 0, 0, 0.3);--fds-black-alpha-40:rgba(0, 0"
+    },
+    {
+      "url": "https://www.youtube.com/channel/UCwLlhrx5lFssgTwKCHEuC8g",
+      "title": "Greenhouse Software - YouTube",
+      "score": 24.0,
+      "matched_keywords": [
+        "android",
+        "ios",
+        "product",
+        "sql",
+        "telemetry",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.youtube.com",
+      "snippet": "window.WIZ_global_data = {\"AfY8Hf\":true,\"FL1an\":true,\"HiPsbb\":0,\"MUE6Ne\":\"youtube_web\",\"MuJWjd\":true,\"UUFaWc\":\"%.@.null,1000,2]\",\"cfb2h\":\"youtube.web-front-end-critical_20260303.10_p0\",\"fPDxwd\":[],\"hsFLT\":\"%.@.null,1000,2]\",\"iCzhFc\":false,\"nQyAE\":{},\"oxN3nb\":{\"1\":false,\"0\":false,\"610401301\":false,\"8"
+    },
+    {
+      "url": "https://learn.greenhouse.io/",
+      "title": "Learn Greenhouse",
+      "score": 24.0,
+      "matched_keywords": [
+        "analytics",
+        "data analyst",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [
+        "data analyst"
+      ],
+      "domain": "learn.greenhouse.io",
+      "snippet": "(function() { /* Matches HTML tag injection, null bytes, CRLF header injection, and dangerous URI schemes (javascript/data/vbscript). */ var dangerousValueRe = /[<>\\x00\\r\\n]|\\b(?:javascript|data|vbscript)\\s*:/i; var searchParams = new URLSearchParams(window.location.search); var keysToDelete = []; s"
+    },
+    {
+      "url": "https://www.lever.co/advanced-analytics/",
+      "title": "AI-Powered Recruitment Analytics Software - Lever",
+      "score": 22.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/",
+      "title": "A Powerful Applicant Tracking System | LeverTRM",
+      "score": 22.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.tiktok.com/@greenhouse_software",
+      "title": "TikTok - Make Your Day",
+      "score": 20.0,
+      "matched_keywords": [
+        "analytics",
+        "android",
+        "ios",
+        "monetization",
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "www.tiktok.com",
+      "snippet": "TikTok - Make Your Day {\"_r\":\"eyJjb29raWUiOnsiYmxvY2tlcnMiOlt7ImNvb2tpZXMiOlsia3RsdkRXN0lHNUNsT2N4WVRibVkiLCJNT05JVE9SX0RFVklDRV9JRCIsIk1PTklUT1JfV0VCX0lEIl0sImRvbWFpbnMiOlsidGlrdG9rLmNvbSIsInRpa3Rva3YuY29tIl19XSwiZW5hYmxlZCI6dHJ1ZSwic2FtcGxlUmF0ZSI6MC4wNywic3RhY2tDb2xsZWN0Q29va2llcyI6WyIiXSwic3RhY2"
+    },
+    {
+      "url": "https://www.gamesjobsdirect.com/production-jobs",
+      "title": "Games Jobs Direct | UK, USA, Canada, Australia | production jobs",
+      "score": 17.4,
+      "matched_keywords": [
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "producer"
+      ],
+      "domain": "www.gamesjobsdirect.com",
+      "snippet": "Games Jobs Direct | UK, USA, Canada, Australia | production jobs Senior Producer New. Porto Alegre, BrazilEpic Games Production. At the core of Epic's success are talented, passionate people. Epic prides itself on ... You are using the web browser we don't support. Please upgrade or use a different "
+    },
+    {
+      "url": "https://careerswales.gov.wales/job-information/games-producer/job-role",
+      "title": "Games Producer - Job role | Job Information - Careers Wales",
+      "score": 17.4,
+      "matched_keywords": [
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "producer"
+      ],
+      "domain": "careerswales.gov.wales",
+      "snippet": "Games Producer - Job role | Job Information - Careers Wales Games Producers play a vital role in the production of computer games. You will be overseeing and managing the project as it progresses. Data loading"
+    },
+    {
+      "url": "https://aftermath.site/video-game-executive-producer-job-description/",
+      "title": "A Video Game's Executive Producer Is Just Trying To Make It All Work",
+      "score": 17.4,
+      "matched_keywords": [
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "producer"
+      ],
+      "domain": "aftermath.site",
+      "snippet": "A Video Game's Executive Producer Is Just Trying To Make It All Work JU: I'm an Executive Producer for a studio called Glowmade. We are currently finishing up a game called King Of Meat. While I originally joined ... [Skip to content](https://aftermath.site/video-game-executive-producer-job-descript"
+    },
+    {
+      "url": "https://www.lever.co/demo/",
+      "title": "Lever Demo | Streamline Your Hiring Process with Lever&#039;s ATS &amp; CRM",
+      "score": 17.0,
+      "matched_keywords": [
+        "analytics",
+        "ios",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://employinc.com",
+      "title": "Employ",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "employinc.com",
+      "snippet": "(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:\"1120240967\",accountID:\"4192913\",trustKey:\"66686\",xpid:\"UAcOU19SCxABVFBTAQgAUlQH\",lice"
+    },
+    {
+      "url": "https://www.lever.co/contact/",
+      "title": "Contact - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/customers/",
+      "title": "Lever Success Stories: How Talent Teams Thrive with LeverTRM",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/ashby-alternatives/",
+      "title": "5 Ashby Alternatives to Upgrade Your Hiring Tech Stack",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/greenhouse-alternatives/",
+      "title": "5 Greenhouse Alternatives to Power Modern Hiring Teams",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/greenhouse-vs-ashby/",
+      "title": "Greenhouse vs. Ashby: Before choosing, read this guide - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/icims-vs-smartrecruiters/",
+      "title": "iCIMS vs. SmartRecruiters: Is there a better alternative?",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-smartrecruiters/",
+      "title": "Lever vs. SmartRecruiters: Why Lever’s Best for Smart Hiring",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-workable/",
+      "title": "Lever vs. Workable: Why Modern Talent Teams Switch to Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-greenhouse/",
+      "title": "Lever vs. Greenhouse: Why Lever is the Top Talent Software",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/alternative/lever-vs-ashby/",
+      "title": "Lever vs. Ashby: Why Lever is the Leading Talent Software",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/blog/",
+      "title": "Talent Innovation Blog: Recruiting &amp; Hiring Insights - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/pricing/",
+      "title": "Recruitment Software Pricing &amp; Quotes | Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/onboarding/",
+      "title": "Lever | Onboarding",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/case-study/how-dream-charter-schools-build-authentic-teams/",
+      "title": "How DREAM Charter Schools Build Authentic Teams - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/why-lever/",
+      "title": "Why Lever - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/career-site-builder/",
+      "title": "Convert More Candidates with Career Site Builder",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/candidate-texting/",
+      "title": "Reach Talent with Recruitment Communication Software - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/advanced-hr/",
+      "title": "Advanced HR - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/diversity-and-inclusion-hiring/",
+      "title": "Initiate diverse and inclusive hiring with Lever | Lever Solutions",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/high-volume-hiring/",
+      "title": "Hire at scale, quickly and efficiently | Lever Solutions",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/solutions/recruitment-marketing/",
+      "title": "Attract Top Talent with Lever&#039;s Recruitment Marketing Solutions",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/ai-screening-companion/",
+      "title": "AI Screening Companion - Lever",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.lever.co/ai-interview-companion/",
+      "title": "AI Interview Companion | Speed Up Hiring with Lever’s Smart Insights",
+      "score": 14.0,
+      "matched_keywords": [
+        "analytics",
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "www.lever.co",
+      "snippet": "(window.NREUM||(NREUM={})).init={ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:\"NRJS-7e8a6c918005828c636\",applicationID:\"279410693\",browserID:\"601332454\"};;/*! For license information please see nr-loader-rum-1.310.1.min.js.LICE"
+    },
+    {
+      "url": "https://www.screenskills.com/job-profiles/browse/games/",
+      "title": "Careers in games - ScreenSkills",
+      "score": 11.0,
+      "matched_keywords": [
+        "producer",
+        "product"
+      ],
+      "role_hits": [
+        "producer"
+      ],
+      "domain": "www.screenskills.com",
+      "snippet": "Careers in games - ScreenSkills Production department · Assistant games producer · Community manager · Esports producer · Games producer (Games) · Games publisher · Marketing executive. # Games\n\nGames is our fastest growing entertainment industry. The [Games Map UK](https://gamesmap.uk/#/map) reveal"
+    },
+    {
+      "url": "https://www.employinc.com/employ-product-guide/",
+      "title": "Employ Product Guide - Employ",
+      "score": 10.4,
+      "matched_keywords": [
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "www.employinc.com",
+      "snippet": "(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:\"1120240967\",accountID:\"4192913\",trustKey:\"66686\",xpid:\"UAcOU19SCxABVFBTAQgAUlQH\",lice"
+    },
+    {
+      "url": "https://status.lever.co/",
+      "title": "Lever Status",
+      "score": 9.0,
+      "matched_keywords": [
+        "analytics",
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "status.lever.co",
+      "snippet": "Lever Status /* Dynamic Font Stack based on Feature Flag */ /* Using Atlassian Sans & Mono */ :root { --font-stack-a: \"Atlassian Sans\", \"Helvetica Neue\", Helvetica, Arial, Sans-Serif; --font-stack-b: \"Atlassian Mono\", \"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, "
+    },
+    {
+      "url": "https://www.employinc.com/company/",
+      "title": "Building the Future of Recruiting | Employ, Inc.",
+      "score": 9.0,
+      "matched_keywords": [
+        "analytics",
+        "product"
+      ],
+      "role_hits": [],
+      "domain": "www.employinc.com",
+      "snippet": "(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:[\"bam.nr-data.net\"]},feature_flags:[\"soft_nav\"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:\"1120240967\",accountID:\"4192913\",trustKey:\"66686\",xpid:\"UAcOU19SCxABVFBTAQgAUlQH\",lice"
+    },
+    {
+      "url": "https://boards.greenhouse.io/events",
+      "title": "Jobs at Events",
+      "score": 9.0,
+      "matched_keywords": [
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "boards.greenhouse.io",
+      "snippet": "Jobs at Events Current openings at Events There are no current openings. Powered by Greenhouse ((STORAGE_KEY, restoreKey) => { if (!window.history.state || !window.history.state.key) { let key = Math.random().toString(32).slice(2); window.history.replaceState({ key }, \"\"); } try { let positions = JS"
+    },
+    {
+      "url": "https://boards.greenhouse.io/company",
+      "title": "Jobs at Company",
+      "score": 9.0,
+      "matched_keywords": [
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "boards.greenhouse.io",
+      "snippet": "Jobs at Company Current openings at Soros Fund Management There are no current openings. Powered by Greenhouse ((STORAGE_KEY, restoreKey) => { if (!window.history.state || !window.history.state.key) { let key = Math.random().toString(32).slice(2); window.history.replaceState({ key }, \"\"); } try { le"
+    },
+    {
+      "url": "https://support.greenhouse.io/hc/en-us",
+      "title": "Greenhouse Support",
+      "score": 9.0,
+      "matched_keywords": [
+        "product",
+        "tracking"
+      ],
+      "role_hits": [],
+      "domain": "support.greenhouse.io",
+      "snippet": "Greenhouse Support function OptanonWrapper() { } (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+"
+    }
+  ]
+}

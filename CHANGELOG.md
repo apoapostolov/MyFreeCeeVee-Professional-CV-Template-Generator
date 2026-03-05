@@ -218,6 +218,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   nested inner preview frame) for a larger on-screen PDF view.
 - Template display names now strip `(Rebuilt)` and `(Prototype)` suffixes in
   the Templates tab titles (and template selector labels).
+- Expanded `cv-keyword-analysis` native JD discovery by generating role-based
+  search seed URLs from configured templates/suffixes (no Firecrawl required),
+  improving non-paid crawl coverage for resume runs.
 - Fixed OpenRouter model pricing reliability when an invalid/expired API key is
   stored: model catalog fetching now retries the public models endpoint without
   auth before falling back to cache, so pricing metadata remains available and
@@ -252,3 +255,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   timestamp difference is confirmed.
 - Added metadata timestamp support for edits:
   CV writes now set `metadata.last_edited_at` (ISO timestamp).
+- Print Room / Europass:
+  added subsection pagination hints for job-position blocks to reduce tiny
+  (<4-line) carry-over fragments at page bottoms.
+- Started `cv-keyword-analysis` implementation with first JD scraper CLI
+  (`jd_scraper.py`), weighted relevance config, seed URL list, and JSON export flow.
+- Upgraded `cv-keyword-analysis` scraper with start/resume support:
+  persistent SQLite cache, URL/content-hash dedupe, per-page persisted keyword
+  analysis, and incremental commits to avoid reprocessing on reruns.
+- Added optional Firecrawl search provider mode for JD scraping
+  (`--provider firecrawl`, `FIRECRAWL_API_KEY`).
+
+### Changed
+
+- OpenRouter credit status labels now consistently report remaining credit
+  wording and no longer show usage phrasing in the settings panel.
+- OpenRouter credit status no longer shows `(limit unavailable)` fallback text;
+  it now stays on a neutral remaining-credit unavailable message when the API
+  does not return a remaining value.
+- OpenRouter credit status now falls back to OpenRouter `/api/v1/credits`
+  (`total_credits - total_usage`) when `/api/v1/key` does not provide
+  `limit_remaining`, so remaining credit still resolves to a numeric value.

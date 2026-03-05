@@ -1,5 +1,5 @@
 {
-  "name": "myfreeceevee",
+  "name": "muhfweeceevee",
   "version": "0.1.0",
   "private": true,
   "workspaces": [
@@ -8,15 +8,15 @@
   ],
   "scripts": {
     "bootstrap": "npm install --workspaces --include-workspace-root",
-    "dev": "npm run dev --workspace @myfreeceevee/web",
-    "dev:web": "npm run dev --workspace @myfreeceevee/web",
+    "dev": "npm run dev --workspace @muhfweeceevee/web",
+    "dev:web": "npm run dev --workspace @muhfweeceevee/web",
     "dev:parser": "cd services/parser && /usr/bin/python3 -m venv .venv && .venv/bin/pip install -r requirements.txt && .venv/bin/uvicorn main:app --host 127.0.0.1 --port 8001",
-    "build": "npm run build --workspace @myfreeceevee/web",
-    "start": "npm run start --workspace @myfreeceevee/web",
-    "lint": "npm run lint --workspace @myfreeceevee/web",
-    "lint:web": "npm run lint --workspace @myfreeceevee/web",
-    "typecheck": "npm run typecheck --workspace @myfreeceevee/web",
-    "typecheck:web": "npm run typecheck --workspace @myfreeceevee/web",
+    "build": "npm run build --workspace @muhfweeceevee/web",
+    "start": "npm run start --workspace @muhfweeceevee/web",
+    "lint": "npm run lint --workspace @muhfweeceevee/web",
+    "lint:web": "npm run lint --workspace @muhfweeceevee/web",
+    "typecheck": "npm run typecheck --workspace @muhfweeceevee/web",
+    "typecheck:web": "npm run typecheck --workspace @muhfweeceevee/web",
     "check": "npm run lint && npm run typecheck"
   }
 }

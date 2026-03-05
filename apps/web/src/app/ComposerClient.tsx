@@ -1242,7 +1242,7 @@ export function ComposerClient() {
         <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface-1)] p-4 shadow-[0_10px_40px_rgba(31,41,55,0.12)] md:p-6">
           <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <h1 className="mt-2 text-3xl font-black text-slate-900 md:text-4xl">MyFreeCeeVee Composer</h1>
+              <h1 className="mt-2 text-3xl font-black text-slate-900 md:text-4xl">MuhFweeCeeVee Composer</h1>
               <p className="mt-2 max-w-3xl text-sm text-[var(--ink-muted)]">
                 Build, edit, and score bilingual CV variants with template-accurate PDF previews.
               </p>

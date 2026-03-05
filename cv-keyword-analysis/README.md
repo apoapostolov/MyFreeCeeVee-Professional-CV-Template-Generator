@@ -30,29 +30,61 @@ Lightweight subproject for extracting, weighting, and scoring CV/job-description
 - `CHANGELOG.md` - user-visible changes
 - `TODO.md` - actionable tasks by priority
 
-## JD Scraper (started)
+## JD Scraper
 
-First implementation is now available:
+Implemented:
 
-- `jd_scraper.py` - crawls seed URLs, extracts candidate job pages, scores
-  relevance for target roles, and exports JSON results.
+- `jd_scraper.py` - crawls/searches for job pages and scores role relevance.
 - `config/relevance_keywords.json` - weighted role/keyword configuration.
-- `sources/seed_urls.txt` - editable crawl entrypoints.
-- `outputs/` - exported scrape results.
+- `sources/seed_urls.txt` - editable native crawl entrypoints.
+- Native mode auto-expands seeds from target roles using configurable
+  search templates/suffixes in `config/relevance_keywords.json`.
+- `outputs/` - exported scrape results and persistent cache DB.
 
-Run:
+### Resume-safe caching
+
+The scraper persists progress in SQLite and can stop/resume without reprocessing:
+
+- URL-level dedupe (`scraped_pages.url`)
+- Content-hash dedupe (`scraped_pages.content_hash`)
+- Per-page keyword/score storage after each successful scrape
+- Incremental DB commits after every processed page
+
+Default cache path:
+
+- `outputs/jd_scrape_cache.sqlite`
+
+### Native mode
 
 ```bash
 cd cv-keyword-analysis
-/usr/bin/python3 jd_scraper.py --max-pages 300 --max-depth 2 --min-score 10
+/usr/bin/python3 jd_scraper.py --provider native --max-pages 3000 --max-depth 3
 ```
 
-Optional:
+### Firecrawl mode (recommended if available)
 
 ```bash
-/usr/bin/python3 jd_scraper.py --seed-file sources/seed_urls.txt --output outputs/my_run.json
+cd cv-keyword-analysis
+export FIRECRAWL_API_KEY=...
+/usr/bin/python3 jd_scraper.py --provider firecrawl --min-score 8 --max-results 6000
+```
+
+### Start vs Resume
+
+Resume (default):
+
+```bash
+/usr/bin/python3 jd_scraper.py --mode resume
+```
+
+Start fresh (reset cache):
+
+```bash
+/usr/bin/python3 jd_scraper.py --mode start
+# or
+/usr/bin/python3 jd_scraper.py --reset-cache
 ```
 
 ## Status
 
-Bootstrap + first JD scraping pipeline implemented.
+Bootstrap + first JD scraping pipeline with resume cache implemented.

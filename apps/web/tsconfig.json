@@ -21,7 +21,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@myfreeceevee/schemas": ["../../packages/schemas/src/index.ts"]
+      "@muhfweeceevee/schemas": ["../../packages/schemas/src/index.ts"]
     }
   },
   "include": [

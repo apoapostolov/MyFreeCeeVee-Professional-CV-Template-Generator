@@ -1,7 +1,7 @@
 # CV Scoring Standard (Bootstrap)
 
 This scoring system is imported from the `cv-ranking` skill and adapted as
-an internal standard for MyFreeCeeVee quality checks.
+an internal standard for MuhFweeCeeVee quality checks.
 
 ## Weighted Rubric (100 points)
 

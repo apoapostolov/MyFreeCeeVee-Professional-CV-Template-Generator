@@ -1,4 +1,4 @@
-# AGENTS.md - MyFreeCeeVee Operating Rules
+# AGENTS.md - MuhFweeCeeVee Operating Rules
 
 ## Runtime and Stack Baseline
 

@@ -1,4 +1,4 @@
-# MyFreeCeeVee Development Plan (V1)
+# MuhFweeCeeVee Development Plan (V1)
 
 ## Summary
 
@@ -22,8 +22,8 @@
 - Validation: **JSON Schema + AJV**
 - Local storage: filesystem-first (`data/*.yaml`, `templates/*.yaml`, `assets/`)
   - lightweight index cache (`SQLite`) за бързо listing/filter
-- Process management: **systemd services** (`myfreeceevee-web`,
-  `myfreeceevee-parser`, optional `myfreeceevee-worker`)
+- Process management: **systemd services** (`muhfweeceevee-web`,
+  `muhfweeceevee-parser`, optional `muhfweeceevee-worker`)
 - Reverse proxy: **Nginx** (localhost upstream, TLS optional if exposed)
 
 ## System Architecture
@@ -50,7 +50,7 @@
 ### 3) Storage Layout (filesystem authoritative)
 
 ```text
-myfreeceevee/
+muhfweeceevee/
   data/
     cvs/
       <cv_id>.yaml
@@ -231,9 +231,9 @@ myfreeceevee/
 
 ## Operational Plan (Self-host Bare Metal)
 
-- `myfreeceevee-web.service` (Next app)
-- `myfreeceevee-parser.service` (FastAPI)
-- Optional `myfreeceevee-worker.service` (async tasks)
+- `muhfweeceevee-web.service` (Next app)
+- `muhfweeceevee-parser.service` (FastAPI)
+- Optional `muhfweeceevee-worker.service` (async tasks)
 - Nginx reverse proxy
 - Backup strategy:
   - nightly tar of `data/`, `templates/`, `exports/`

@@ -1,4 +1,4 @@
-import { validateCvV1 } from "@myfreeceevee/schemas";
+import { validateCvV1 } from "@muhfweeceevee/schemas";
 import { NextResponse } from "next/server";
 
 import { analyzeCvCompatibility } from "@/lib/server/cvCompatibility";
