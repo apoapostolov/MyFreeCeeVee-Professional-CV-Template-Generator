@@ -1,0 +1,47 @@
+layout_version: 1
+coordinates_unit: px
+page:
+  width: 794
+  height: 1123
+
+regions:
+  - id: title.top
+    x: 0
+    y: 0
+    width: 794
+    height: 110
+    style:
+      background: "#FFFFFF"
+  - id: content.rows
+    x: 0
+    y: 110
+    width: 794
+    height: 1013
+    style:
+      background: "#FFFFFF"
+
+slot_placement:
+  - slot_id: profile.title
+    region: title.top
+    order: 1
+  - slot_id: contact.block
+    region: content.rows
+    order: 1
+  - slot_id: positioning.profile_summary
+    region: content.rows
+    order: 2
+  - slot_id: experience.items
+    region: content.rows
+    order: 3
+  - slot_id: education.items
+    region: content.rows
+    order: 4
+  - slot_id: skills.languages
+    region: content.rows
+    order: 5
+  - slot_id: skills.technical
+    region: content.rows
+    order: 6
+  - slot_id: skills.social
+    region: content.rows
+    order: 7

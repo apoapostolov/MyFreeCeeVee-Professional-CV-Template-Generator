@@ -34,6 +34,7 @@ metadata:
 - `skills` (at least one of `technical`, `languages`, `core_strengths`)
 - `metadata.created_at`
 - `metadata.updated_at`
+- `metadata.language` (`bg` or `en`)
 
 ## Validation Rules
 
@@ -44,12 +45,14 @@ metadata:
 
 ## Naming Convention
 
-- CV files: `data/cvs/cv_<locale>_<version>_<target>.yaml`
-- Example: `data/cvs/cv_bg_004_alianz.yaml`
+- CV files: `data/cvs/cv_<language>_<iteration>_<target>.yaml`
+- Supported languages: `bg`, `en`
+- Iteration format: 4 digits (`0001`, `0002`, ...)
+- Example: `data/cvs/cv_bg_001_alianz.yaml`
 
 ## Seed Example in this repo
 
-- `data/cvs/cv_bg_004_alianz.yaml`
+- `data/cvs/cv_bg_001_alianz.yaml`
 
 ## Notes for parser and renderer
 

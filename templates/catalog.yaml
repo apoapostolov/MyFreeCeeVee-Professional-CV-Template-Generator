@@ -1,13 +1,24 @@
 version: 1
 templates:
-  - id: professional-v1
-    name: Professional Two-Column (Bootstrap)
-    version: 0.1.0
+  - id: edinburgh-v1
+    name: Edinburgh (Prototype)
+    version: "1.0"
     status: draft
     locale_support:
       - bg-BG
       - en-US
     files:
-      meta: templates/professional-v1/template.yaml
-      layout: templates/professional-v1/layout.yaml
-      license: templates/professional-v1/license.yaml
+      meta: templates/edinburgh-v1/template.yaml
+      layout: templates/edinburgh-v1/layout.yaml
+      license: templates/edinburgh-v1/license.yaml
+  - id: europass-v1
+    name: Europass Classic (Rebuilt)
+    version: "1.0"
+    status: draft
+    locale_support:
+      - bg-BG
+      - en-US
+    files:
+      meta: templates/europass-v1/template.yaml
+      layout: templates/europass-v1/layout.yaml
+      license: templates/europass-v1/license.yaml

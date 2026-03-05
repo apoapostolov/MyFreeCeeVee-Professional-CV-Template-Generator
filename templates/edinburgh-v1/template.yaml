@@ -1,0 +1,163 @@
+meta:
+  template_id: edinburgh-v1
+  name: Edinburgh (Prototype)
+  version: 1.0
+  author: MyFreeCeeVee
+  status: draft
+
+page:
+  size: A4
+  orientation: portrait
+  margins_mm:
+    top: 12
+    right: 12
+    bottom: 12
+    left: 12
+
+labels:
+  en:
+    common:
+      page: "Page"
+      present: "present"
+    sections:
+      personal_details: "Personal details"
+      interests: "Interests"
+      languages: "Languages"
+      skills: "Skills"
+      work_experience: "Work experience"
+      education: "Education and Qualifications"
+      courses: "Courses"
+      references: "References"
+      transition: "Transition Narrative"
+      role_applicability: "Role Applicability"
+      core_strengths: "Core Strengths"
+      social_skills: "Social Skills"
+      competencies: "Competencies"
+      other_skills: "Other Skills"
+      targeting: "Targeting"
+      projects: "Projects"
+      awards: "Awards"
+      publications: "Publications"
+      volunteering: "Volunteering"
+      patents: "Patents"
+      portfolio_links: "Portfolio Links"
+    contact_labels:
+      name: "Name"
+      address: "Address"
+      phone: "Phone number"
+      email: "Email address"
+      driving_license: "Driving license"
+      linkedin: "LinkedIn"
+    targeting_labels:
+      company: "Company"
+      sector: "Sector"
+      functions: "Functions"
+      seniority: "Seniority"
+      context: "Context"
+    product_labels:
+      worked_on: "Worked on:"
+  bg:
+    common:
+      page: "Страница"
+      present: "до момента"
+    sections:
+      personal_details: "Лични данни"
+      interests: "Интереси"
+      languages: "Езици"
+      skills: "Умения"
+      work_experience: "Професионален опит"
+      education: "Образование и квалификации"
+      courses: "Курсове"
+      references: "Препоръки"
+      transition: "Преход"
+      role_applicability: "Приложимост към ролята"
+      core_strengths: "Ключови силни страни"
+      social_skills: "Социални умения"
+      competencies: "Умения и компетенции"
+      other_skills: "Други умения и компетенции"
+      targeting: "Таргетиране"
+      projects: "Проекти"
+      awards: "Награди"
+      publications: "Публикации"
+      volunteering: "Доброволчество"
+      patents: "Патенти"
+      portfolio_links: "Портфолио връзки"
+    contact_labels:
+      name: "Име"
+      address: "Адрес"
+      phone: "Телефон"
+      email: "Имейл"
+      driving_license: "Шофьорска книжка"
+      linkedin: "LinkedIn"
+    targeting_labels:
+      company: "Компания"
+      sector: "Сектор"
+      functions: "Функции"
+      seniority: "Ниво"
+      context: "Контекст"
+    product_labels:
+      worked_on: "Работил по:"
+
+tokens:
+  fonts:
+    heading: "IBM Plex Sans"
+    body: "IBM Plex Sans"
+    mono: "JetBrains Mono"
+  colors:
+    text_primary: "#202124"
+    text_secondary: "#5F6368"
+    accent: "#4E557B"
+    accent_light: "#E6E8F2"
+    border: "#D7D9DD"
+    sidebar_background: "#F2F3F5"
+    background: "#FFFFFF"
+  spacing:
+    section_gap_px: 16
+    item_gap_px: 8
+
+layout_model:
+  type: edinburgh_sidebar
+  left_column_width_pct: 34
+  right_column_width_pct: 66
+  header_wave: true
+  profile_photo_shape: circle
+
+date_display:
+  experience: year
+  education: year
+
+text_layout:
+  profile_summary: single_paragraph
+
+slots:
+  - id: person.full_name
+    source_hint: person.full_name
+  - id: profile.photo
+    source_hint: optional_sections.attachments[0]
+  - id: contact.block
+    source_hint: person.contact
+  - id: optional.interests
+    source_hint: optional_sections.interests
+  - id: skills.languages
+    source_hint: skills.languages
+  - id: skills.technical
+    source_hint: skills.technical
+  - id: positioning.profile_summary
+    source_hint: positioning.profile_summary
+  - id: experience.items
+    source_hint: experience
+  - id: education.items
+    source_hint: education
+  - id: optional.courses
+    source_hint: optional_sections.certifications
+  - id: references.items
+    source_hint: references
+
+rules:
+  max_pages: 2
+  overflow:
+    strategy: continue_to_next_page
+    warn_at_page: 2
+  widow_orphan_control: true
+  bullet_limit_per_experience_item: 5
+  show_photo_if_missing: false

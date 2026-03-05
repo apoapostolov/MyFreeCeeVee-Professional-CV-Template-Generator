@@ -1,0 +1,239 @@
+schema:
+  id: cv_yaml_standard
+  version: "1.0.0"
+  profile_type: targeted_cv
+  locale: en-US
+  generated_from:
+    source_file: cv_bg_001_alianz.pdf
+    source_date: "2026-02-27"
+
+person:
+  full_name: "Apostol Georgiev Apostolov"
+  given_name: "Apostol"
+  middle_name: "Georgiev"
+  family_name: "Apostolov"
+  display_name: "Apostol Apostolov"
+  birth_date: "1978-05-15"
+  nationality: "Bulgarian"
+  residence:
+    city: "Sofia"
+    country: "Bulgaria"
+  contact:
+    email: "theapoapostolov@gmail.com"
+    phone_e164: "+359876200098"
+    phone_local: "0876200098"
+    website: null
+    linkedin: null
+    github: null
+
+positioning:
+  headline: "Data analysis, coordination, and process-discipline specialist"
+  profile_summary:
+    - "Specialist with extensive experience in data analysis, team coordination, and process discipline in an international environment."
+    - "Seeking a role with clear rules and stable processes, focused on data quality, accountability, and operational efficiency."
+  transition_narrative:
+    - "Seeking a transition to a structured and regulated environment."
+    - "Interested in the insurance sector due to clear processes, long-term stability, and measurable results."
+  role_applicability:
+    - "Brings data quality and internal reporting experience into operational and analytical processes."
+    - "Coordinates technical and business functions within clear timelines."
+    - "Enters a new domain through structured, rules-based, and process-driven work."
+
+targeting:
+  target_company: "Allianz Bulgaria"
+  target_sector: "insurance"
+  target_functions:
+    - operations
+    - analytics
+    - reporting
+  target_seniority: mid_senior
+  interview_context: "mandatory employment-office referral"
+
+experience:
+  - id: exp_gameloft_data_manager
+    employer: "Gameloft Bulgaria EOOD"
+    role: "Data Department Manager"
+    employment_type: full_time
+    start_date: "2015-08-01"
+    end_date: "2026-01-15"
+    is_current: false
+    location:
+      city: "Sofia"
+      country: "Bulgaria"
+    parallel_role: false
+    responsibilities:
+      - "Architecture and maintenance of systems for data collection and tracking across 3+ live products."
+      - "Coordination of a team of 2-3 programmers for analytics tasks and internal reporting."
+      - "SQL analysis and data visualization with BigQuery, Snowflake, and Looker."
+      - "Collaboration with product and monetization teams on prioritization and outcome evaluation."
+    quantified_results:
+      - metric: "number of live products"
+        value: "3+"
+        note: "stated in CV"
+    tools:
+      - SQL
+      - BigQuery
+      - Snowflake
+      - Looker
+
+  - id: exp_gameloft_producer
+    employer: "Gameloft Bulgaria EOOD"
+    role: "Producer"
+    employment_type: full_time
+    start_date: "2010-08-10"
+    end_date: "2015-08-01"
+    is_current: false
+    location:
+      city: "Sofia"
+      country: "Bulgaria"
+    parallel_role: false
+    responsibilities:
+      - "Management of multidisciplinary teams (20-60 people) on complex projects."
+      - "Coordination between functions and teams across different studios."
+      - "Maintenance of documentation, processes, and operational synchronization."
+    quantified_results:
+      - metric: "team size"
+        value: "20-60"
+        note: "stated in CV"
+
+  - id: exp_masthead_legal_designer
+    employer: "Masthead Studios EOOD"
+    role: "Legal Counsel / Lead Game Designer"
+    employment_type: full_time
+    start_date: "2007-07-01"
+    end_date: "2010-08-09"
+    is_current: false
+    location:
+      city: "Sofia"
+      country: "Bulgaria"
+    parallel_role: false
+    responsibilities:
+      - "Preparation of contracts and legal coordination for international licensing relationships."
+      - "Coordination of a small design team (3-5 people)."
+
+  - id: exp_print_publishing_editor
+    employer: "Print and Publishing OOD"
+    role: "Editor / Article Writer"
+    employment_type: part_time
+    start_date: "2007-07-01"
+    end_date: "2010-08-10"
+    is_current: false
+    location:
+      city: "Sofia"
+      country: "Bulgaria"
+    parallel_role: true
+    responsibilities:
+      - "Authored content on IT topics."
+      - "Editorial coordination with external authors."
+
+  - id: exp_artline_exec_legal
+    employer: "Artline Studios Publishing EOOD"
+    role: "Legal Counsel / Executive Manager"
+    employment_type: full_time
+    start_date: "2006-12-15"
+    end_date: "2007-07-01"
+    is_current: false
+    location:
+      city: "Sofia"
+      country: "Bulgaria"
+    parallel_role: false
+    responsibilities:
+      - "Business communication and negotiations on licensing matters."
+      - "Preparation of contracts and commercial documentation."
+
+  - id: exp_hiend_writer
+    employer: "Hi End Publishing OOD"
+    role: "Article Writer"
+    employment_type: part_time
+    start_date: "2004-04-16"
+    end_date: "2007-07-01"
+    is_current: false
+    location:
+      city: "Sofia"
+      country: "Bulgaria"
+    parallel_role: true
+    responsibilities:
+      - "Publications in the software and hardware domain."
+
+education:
+  - id: edu_vtu_law
+    degree: "Master of Law"
+    field_of_study: "Law"
+    institution: "Veliko Tarnovo University 'St. Cyril and St. Methodius'"
+    faculty: "Faculty of History and Law"
+    start_date: "2000-09-01"
+    end_date: "2005-12-31"
+    city: "Veliko Tarnovo"
+    country: "Bulgaria"
+    completed: true
+
+skills:
+  languages:
+    - language: "Bulgarian"
+      proficiency_cefr: native
+      reading: native
+      writing: native
+      speaking: native
+    - language: "English"
+      proficiency_cefr: C1
+      reading: C1
+      writing: C1
+      speaking: B2
+  social:
+    - "Clear communication with technical and non-technical teams"
+    - "Work in multidisciplinary and intercultural environments"
+    - "Cross-functional coordination under conflicting priorities"
+    - "Constructive feedback and team accountability toward deadlines"
+  technical:
+    - "SQL (BigQuery, Snowflake)"
+    - "Looker"
+    - "Excel / VBA"
+    - "Documentation and process-oriented work"
+    - "AI prompt/context work for internal analytics tasks"
+  core_strengths:
+    - "Data quality and reporting accountability"
+    - "Cross-team and cross-role coordination"
+    - "Rules-based work with deadlines and internal processes"
+    - "Pragmatic problem solving"
+
+references:
+  - name: "Tanko Shokerov"
+    role: "Studio Manager"
+    organization: "Gameloft Bulgaria EOOD"
+    email: "tanko.shokerov@gameloft.com"
+    phone: null
+    relation: "former manager"
+
+compliance:
+  gdpr_consent_provided: true
+  private_data_handling: "minimal_public_contact_data"
+  intended_use: "job_application"
+
+optional_sections:
+  certifications: []
+  projects: []
+  awards: []
+  publications: []
+  volunteering: []
+  patents: []
+  portfolio_links: []
+  interests:
+    - "Travel"
+    - "Reading"
+    - "Technology analysis"
+    - "Strategy board games"
+  attachments: []
+
+metadata:
+  internal_name: "Initial Alianz"
+  internal_version: "1.0"
+  authoring_note: "Converted from cv_bg_001_alianz.pdf and cv_bg_001_alianz_micro_safe.md"
+  created_at: "2026-03-05"
+  updated_at: "2026-03-05"
+  status: draft
+  language: en
+  variant:
+    cv_id: cv_en_001_alianz
+    iteration: "0001"
+    target: alianz
+    language: en

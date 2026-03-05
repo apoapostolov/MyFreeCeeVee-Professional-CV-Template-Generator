@@ -1,0 +1,70 @@
+layout_version: 1
+coordinates_unit: px
+page:
+  width: 794
+  height: 1123
+
+regions:
+  - id: left.header
+    x: 0
+    y: 0
+    width: 270
+    height: 195
+    style:
+      background: "#4E557B"
+      wave_cut: true
+      text_color: "#FFFFFF"
+
+  - id: left.sidebar
+    x: 0
+    y: 195
+    width: 270
+    height: 928
+    style:
+      background: "#F2F3F5"
+      border_right: "1px solid #D7D9DD"
+
+  - id: right.content
+    x: 270
+    y: 0
+    width: 524
+    height: 1123
+    style:
+      background: "#FFFFFF"
+
+slot_placement:
+  - slot_id: person.full_name
+    region: left.header
+    order: 1
+  - slot_id: profile.photo
+    region: left.header
+    order: 2
+
+  - slot_id: contact.block
+    region: left.sidebar
+    order: 1
+  - slot_id: optional.interests
+    region: left.sidebar
+    order: 2
+  - slot_id: skills.languages
+    region: left.sidebar
+    order: 3
+  - slot_id: skills.technical
+    region: left.sidebar
+    order: 4
+
+  - slot_id: positioning.profile_summary
+    region: right.content
+    order: 1
+  - slot_id: experience.items
+    region: right.content
+    order: 2
+  - slot_id: education.items
+    region: right.content
+    order: 3
+  - slot_id: optional.courses
+    region: right.content
+    order: 4
+  - slot_id: references.items
+    region: right.content
+    order: 5

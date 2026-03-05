@@ -1,0 +1,215 @@
+meta:
+  template_id: europass-v1
+  name: Europass Classic (Rebuilt)
+  version: 1.0
+  author: MyFreeCeeVee
+  status: draft
+
+page:
+  size: A4
+  orientation: portrait
+  margins_mm:
+    top: 12
+    right: 12
+    bottom: 12
+    left: 12
+
+labels:
+  en:
+    common:
+      page: "Page"
+      present: "present"
+      yes: "Yes"
+      no: "No"
+    sections:
+      cv_title: "European Curriculum Vitae"
+      personal_info: "Personal Information"
+      positioning: "Positioning"
+      headline: "Headline"
+      contact: "Contact"
+      languages: "Languages"
+      technical_skills: "Technical Skills"
+      social_skills: "Social Skills"
+      profile: "Profile"
+      work_experience: "Work Experience"
+      education: "Education"
+      references: "References"
+      role_applicability: "Role Applicability"
+      transition: "Transition Narrative"
+      personal_competencies: "Personal Skills and Competences"
+      mother_tongue: "Mother tongue"
+      other_languages: "Other languages"
+      organizational_skills: "Organizational skills"
+      artistic_skills: "Artistic skills"
+      other_skills: "Other skills"
+      driving_license: "Driving licence"
+      additional_information: "Additional Information"
+      certifications: "Certifications"
+      projects: "Projects"
+      awards: "Awards"
+      publications: "Publications"
+      volunteering: "Volunteering"
+      patents: "Patents"
+      portfolio_links: "Portfolio links"
+      interests: "Interests"
+    personal:
+      name: "Name"
+      address: "Address"
+      phone: "Telephone"
+      email: "E-mail"
+      nationality: "Nationality"
+      birth_date: "Date of birth"
+    experience_labels:
+      dates: "Dates"
+      employer: "Employer and address"
+      industry: "Type of business"
+      role: "Occupation or position held"
+      employment_type: "Employment type"
+      duration: "Duration"
+      parallel_role: "Parallel role"
+      parallel_role_suffix: "parallel role"
+      activities: "Main activities and responsibilities"
+      products: "Published titles / products"
+      tools: "Tools"
+      results: "Key quantified results"
+    education_labels:
+      dates: "Dates"
+      subjects: "Main subjects"
+      field: "Field of study"
+      qualification: "Title of qualification awarded"
+      level: "Level"
+      faculty: "Faculty"
+      organization: "Name of organisation"
+      location: "Location"
+    language_labels:
+      reading: "Reading"
+      writing: "Writing"
+      speaking: "Speaking"
+  bg:
+    common:
+      page: "Страница"
+      present: "до момента"
+      yes: "Да"
+      no: "Не"
+    sections:
+      cv_title: "Европейски формат на автобиография"
+      personal_info: "Лична информация"
+      positioning: "Позициониране"
+      headline: "Позиция"
+      contact: "Контакти"
+      languages: "Езици"
+      technical_skills: "Технически умения"
+      social_skills: "Социални умения"
+      profile: "Профил"
+      work_experience: "Професионален опит"
+      education: "Образование"
+      references: "Препоръки"
+      role_applicability: "Приложимост"
+      transition: "Преходен наратив"
+      personal_competencies: "Лични умения и компетенции"
+      mother_tongue: "Майчин език"
+      other_languages: "Други езици"
+      organizational_skills: "Организационни умения"
+      artistic_skills: "Артистични компетенции"
+      other_skills: "Други умения"
+      driving_license: "Свидетелство за управление"
+      additional_information: "Допълнителна информация"
+      certifications: "Сертификати"
+      projects: "Проекти"
+      awards: "Награди"
+      publications: "Публикации"
+      volunteering: "Доброволчество"
+      patents: "Патенти"
+      portfolio_links: "Портфолио връзки"
+      interests: "Интереси"
+    personal:
+      name: "Име"
+      address: "Адрес"
+      phone: "Телефон"
+      email: "E-mail"
+      nationality: "Националност"
+      birth_date: "Дата на раждане"
+    experience_labels:
+      dates: "• Дати (от-до)"
+      employer: "• Име и адрес на работодателя"
+      industry: "• Вид на дейността или сферата на работа"
+      role: "• Заемана длъжност"
+      employment_type: "• Тип заетост"
+      duration: "• Продължителност"
+      parallel_role: "• Паралелна роля"
+      parallel_role_suffix: "паралелна заетост"
+      activities: "• Основни дейности и отговорности"
+      products: "• Продукти/заглавия"
+      tools: "• Инструменти"
+      results: "• Измерими резултати"
+    education_labels:
+      dates: "• Дати (от-до)"
+      subjects: "• Основни предмети"
+      field: "• Професионално направление"
+      qualification: "• Придобита квалификация"
+      level: "• Ниво"
+      faculty: "• Факултет"
+      organization: "• Обучаваща организация"
+      location: "• Местоположение"
+    language_labels:
+      reading: "Четене"
+      writing: "Писане"
+      speaking: "Разговор"
+
+tokens:
+  fonts:
+    heading: "Noto Sans"
+    body: "Noto Sans"
+    mono: "JetBrains Mono"
+  colors:
+    text_primary: "#1F2937"
+    text_secondary: "#4B5563"
+    accent: "#1D4ED8"
+    border: "#D1D5DB"
+    background: "#FFFFFF"
+    panel_background: "#F8FAFC"
+  spacing:
+    section_gap_px: 14
+    item_gap_px: 8
+
+layout_model:
+  type: europass_classic_a4
+  label_column_width_pct: 35
+  value_column_width_pct: 65
+
+date_display:
+  experience: exact
+  education: exact
+
+text_layout:
+  profile_summary: single_paragraph
+
+slots:
+  - id: person.full_name
+    source_hint: person.full_name
+  - id: positioning.headline
+    source_hint: positioning.headline
+  - id: contact.block
+    source_hint: person.contact
+  - id: positioning.profile_summary
+    source_hint: positioning.profile_summary
+  - id: experience.items
+    source_hint: experience
+  - id: education.items
+    source_hint: education
+  - id: skills.languages
+    source_hint: skills.languages
+  - id: skills.technical
+    source_hint: skills.technical
+  - id: skills.social
+    source_hint: skills.social
+  - id: references.items
+    source_hint: references
+
+rules:
+  max_pages: 2
+  overflow:
+    strategy: continue_to_next_page
+    warn_at_page: 2
+  widow_orphan_control: true
+  bullet_limit_per_experience_item: 6

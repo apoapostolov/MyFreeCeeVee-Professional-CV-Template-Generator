@@ -1,9 +1,0 @@
-status: internal_bootstrap
-source:
-  type: original
-  url: null
-  imported_file: null
-rights:
-  redistribution_allowed: false
-  commercial_use_allowed: false
-notes: "Bootstrap template created in-project for initial development only."
