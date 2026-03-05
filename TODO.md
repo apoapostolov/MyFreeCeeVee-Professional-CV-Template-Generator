@@ -55,3 +55,5 @@
 - [ ] Add visual diff tests for selected PDF golden outputs.
 
 - [x] Remove Keyword Studio merge button and use prebuilt `merged.json` as selectable/default dataset.
+
+- [x] Improve Keyword Studio section/subsection rendering with type-specific layouts for experience, education, skills, and optional blocks.

@@ -1432,3 +1432,21 @@ Validation commands and results:
 
 - merge script -> wrote `merged.json` with 235 unique items from 8 JSON datasets
 - `npm run check` -> pass
+
+## 2026-03-05 - Keyword Studio section-type UI overhaul
+
+Context/root cause:
+
+- Keyword Studio previously used mostly generic flattened rendering for section content, making dense CV structures harder to read.
+- Required section- and subsection-specific UI patterns for better scannability and semantic grouping.
+
+Files touched:
+
+- `apps/web/src/app/ComposerClient.tsx`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run check` -> pass

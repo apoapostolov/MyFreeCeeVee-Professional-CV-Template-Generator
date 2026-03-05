@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Refined Keyword Studio section rendering by section type: professional experience and education now render as structured cards, skills as grouped chips/lists, and optional sections as typed blocks with labeled rows.
 - Keyword Studio dataset UX updated: removed in-tab merge action button; dataset dropdown now recognizes `merged.json`, and keyword analysis defaults to `merged.json` when available.
 - Merged all existing JSON datasets in `cv-keyword-analysis/outputs` into `merged.json` so it appears as a selectable snapshot in Keyword Studio.
 - Initial monorepo bootstrap with Next.js web app and FastAPI parser scaffold.

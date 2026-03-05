@@ -1627,18 +1627,251 @@ export function ComposerClient() {
     );
   }
 
-  function renderKeywordSection(title: string, value: unknown): JSX.Element | null {
-    const rows = collectKeywordRows(value, [title.toLowerCase().replace(/[^a-z0-9]+/g, "_")]);
-    if (rows.length === 0) return null;
+  function renderKeywordFieldRow(label: string, value: unknown, key: string): JSX.Element | null {
+    const lines = collectKeywordRows(value, [label.toLowerCase().replace(/[^a-z0-9]+/g, "_")]);
+    if (lines.length === 0) {
+      return null;
+    }
+    return (
+      <div key={key} className="grid gap-1 py-1.5 md:grid-cols-[170px_1fr] md:gap-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">{label}</p>
+        <div className="space-y-1 text-sm leading-6 text-slate-800">
+          {lines.map((line, index) => (
+            <p key={`${key}-line-${index}`}>{renderKeywordAwareText(line.value)}</p>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function renderKeywordStringList(items: unknown, keyPrefix: string): JSX.Element | null {
+    const list = Array.isArray(items)
+      ? items.map((item) => String(item ?? "").trim()).filter((item) => item.length > 0)
+      : [];
+    if (list.length === 0) {
+      return null;
+    }
+    return (
+      <ul className="space-y-1 text-sm leading-6 text-slate-800">
+        {list.map((item, index) => (
+          <li key={`${keyPrefix}-${index}`} className="grid grid-cols-[10px_1fr] gap-2">
+            <span className="mt-[9px] h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <span>{renderKeywordAwareText(item)}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  function renderKeywordExperience(experience: unknown): JSX.Element | null {
+    const items = Array.isArray(experience) ? experience : [];
+    if (items.length === 0) {
+      return null;
+    }
+
     return (
       <section className="rounded-md border border-[var(--line)] bg-white p-4 shadow-[0_1px_0_rgba(15,23,42,0.04)]">
-        <h4 className="border-b border-slate-200 pb-2 text-sm font-bold uppercase tracking-[0.08em] text-slate-800">{title}</h4>
-        <div className="mt-2 divide-y divide-slate-100">
-          {rows.map((row, index) => (
-            <div key={`${title}-${index}`} className="grid gap-1 py-2 md:grid-cols-[220px_1fr] md:gap-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">{row.label}</p>
-              <p className="text-sm leading-6 text-slate-800">{renderKeywordAwareText(row.value)}</p>
+        <h4 className="border-b border-slate-200 pb-2 text-sm font-bold uppercase tracking-[0.08em] text-slate-800">
+          Professional Experience
+        </h4>
+        <div className="mt-3 space-y-3">
+          {items.map((item, index) => {
+            const role = asRecord(item);
+            if (!role) return null;
+            const start = String(role.start_date ?? "").trim();
+            const end = String(role.end_date ?? "").trim();
+            const range = [start, end].filter(Boolean).join(" - ") || "Date not specified";
+
+            return (
+              <article key={`exp-${index}`} className="rounded-md border border-slate-200 bg-slate-50 p-3">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <p className="text-base font-semibold text-slate-900">{renderKeywordAwareText(String(role.occupation ?? "Role"))}</p>
+                    <p className="text-sm text-slate-700">{renderKeywordAwareText(String(role.employer ?? "Employer"))}</p>
+                  </div>
+                  <span className="rounded-full border border-slate-300 bg-white px-2 py-0.5 text-xs font-semibold text-slate-600">{range}</span>
+                </div>
+
+                <div className="mt-2 divide-y divide-slate-200">
+                  {renderKeywordFieldRow("Location", role.location, `exp-${index}-location`)}
+                  {renderKeywordFieldRow("Industry", role.industry, `exp-${index}-industry`)}
+                  {renderKeywordFieldRow("Employment Type", role.employment_type, `exp-${index}-employment-type`)}
+                </div>
+
+                {Array.isArray(role.responsibilities) && role.responsibilities.length > 0 ? (
+                  <div className="mt-3">
+                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">Responsibilities</p>
+                    {renderKeywordStringList(role.responsibilities, `exp-${index}-resp`)}
+                  </div>
+                ) : null}
+
+                {Array.isArray(role.products) && role.products.length > 0 ? (
+                  <div className="mt-3">
+                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">Products / Scope</p>
+                    <ul className="space-y-1 text-sm leading-6 text-slate-800">
+                      {role.products.map((product, pIndex) => {
+                        if (typeof product === "string") {
+                          return (
+                            <li key={`exp-${index}-product-${pIndex}`} className="grid grid-cols-[10px_1fr] gap-2">
+                              <span className="mt-[9px] h-1.5 w-1.5 rounded-full bg-slate-400" />
+                              <span>{renderKeywordAwareText(product)}</span>
+                            </li>
+                          );
+                        }
+                        const record = asRecord(product);
+                        if (!record) return null;
+                        return (
+                          <li key={`exp-${index}-product-${pIndex}`} className="grid grid-cols-[10px_1fr] gap-2">
+                            <span className="mt-[9px] h-1.5 w-1.5 rounded-full bg-slate-400" />
+                            <div>
+                              <p>{renderKeywordAwareText(String(record.name ?? ""))}</p>
+                              {record.note ? <p className="pl-4 text-xs text-slate-600">{renderKeywordAwareText(String(record.note))}</p> : null}
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    );
+  }
+
+  function renderKeywordEducation(education: unknown): JSX.Element | null {
+    const items = Array.isArray(education) ? education : [];
+    if (items.length === 0) {
+      return null;
+    }
+    return (
+      <section className="rounded-md border border-[var(--line)] bg-white p-4 shadow-[0_1px_0_rgba(15,23,42,0.04)]">
+        <h4 className="border-b border-slate-200 pb-2 text-sm font-bold uppercase tracking-[0.08em] text-slate-800">
+          Education and Training
+        </h4>
+        <div className="mt-3 space-y-3">
+          {items.map((item, index) => {
+            const row = asRecord(item);
+            if (!row) return null;
+            const start = String(row.start_date ?? "").trim();
+            const end = String(row.end_date ?? "").trim();
+            const range = [start, end].filter(Boolean).join(" - ") || "Date not specified";
+            return (
+              <article key={`edu-${index}`} className="rounded-md border border-slate-200 bg-slate-50 p-3">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <p className="text-base font-semibold text-slate-900">{renderKeywordAwareText(String(row.qualification ?? "Qualification"))}</p>
+                    <p className="text-sm text-slate-700">{renderKeywordAwareText(String(row.institution ?? "Institution"))}</p>
+                  </div>
+                  <span className="rounded-full border border-slate-300 bg-white px-2 py-0.5 text-xs font-semibold text-slate-600">{range}</span>
+                </div>
+                <div className="mt-2 divide-y divide-slate-200">
+                  {renderKeywordFieldRow("Field", row.field_of_study, `edu-${index}-field`)}
+                  {renderKeywordFieldRow("Level", row.level_eqf_or_nqf, `edu-${index}-level`)}
+                  {renderKeywordFieldRow("Location", row.location, `edu-${index}-location`)}
+                  {renderKeywordFieldRow("Completed", row.completed, `edu-${index}-completed`)}
+                </div>
+                {Array.isArray(row.subjects) && row.subjects.length > 0 ? (
+                  <div className="mt-3">
+                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">Subjects</p>
+                    {renderKeywordStringList(row.subjects, `edu-${index}-subjects`)}
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    );
+  }
+
+  function renderKeywordSkills(skills: unknown): JSX.Element | null {
+    const row = asRecord(skills);
+    if (!row) return null;
+    const languageSkills = Array.isArray(row.languages) ? row.languages : [];
+    const technicalSkills = Array.isArray(row.technical) ? row.technical : [];
+    const socialSkills = Array.isArray(row.social) ? row.social : [];
+    const coreStrengths = Array.isArray(row.core_strengths) ? row.core_strengths : [];
+
+    return (
+      <section className="rounded-md border border-[var(--line)] bg-white p-4 shadow-[0_1px_0_rgba(15,23,42,0.04)]">
+        <h4 className="border-b border-slate-200 pb-2 text-sm font-bold uppercase tracking-[0.08em] text-slate-800">Skills</h4>
+        <div className="mt-3 grid gap-3 md:grid-cols-2">
+          <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">Languages</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {languageSkills.length > 0
+                ? languageSkills.map((entry, index) => {
+                    if (typeof entry === "string") {
+                      return (
+                        <span key={`lang-${index}`} className="rounded-full border border-slate-300 bg-white px-2 py-1 text-xs text-slate-800">
+                          {renderKeywordAwareText(entry)}
+                        </span>
+                      );
+                    }
+                    const record = asRecord(entry);
+                    const label = [String(record?.language ?? ""), String(record?.level ?? "")].filter(Boolean).join(" - ");
+                    return (
+                      <span key={`lang-${index}`} className="rounded-full border border-slate-300 bg-white px-2 py-1 text-xs text-slate-800">
+                        {renderKeywordAwareText(label || "Language")}
+                      </span>
+                    );
+                  })
+                : <p className="text-xs text-slate-500">No language entries.</p>}
             </div>
+          </div>
+
+          <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">Technical</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {technicalSkills.length > 0
+                ? technicalSkills.map((entry, index) => (
+                    <span key={`tech-${index}`} className="rounded-full border border-slate-300 bg-white px-2 py-1 text-xs text-slate-800">
+                      {renderKeywordAwareText(String(entry))}
+                    </span>
+                  ))
+                : <p className="text-xs text-slate-500">No technical entries.</p>}
+            </div>
+          </div>
+
+          <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">Core Strengths</p>
+            <div className="mt-2">{renderKeywordStringList(coreStrengths, "skills-core") ?? <p className="text-xs text-slate-500">No core strengths.</p>}</div>
+          </div>
+
+          <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">Social Skills</p>
+            <div className="mt-2">{renderKeywordStringList(socialSkills, "skills-social") ?? <p className="text-xs text-slate-500">No social skills.</p>}</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  function renderKeywordOptional(optional: unknown): JSX.Element | null {
+    const record = asRecord(optional);
+    if (!record) return null;
+    const entries = Object.entries(record).filter(([, value]) => collectKeywordRows(value).length > 0);
+    if (entries.length === 0) return null;
+
+    return (
+      <section className="rounded-md border border-[var(--line)] bg-white p-4 shadow-[0_1px_0_rgba(15,23,42,0.04)]">
+        <h4 className="border-b border-slate-200 pb-2 text-sm font-bold uppercase tracking-[0.08em] text-slate-800">Additional Information</h4>
+        <div className="mt-3 space-y-3">
+          {entries.map(([sectionKey, sectionValue]) => (
+            <article key={`optional-${sectionKey}`} className="rounded-md border border-slate-200 bg-slate-50 p-3">
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">{prettyKey(sectionKey)}</p>
+              <div className="divide-y divide-slate-200">
+                {collectKeywordRows(sectionValue, [sectionKey]).map((row, index) => (
+                  <div key={`optional-${sectionKey}-${index}`} className="grid gap-1 py-1.5 md:grid-cols-[180px_1fr] md:gap-3">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">{row.label}</p>
+                    <p className="text-sm leading-6 text-slate-800">{renderKeywordAwareText(row.value)}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
           ))}
         </div>
       </section>
@@ -1778,10 +2011,10 @@ export function ComposerClient() {
             </div>
 
             <div className="space-y-3 p-4">
-              {renderKeywordSection("Professional Experience", experiences)}
-              {renderKeywordSection("Education and Training", education)}
-              {renderKeywordSection("Skills", skills)}
-              {renderKeywordSection("Additional Information", optional)}
+              {renderKeywordExperience(experiences)}
+              {renderKeywordEducation(education)}
+              {renderKeywordSkills(skills)}
+              {renderKeywordOptional(optional)}
             </div>
           </div>
         </article>
