@@ -41,3 +41,6 @@ keywords/__pycache__/
 keywords/tests/__pycache__/
 keywords/outputs/*
 !keywords/outputs/.gitkeep
+
+# Runtime caches
+data/settings/openrouter_models.yaml
