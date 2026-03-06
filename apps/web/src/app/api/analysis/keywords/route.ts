@@ -203,7 +203,7 @@ function inferGameIndustryAspect(items: RelevantItem[], roleEntries: RoleMetric[
 
 async function readSupplementalDb(fileName: string): Promise<SupplementalKeywordDb | null> {
   try {
-    const filePath = repoPath("cv-keyword-analysis", "config", fileName);
+    const filePath = repoPath("keywords", "config", fileName);
     const raw = await fs.readFile(filePath, "utf-8");
     return JSON.parse(raw) as SupplementalKeywordDb;
   } catch {
@@ -225,7 +225,7 @@ function normalizedSupplementalEntries(db: SupplementalKeywordDb | null): Supple
 
 async function readLatestRelevantPayload(): Promise<{ payload: RelevantPayload; filePath: string }> {
   await ensureCoreDatasetFresh({ removeLegacySnapshots: true });
-  const filePath = repoPath("cv-keyword-analysis", "outputs", CORE_DATASET_FILE);
+  const filePath = repoPath("keywords", "outputs", CORE_DATASET_FILE);
   const raw = await fs.readFile(filePath, "utf-8");
   const parsed = JSON.parse(raw) as RelevantPayload;
   return { payload: parsed, filePath };
@@ -237,7 +237,7 @@ function isSafeDatasetName(name: string): boolean {
 
 async function readRelevantPayloadByDataset(datasetIdRaw: string | null): Promise<{ payload: RelevantPayload; filePath: string }> {
   await ensureCoreDatasetFresh({ removeLegacySnapshots: true });
-  const outputsDir = repoPath("cv-keyword-analysis", "outputs");
+  const outputsDir = repoPath("keywords", "outputs");
   const datasetId = (datasetIdRaw ?? "").trim();
 
   if (datasetId.length > 0) {

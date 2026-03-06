@@ -16,6 +16,28 @@ logs/
 # .env.*
 # !.env.example
 # /work
-# DEVELOPMENT_LOG.md
-# DEVELOPMENT_PLAN.md
-# AGENTS.md
+DEVELOPMENT_PLAN.md
+AGENTS.md
+keywords/DEVELOPMENT_PLAN.md
+keywords/AGENTS.md
+
+# Local planning/journal files
+TODO.md
+DEVELOPMENT_LOG.md
+keywords/TODO.md
+keywords/DEVELOPMENT_LOG.md
+
+# Personal/local CV artifacts
+data/cvs/history/
+data/cvs/cv_*_alianz.yaml
+data/template_mappings/cv_*_alianz__*.yaml
+
+# Local editor and private examples
+.vscode/
+examples/
+
+# Keyword analysis local artifacts
+keywords/__pycache__/
+keywords/tests/__pycache__/
+keywords/outputs/*
+!keywords/outputs/.gitkeep

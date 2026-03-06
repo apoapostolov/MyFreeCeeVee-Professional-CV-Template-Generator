@@ -1,0 +1,180 @@
+schema:
+  id: cv_yaml_standard
+  version: 1.0.0
+  profile_type: targeted_cv
+  locale: en-US
+  generated_from:
+    source_file: public_sample_profile
+    source_date: 2026-03-06
+person:
+  full_name: John Doe
+  given_name: John
+  middle_name: null
+  family_name: Doe
+  display_name: John Doe
+  birth_date: 1990-01-15
+  nationality: Fictional
+  residence:
+    street: 100 Example Street
+    postal_code: "00000"
+    city: Example City
+    country: Exampleland
+  contact:
+    email: john.doe@example.com
+    phone_e164: "+10000000000"
+    phone_local: "0000000000"
+    driving_license: B
+    website: https://example.com
+    linkedin: https://www.linkedin.com/in/john-doe-example
+    github: https://github.com/johndoe-example
+positioning:
+  headline: Product-minded Senior Software Engineer
+  profile_summary:
+    - Senior engineer with 10+ years of experience delivering scalable web applications and internal tools.
+    - Strong focus on developer productivity, user-facing quality, and measurable business impact.
+  transition_narrative:
+    - Open to senior individual contributor and technical lead roles in product-focused teams.
+  role_applicability:
+    - Builds reliable systems and clear delivery workflows across cross-functional teams.
+targeting:
+  target_company: Example Tech
+  target_sector: software
+  target_functions:
+    - engineering
+    - product development
+  target_seniority: senior
+  interview_context: standard
+experience:
+  - id: exp_exampletech_senior_engineer
+    employer: ExampleTech Inc.
+    role: Senior Software Engineer
+    employment_type: full_time
+    start_date: 2020-02-01
+    end_date: null
+    duration_text: 6 years
+    is_current: true
+    location:
+      city: Remote
+      country: Exampleland
+      address: null
+    industry: SaaS
+    parallel_role: false
+    responsibilities:
+      - Led development of customer-facing analytics modules used by enterprise clients.
+      - Improved API latency and reliability with targeted backend optimizations.
+      - Mentored engineers and supported architecture decisions for new services.
+    products:
+      - Example Analytics Suite
+    quantified_results:
+      - metric: API p95 latency
+        value: -38%
+        note: reduced over 2 quarters
+      - metric: release frequency
+        value: +45%
+        note: after CI workflow improvements
+    tools:
+      - TypeScript
+      - React
+      - Next.js
+      - Node.js
+      - PostgreSQL
+      - Docker
+  - id: exp_novaapps_engineer
+    employer: NovaApps Ltd.
+    role: Software Engineer
+    employment_type: full_time
+    start_date: 2016-01-01
+    end_date: 2020-01-31
+    duration_text: 4 years
+    is_current: false
+    location:
+      city: Example City
+      country: Exampleland
+      address: null
+    industry: Mobile and web applications
+    parallel_role: false
+    responsibilities:
+      - Built and maintained full-stack product features.
+      - Collaborated with design and product teams on iterative releases.
+education:
+  - id: edu_example_university
+    degree: Bachelor of Science
+    field_of_study: Computer Science
+    institution: Example University
+    faculty: School of Engineering
+    start_date: 2008-09-01
+    end_date: 2012-06-30
+    city: Example City
+    country: Exampleland
+    subjects:
+      - Algorithms
+      - Databases
+      - Software Engineering
+    qualification_level: Bachelor
+    completed: true
+skills:
+  languages:
+    - language: English
+      proficiency_cefr: C2
+      reading: C2
+      writing: C2
+      speaking: C2
+  social:
+    - Stakeholder communication
+    - Cross-functional collaboration
+    - Mentoring
+  technical:
+    - TypeScript
+    - React
+    - Next.js
+    - Node.js
+    - SQL
+    - CI/CD
+  core_strengths:
+    - Systems thinking
+    - Product delivery
+    - Technical leadership
+references:
+  - name: Jane Smith
+    role: Engineering Director
+    organization: ExampleTech Inc.
+    email: jane.smith@example.com
+    phone: null
+    relation: former manager
+compliance:
+  gdpr_consent_provided: true
+  private_data_handling: sample_data
+  intended_use: demo
+optional_sections:
+  certifications:
+    - AWS Certified Developer
+  projects:
+    - Internal Release Automation Toolkit
+  awards: []
+  publications: []
+  volunteering: []
+  patents: []
+  portfolio_links:
+    - https://example.com/portfolio
+  interests:
+    - Running
+    - Reading
+    - Open-source projects
+  attachments: []
+  other_skills:
+    - Agile delivery
+metadata:
+  internal_name: Public Example CV
+  internal_version: "1.0"
+  authoring_note: Fictional public sample profile for repository distribution.
+  created_at: 2026-03-06
+  updated_at: 2026-03-06
+  last_edited_at: 2026-03-06T12:00:00Z
+  status: published_sample
+  language: en
+  variant:
+    cv_id: cv_en_0001_john_doe
+    iteration: "001"
+    target: public_sample
+    language: en
+id: cv_en_0001_john_doe

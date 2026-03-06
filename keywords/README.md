@@ -57,14 +57,14 @@ Default cache path:
 ### Native mode
 
 ```bash
-cd cv-keyword-analysis
+cd keywords
 /usr/bin/python3 jd_scraper.py --provider native --max-pages 3000 --max-depth 3
 ```
 
 ### Firecrawl mode (recommended if available)
 
 ```bash
-cd cv-keyword-analysis
+cd keywords
 export FIRECRAWL_API_KEY=...
 /usr/bin/python3 jd_scraper.py --provider firecrawl --min-score 8 --max-results 6000
 ```
@@ -118,7 +118,7 @@ Minimal required shape:
 ### Analysis run
 
 ```bash
-cd cv-keyword-analysis
+cd keywords
 /usr/bin/python3 analysis_engine.py \
   --input tests/fixtures/analysis_input.json \
   --output outputs/analysis_report_fixture.json \
@@ -142,7 +142,7 @@ cd cv-keyword-analysis
 ### Validation
 
 ```bash
-cd cv-keyword-analysis
+cd keywords
 /usr/bin/python3 -m py_compile jd_scraper.py analysis_engine.py
 /usr/bin/python3 -m unittest tests/test_analysis_engine.py
 ```

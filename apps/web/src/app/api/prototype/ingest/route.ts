@@ -53,7 +53,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     "Run license/source ownership validation before approval",
     "Open Template Studio and review slot placements",
     "Generate template.yaml + layout.yaml draft",
-    "Run compatibility checks with cv_bg_001_alianz and cv_en_001_alianz",
+    "Run compatibility checks with cv_en_0001_john_doe",
   ];
 
   return NextResponse.json({

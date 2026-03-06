@@ -53,11 +53,11 @@ metadata:
 - CV files: `data/cvs/cv_<language>_<iteration>_<target>.yaml`
 - Supported languages: `bg`, `en`
 - Iteration format: 4 digits (`0001`, `0002`, ...)
-- Example: `data/cvs/cv_bg_001_alianz.yaml`
+- Example: `data/cvs/cv_en_0001_john_doe.yaml`
 
 ## Seed Example in this repo
 
-- `data/cvs/cv_bg_001_alianz.yaml`
+- `data/cvs/cv_en_0001_john_doe.yaml`
 
 ## Notes for parser and renderer
 

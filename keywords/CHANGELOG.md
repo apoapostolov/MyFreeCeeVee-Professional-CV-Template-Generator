@@ -20,7 +20,7 @@ The format is based on Keep a Changelog and this project follows Semantic Versio
   - hard-skill / soft-skill / seniority / action-verb taxonomy extraction
   - category-aware weighting and deduplication quality improvements
   - optimization and feedback-loop ideas for broader keyword coverage.
-- Initial `cv-keyword-analysis` subproject scaffold.
+- Initial `keywords` subproject scaffold.
 - Governance and execution docs: `AGENTS.md`, `DEVELOPMENT_PLAN.md`, `DEVELOPMENT_LOG.md`, `TODO.md`.
 - Project overview and scope in `README.md`.
 - First JD scraper implementation:

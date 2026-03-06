@@ -82,7 +82,7 @@ async function runSqliteJsonQuery<T>(dbPath: string, sql: string): Promise<T[]> 
 }
 
 export async function removeLegacyKeywordSnapshots(): Promise<number> {
-  const outputsDir = repoPath("cv-keyword-analysis", "outputs");
+  const outputsDir = repoPath("keywords", "outputs");
   let files: string[] = [];
   try {
     files = await fs.readdir(outputsDir);
@@ -110,8 +110,8 @@ export async function buildCoreDatasetFromCache(): Promise<{
   destination: string;
   profileCount: number;
 }> {
-  const outputsDir = repoPath("cv-keyword-analysis", "outputs");
-  const dbPath = repoPath("cv-keyword-analysis", CACHE_DB_RELATIVE);
+  const outputsDir = repoPath("keywords", "outputs");
+  const dbPath = repoPath("keywords", CACHE_DB_RELATIVE);
   const rows = await runSqliteJsonQuery<CachePageRow>(
     dbPath,
     `
@@ -156,7 +156,7 @@ export async function buildCoreDatasetFromCache(): Promise<{
 }
 
 export async function readCoreDataset(): Promise<{ payload: RelevantPayload; filePath: string }> {
-  const filePath = repoPath("cv-keyword-analysis", "outputs", CORE_DATASET_FILE);
+  const filePath = repoPath("keywords", "outputs", CORE_DATASET_FILE);
   const raw = await fs.readFile(filePath, "utf-8");
   return { payload: JSON.parse(raw) as RelevantPayload, filePath };
 }
@@ -172,8 +172,8 @@ export async function ensureCoreDatasetFresh(options?: {
 }> {
   const forceRebuild = Boolean(options?.forceRebuild);
   const removeLegacySnapshots = options?.removeLegacySnapshots !== false;
-  const outputsDir = repoPath("cv-keyword-analysis", "outputs");
-  const dbPath = repoPath("cv-keyword-analysis", CACHE_DB_RELATIVE);
+  const outputsDir = repoPath("keywords", "outputs");
+  const dbPath = repoPath("keywords", CACHE_DB_RELATIVE);
   const corePath = path.join(outputsDir, CORE_DATASET_FILE);
 
   let removedLegacySnapshots = 0;

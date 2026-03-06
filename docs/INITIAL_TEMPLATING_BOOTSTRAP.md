@@ -6,8 +6,7 @@ imported CV YAML standard and scoring rules.
 ## Implemented Assets
 
 - Seed CV:
-  - `data/cvs/cv_bg_001_alianz.yaml`
-  - `data/cvs/cv_en_001_alianz.yaml`
+  - `data/cvs/cv_en_0001_john_doe.yaml`
 - Template catalog:
   - `templates/catalog.yaml`
 - Bootstrap template:
@@ -18,10 +17,8 @@ imported CV YAML standard and scoring rules.
   - `templates/europass-v1/layout.yaml`
   - `templates/europass-v1/license.yaml`
 - CV-to-template mapping:
-  - `data/template_mappings/cv_bg_001_alianz__edinburgh-v1.yaml`
-  - `data/template_mappings/cv_en_001_alianz__edinburgh-v1.yaml`
-  - `data/template_mappings/cv_bg_001_alianz__europass-v1.yaml`
-  - `data/template_mappings/cv_en_001_alianz__europass-v1.yaml`
+  - `data/template_mappings/cv_en_0001_john_doe__edinburgh-v1.yaml`
+  - `data/template_mappings/cv_en_0001_john_doe__europass-v1.yaml`
 
 ## Templating principles
 

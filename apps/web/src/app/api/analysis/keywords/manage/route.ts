@@ -12,6 +12,7 @@ export const runtime = "nodejs";
 
 const execFileAsync = promisify(execFile);
 const CACHE_DB_RELATIVE = path.join("outputs", "jd_scrape_cache.sqlite");
+const KEYWORD_CONFIG_RELATIVE = path.join("config", "relevance_keywords.json");
 
 type ManageAction = "run_collection";
 
@@ -48,20 +49,17 @@ const runStore: RunStore = globalStore.__keywordRunStore ?? {
 };
 globalStore.__keywordRunStore = runStore;
 
-const runtimeSeedRoles = [
-  "game producer",
-  "senior game producer",
-  "live ops producer",
-  "product manager games",
-  "game designer",
-  "economy designer",
-  "game analyst",
-  "business intelligence analyst gaming",
-  "mobile game producer",
-  "live service manager games",
+const fallbackRoles = [
+  "software engineer",
+  "senior software engineer",
+  "backend engineer",
+  "frontend engineer",
+  "full stack engineer",
+  "data analyst",
+  "product manager",
 ];
 
-const runtimeSeedSuffixes = [
+const fallbackSuffixes = [
   "jobs",
   "job description",
   "openings",
@@ -70,7 +68,6 @@ const runtimeSeedSuffixes = [
   "hybrid",
   "careers",
   "apply",
-  "sort:date",
 ];
 
 function nowIso(): string {
@@ -128,9 +125,10 @@ function serializeRun(run: RunProgress | null) {
   };
 }
 
-async function buildRuntimeSeedFile(runId: string): Promise<{ relativePath: string; lineCount: number }> {
-  const root = repoPath("cv-keyword-analysis");
+async function buildRuntimeSeedFile(runId: string): Promise<{ relativePath: string; lineCount: number; roleCount: number }> {
+  const root = repoPath("keywords");
   const defaultSeedPath = path.join(root, "sources", "seed_urls.txt");
+  const keywordConfigPath = path.join(root, KEYWORD_CONFIG_RELATIVE);
   const runtimeSeedRelative = path.join("outputs", `runtime_seed_urls_${runId}.txt`);
   const runtimeSeedPath = path.join(root, runtimeSeedRelative);
 
@@ -144,6 +142,30 @@ async function buildRuntimeSeedFile(runId: string): Promise<{ relativePath: stri
     }
   } catch {
     // Use generated seeds only.
+  }
+
+  let runtimeSeedRoles = fallbackRoles;
+  let runtimeSeedSuffixes = fallbackSuffixes;
+  try {
+    const rawConfig = await fs.readFile(keywordConfigPath, "utf-8");
+    const parsed = JSON.parse(rawConfig) as {
+      target_roles?: unknown[];
+      runtime_seed_suffixes?: unknown[];
+    };
+    const configuredRoles = (parsed.target_roles ?? [])
+      .map((value) => String(value).trim())
+      .filter(Boolean);
+    const configuredSuffixes = (parsed.runtime_seed_suffixes ?? [])
+      .map((value) => String(value).trim())
+      .filter(Boolean);
+    if (configuredRoles.length > 0) {
+      runtimeSeedRoles = configuredRoles;
+    }
+    if (configuredSuffixes.length > 0) {
+      runtimeSeedSuffixes = configuredSuffixes;
+    }
+  } catch {
+    // Use fallback roles/suffixes when config is not readable.
   }
 
   const dayBucket = Math.floor(Date.now() / (24 * 60 * 60 * 1000));
@@ -163,13 +185,13 @@ async function buildRuntimeSeedFile(runId: string): Promise<{ relativePath: stri
   }
 
   await fs.writeFile(runtimeSeedPath, `${[...lines].join("\n")}\n`, "utf-8");
-  return { relativePath: runtimeSeedRelative, lineCount: lines.size };
+  return { relativePath: runtimeSeedRelative, lineCount: lines.size, roleCount: runtimeSeedRoles.length };
 }
 
 async function gatherManagementStats() {
   await ensureCoreDatasetFresh({ removeLegacySnapshots: true });
 
-  const cacheDb = repoPath("cv-keyword-analysis", CACHE_DB_RELATIVE);
+  const cacheDb = repoPath("keywords", CACHE_DB_RELATIVE);
 
   const profilesScannedTotal = await safeSqliteCountQuery(cacheDb, "SELECT COUNT(*) FROM scraped_pages WHERE scraped = 1;");
   const profilesScannedToday = await safeSqliteCountQuery(
@@ -262,12 +284,13 @@ function startCollectionRun(): { run: RunProgress; reused: boolean } {
       appendRunLog(runId, "Cache dedupe active: URL and content-hash duplicates are skipped.");
 
       const runtimeSeed = await buildRuntimeSeedFile(runId);
-      runtimeSeedAbsolutePath = repoPath("cv-keyword-analysis", runtimeSeed.relativePath);
+      runtimeSeedAbsolutePath = repoPath("keywords", runtimeSeed.relativePath);
       appendRunLog(runId, `Runtime seed pack generated with ${runtimeSeed.lineCount} sources.`);
       appendRunLog(runId, "Seed rotation enabled to reduce duplicate profile pulls across daily runs.");
+      appendRunLog(runId, `Role seeds loaded from config: ${runtimeSeed.roleCount}.`);
 
       const projectRoot = repoPath();
-      const scriptPath = repoPath("cv-keyword-analysis", "jd_scraper.py");
+      const scriptPath = repoPath("keywords", "jd_scraper.py");
       const child = spawn(
         "/usr/bin/python3",
         [
@@ -288,7 +311,7 @@ function startCollectionRun(): { run: RunProgress; reused: boolean } {
           stdio: ["ignore", "pipe", "pipe"],
         },
       );
-      const cacheDbPath = repoPath("cv-keyword-analysis", CACHE_DB_RELATIVE);
+      const cacheDbPath = repoPath("keywords", CACHE_DB_RELATIVE);
       const heartbeatId = setInterval(() => {
         void (async () => {
           const total = await safeSqliteCountQuery(cacheDbPath, "SELECT COUNT(*) FROM scraped_pages WHERE scraped = 1;");
