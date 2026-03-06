@@ -46,6 +46,10 @@ export async function PUT(request: Request): Promise<NextResponse> {
 
   return NextResponse.json({
     ok: true,
+    note:
+      typeof body.apiKey === "string" && body.apiKey.trim().length > 0
+        ? "API key is not persisted in repository settings; use OPENROUTER_API_KEY in .env."
+        : undefined,
     hasApiKey: updated.apiKey.length > 0,
     apiKeyMasked: maskApiKey(updated.apiKey),
     model: updated.model,

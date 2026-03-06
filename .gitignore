@@ -12,9 +12,9 @@ services/parser/.pytest_cache/
 exports/
 logs/
 
-# .env
-# .env.*
-# !.env.example
+.env
+.env.*
+!.env.example
 # /work
 DEVELOPMENT_PLAN.md
 AGENTS.md

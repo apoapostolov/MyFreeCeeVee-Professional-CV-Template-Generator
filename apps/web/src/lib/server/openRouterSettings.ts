@@ -23,15 +23,19 @@ const DEFAULT_SETTINGS: OpenRouterSettings = {
 };
 
 export async function readOpenRouterSettings(): Promise<OpenRouterSettings> {
+  const envApiKey = (process.env.OPENROUTER_API_KEY ?? "").trim();
   try {
     const raw = await fs.readFile(SETTINGS_FILE, "utf-8");
     const parsed = parse(raw);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      return DEFAULT_SETTINGS;
+      return {
+        ...DEFAULT_SETTINGS,
+        apiKey: envApiKey,
+      };
     }
     const value = parsed as Record<string, unknown>;
     return {
-      apiKey: typeof value.apiKey === "string" ? value.apiKey : "",
+      apiKey: envApiKey,
       model:
         typeof value.model === "string" && value.model.trim().length > 0
           ? value.model.trim()
@@ -44,7 +48,10 @@ export async function readOpenRouterSettings(): Promise<OpenRouterSettings> {
     };
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return DEFAULT_SETTINGS;
+      return {
+        ...DEFAULT_SETTINGS,
+        apiKey: envApiKey,
+      };
     }
     throw error;
   }
@@ -54,14 +61,8 @@ export async function writeOpenRouterSettings(
   input: Partial<Pick<OpenRouterSettings, "apiKey" | "model" | "baseUrl">>,
 ): Promise<OpenRouterSettings> {
   const current = await readOpenRouterSettings();
-  const nextApiKey =
-    typeof input.apiKey === "string"
-      ? input.apiKey.trim().length > 0
-        ? input.apiKey.trim()
-        : current.apiKey
-      : current.apiKey;
   const merged: OpenRouterSettings = {
-    apiKey: nextApiKey,
+    apiKey: current.apiKey,
     model:
       typeof input.model === "string" && input.model.trim().length > 0
         ? input.model.trim()
@@ -74,7 +75,15 @@ export async function writeOpenRouterSettings(
   };
 
   await fs.mkdir(SETTINGS_DIR, { recursive: true });
-  await fs.writeFile(SETTINGS_FILE, stringify(merged), "utf-8");
+  await fs.writeFile(
+    SETTINGS_FILE,
+    stringify({
+      model: merged.model,
+      baseUrl: merged.baseUrl,
+      updatedAt: merged.updatedAt,
+    }),
+    "utf-8",
+  );
   return merged;
 }
 
