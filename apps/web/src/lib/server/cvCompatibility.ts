@@ -4,7 +4,6 @@ import { parse } from "yaml";
 
 import type { CvDocument } from "./cvStore";
 import { repoPath } from "./repoPaths";
-import { buildCvVariantId, parseCvVariantId } from "./cvVariants";
 
 type MappingBinding = {
   cv_path?: string;
@@ -68,33 +67,19 @@ async function readYamlFile<T>(filePath: string): Promise<T> {
 }
 
 async function resolveMappingPath(cvId: string, templateId: string): Promise<string> {
-  const exact = repoPath(
-    "data",
-    "template_mappings",
-    `${cvId}__${templateId}.yaml`,
-  );
-  try {
-    await fs.access(exact);
-    return exact;
-  } catch {
-    const parsed = parseCvVariantId(cvId);
-    if (!parsed) {
-      throw new Error(`Mapping file missing for cvId=${cvId} templateId=${templateId}.`);
+  const candidates = [
+    repoPath("data", "template_mappings", `${templateId}.yaml`),
+    repoPath("data", "template_mappings", `${cvId}__${templateId}.yaml`),
+  ];
+  for (const filePath of candidates) {
+    try {
+      await fs.access(filePath);
+      return filePath;
+    } catch {
+      // Continue to next candidate.
     }
-
-    const fallbackBg = buildCvVariantId({
-      language: "bg",
-      iteration: parsed.iteration,
-      target: parsed.target,
-    });
-    const fallback = repoPath(
-      "data",
-      "template_mappings",
-      `${fallbackBg}__${templateId}.yaml`,
-    );
-    await fs.access(fallback);
-    return fallback;
   }
+  throw new Error(`Mapping file missing for templateId=${templateId}.`);
 }
 
 export async function analyzeCvCompatibility(

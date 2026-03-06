@@ -97,8 +97,8 @@ def build_native_seed_urls(static_seeds: list[str], config: dict) -> list[str]:
     "job description",
     "careers",
     "remote jobs",
-    "gaming",
-    "mobile games",
+    "hiring",
+    "open positions",
   ]
   default_templates = [
     "https://duckduckgo.com/html/?q={query}",

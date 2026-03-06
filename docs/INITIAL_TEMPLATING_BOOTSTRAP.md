@@ -17,8 +17,8 @@ imported CV YAML standard and scoring rules.
   - `templates/europass-v1/layout.yaml`
   - `templates/europass-v1/license.yaml`
 - CV-to-template mapping:
-  - `data/template_mappings/cv_en_0001_john_doe__edinburgh-v1.yaml`
-  - `data/template_mappings/cv_en_0001_john_doe__europass-v1.yaml`
+  - `data/template_mappings/edinburgh-v1.yaml`
+  - `data/template_mappings/europass-v1.yaml`
 
 ## Templating principles
 
