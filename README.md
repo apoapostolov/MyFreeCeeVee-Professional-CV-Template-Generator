@@ -107,8 +107,13 @@ npm run dev:parser
     `experience`, `education`, `skills`, `references`, `optional_sections`, `metadata`)
   - Editor section modes:
     `Form View` (default, recursive field forms) and `YAML View` (raw section YAML)
-  - YAML View now includes tab-friendly indentation editing (`Tab` inserts spaces)
-    and a live syntax-colored preview (keys, list markers, values, comments)
+  - YAML View now uses a single syntax-styled editable surface
+    (no split input/preview panes), with tab-friendly indentation editing
+    (`Tab` inserts spaces)
+  - YAML editor runs debounced linting 800ms after the last keystroke and shows
+    an in-editor ticker for broken lines (supports multiple line errors)
+  - YAML editor now fills available editor-frame height and keeps the lint ticker
+    aligned at the bottom area; caret alignment matches rendered text columns
   - OpenRouter settings panel in UI (API key/model/base URL) for AI scoring
   - OpenRouter settings panel shows current remaining-credit status and refreshes it asynchronously every 60 seconds
   - OpenRouter model dropdown loaded from server-side cached model catalog
@@ -117,6 +122,7 @@ npm run dev:parser
     1M input/output tokens, and estimated full-CV check cost using current
     CV size with a 20% token overhead
   - AI CV scoring actions for current section and whole CV, with structured feedback/proposals
+  - AI analysis score and issue severity colors now adapt for dark mode readability
   - Keyword Studio profession focus selector (derived from JD analysis role hits)
   - Keyword Studio role-scoped keyword status buckets:
     `missing`, `underused`, and `used` with usage targets and rewrite guidance
@@ -135,12 +141,17 @@ npm run dev:parser
     sections below seniority, following the same weighted status-card pattern
   - `Seniority Priority Keywords` includes a show/hide toggle that controls
     whether seniority-tag highlights are rendered in the right content area
+  - `Hard Skills Priority` and `Soft Skills Priority` also include `Hide/Show`
+    toggles, and all three priority panels use dark-mode-compatible frames/buttons
   - Keyword tag hover in right content now uses a structured tooltip card
     (source/status/category badges + weight/importance/hits/usage + recommendation)
+  - Hover-card source/status badges now switch to dark-compatible colors in dark mode
   - App-wide theme mode switch is available in top-right with subtle icon controls:
     light (sun), dark (moon), and system (computer)
   - Theme controls are fixed outside the main tool frame (upper-right browser area)
     and dark mode uses a dimmed palette tuned for better panel compatibility
+  - YAML editor syntax colors now adapt per theme for keys, array markers,
+    values, comments, and line numbers
   - Legacy snapshot JSON datasets (`jd_relevant_*.json`, `prototype_dataset_*.json`)
     are removed from the flow and automatically cleaned up
   - Keyword Studio weighted usage score and keyword-weight share metrics
@@ -195,3 +206,6 @@ npm run dev:parser
     category tagging (`hard_skill`, `soft_skill`, `seniority`, `action_verb`, `domain_term`),
     seniority intent detection, category-aware weighting, source-quality/recency/duplicate penalties,
     negation-aware CV hit logic, and per-category analytics output
+  - Keyword UI polish:
+    hide/show controls for seniority/hard/soft priority tag families and
+    theme-aware structured hover cards that stay above panel bounds

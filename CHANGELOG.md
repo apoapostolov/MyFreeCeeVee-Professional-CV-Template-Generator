@@ -96,6 +96,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - replaced moon glyph with circular gibbous moon icon
   - reworked dark palette to a dimmed scheme and added compatibility overrides
     for previously hardcoded light panels/utilities.
+- Keyword Studio tooltip and priority-toggle polish:
+  - added `Hide` / `Show` controls for both `Hard Skills Priority` and `Soft Skills Priority`
+  - made keyword hover cards theme-aware (light styling in light mode, dark styling in dark mode)
+  - rendered tag hover cards as fixed high-z overlays so they are not clipped at content edges.
+- Dark-mode compatibility pass for Keywords and YAML preview:
+  - updated YAML Syntax Preview token/line-number colors to be theme-aware
+  - converted Seniority/Hard/Soft priority panel frames and cards to dark-compatible surfaces
+  - updated Hide/Show button variants to use dark backgrounds in dark mode.
+- YAML View editor flow upgrade:
+  - replaced split `YAML Input` + `Syntax Preview` panes with a single editable syntax-styled editor surface
+  - added debounced YAML lint ticker (800ms after last input) with multi-line broken-line reporting.
+- Keyword hover badge dark-mode fix:
+  - source and status badges in tag-hover cards now use dark-theme color variants instead of light-mode styles.
+- YAML editor layout/caret polish:
+  - editor surface now flexes to fill the frame with lint ticker at bottom area
+  - caret horizontal position now aligns with syntax-rendered text column.
+- Editor AI scoring dark-mode color pass:
+  - red/amber/green score tones and issue severity text now use dark-theme variants in dark mode.
 - Edinburgh theme and field fixes:
   - updated Edinburgh theme behavior so left sidebar remains neutral grey across all themes
   - removed `Location` and `Completed` rows from Edinburgh education details.

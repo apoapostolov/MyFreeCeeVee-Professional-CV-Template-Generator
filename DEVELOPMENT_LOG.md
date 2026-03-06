@@ -1900,3 +1900,125 @@ Validation commands and results:
 
 - `npm run typecheck` -> pass
 - `npm run lint` -> pass
+
+## 2026-03-06 - Keyword tooltip layering and hard/soft priority visibility toggles
+
+Context/root cause:
+
+- Hard/soft skill priority sections lacked direct hide/show controls like seniority.
+- Keyword hover cards needed to follow active theme styling (light-mode card in light UI).
+- Hover overlays could be clipped near right-panel edges.
+
+Files touched:
+
+- `apps/web/src/app/ComposerClient.tsx`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run typecheck` -> pass
+- `npm run lint` -> pass
+
+## 2026-03-06 - Dark-mode compatibility pass for YAML Syntax Preview and keyword priority panels
+
+Context/root cause:
+
+- YAML Syntax Preview token colors used fixed light-theme classes and became hard to read in dark mode.
+- Seniority/Hard/Soft priority panel frames and cards in Keywords still used light-only backgrounds.
+- Hide/Show controls in those panels used white backgrounds in dark mode.
+
+Files touched:
+
+- `apps/web/src/app/ComposerClient.tsx`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run typecheck` -> pass
+- `npm run lint` -> pass
+
+## 2026-03-06 - YAML View single-surface editor and debounced lint ticker
+
+Context/root cause:
+
+- YAML View split `YAML Input` and `Syntax Preview` into two panes, adding friction for direct editing.
+- Needed inline lint feedback shortly after typing to identify broken YAML lines quickly.
+
+Files touched:
+
+- `apps/web/src/app/ComposerClient.tsx`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run typecheck` -> pass
+- `npm run lint` -> pass
+
+## 2026-03-06 - Dark-mode badge colors for keyword hover cards
+
+Context/root cause:
+
+- Tag-hover tooltip source/status badges still used light-only classes in dark mode.
+- Result was visually inconsistent badge tags against the dark tooltip surface.
+
+Files touched:
+
+- `apps/web/src/app/ComposerClient.tsx`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run typecheck` -> pass
+- `npm run lint` -> pass
+
+## 2026-03-06 - YAML editor frame-fill and caret alignment correction
+
+Context/root cause:
+
+- Single-surface YAML editor did not fully flex to frame bottom, leaving lint ticker placement less anchored.
+- Caret appeared left-shifted relative to syntax-rendered text column.
+
+Files touched:
+
+- `apps/web/src/app/ComposerClient.tsx`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run typecheck` -> pass
+- `npm run lint` -> pass
+
+## 2026-03-06 - Editor AI analysis score color dark-mode compatibility
+
+Context/root cause:
+
+- Editor AI analysis scoring used light-only severity classes (`text-*-700`) that were too dim in dark mode.
+- Issue text severity color in full-CV analysis also needed dark-theme mapping.
+
+Files touched:
+
+- `apps/web/src/app/ComposerClient.tsx`
+- `README.md`
+- `CHANGELOG.md`
+- `DEVELOPMENT_LOG.md`
+- `TODO.md`
+
+Validation commands and results:
+
+- `npm run typecheck` -> pass
+- `npm run lint` -> pass

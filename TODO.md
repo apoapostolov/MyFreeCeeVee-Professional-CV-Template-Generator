@@ -77,3 +77,9 @@
 - [x] Continue `cv-keyword-analysis` PX backlog implementation with taxonomy-aware scoring, quality-weighting penalties, negation handling, and per-category analytics.
 - [x] Improve Editor YAML View readability with syntax-colored preview and tab-friendly indentation behavior.
 - [x] Move theme controls to fixed upper-right browser area and rework dark mode to a dimmed, panel-compatible scheme.
+- [x] Add hard/soft priority hide-show controls and keep keyword hover cards theme-aware + unclipped in Keywords content view.
+- [x] Align YAML Syntax Preview + Keywords priority frames/buttons with dark mode (no hardcoded light surfaces).
+- [x] Consolidate YAML View into one editable syntax-styled field and add 800ms debounced multi-line lint ticker.
+- [x] Make hover-card source/status badge tags theme-aware so dark mode avoids light-only badge styling.
+- [x] Make YAML editor fill its frame bottom area and correct caret horizontal alignment with rendered syntax text.
+- [x] Make Editor AI analysis score severity colors dark-mode aware (green/amber/red + issues text).

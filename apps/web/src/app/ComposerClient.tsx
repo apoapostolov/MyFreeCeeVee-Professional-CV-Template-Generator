@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import type { JSX, KeyboardEvent } from "react";
-import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { JSX, KeyboardEvent, UIEvent } from "react";
+import { parse as parseYaml, parseDocument, stringify as stringifyYaml } from "yaml";
 
 type CvListResponse = {
   items: Array<{
@@ -599,9 +599,12 @@ export function ComposerClient() {
   const [editorCv, setEditorCv] = useState<Record<string, unknown> | null>(null);
   const [sectionDraft, setSectionDraft] = useState<unknown>(null);
   const [yamlDraft, setYamlDraft] = useState("");
+  const [yamlLintIssues, setYamlLintIssues] = useState<string[]>([]);
   const [editorLoading, setEditorLoading] = useState(false);
   const [editorSaving, setEditorSaving] = useState(false);
   const [editorNotice, setEditorNotice] = useState("");
+  const yamlTextareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const yamlHighlightRef = useRef<HTMLDivElement | null>(null);
 
   const [settings, setSettings] = useState<OpenRouterSettingsResponse | null>(null);
   const [showAiSettings, setShowAiSettings] = useState(false);
@@ -1546,6 +1549,11 @@ export function ComposerClient() {
   }
 
   function scoreTone(score: number): string {
+    if (resolvedTheme === "dark") {
+      if (score >= 85) return "text-emerald-300";
+      if (score >= 70) return "text-amber-300";
+      return "text-rose-300";
+    }
     if (score >= 85) return "text-emerald-700";
     if (score >= 70) return "text-amber-700";
     return "text-rose-700";
@@ -1594,14 +1602,32 @@ export function ComposerClient() {
     return "JD";
   }
 
-  function keywordSourceBadgeClass(source?: "jd" | "senior_leadership" | "game_generic" | "combined"): string {
+  function keywordSourceBadgeClass(
+    source: KeywordSource | undefined,
+    theme: "light" | "dark",
+  ): string {
+    if (theme === "dark") {
+      if (source === "senior_leadership") return "border-indigo-500 bg-indigo-900/55 text-indigo-100";
+      if (source === "game_generic") return "border-cyan-500 bg-cyan-900/55 text-cyan-100";
+      if (source === "combined") return "border-violet-500 bg-violet-900/55 text-violet-100";
+      return "border-slate-600 bg-slate-800 text-slate-200";
+    }
     if (source === "senior_leadership") return "border-indigo-300 bg-indigo-100 text-indigo-900";
     if (source === "game_generic") return "border-cyan-300 bg-cyan-100 text-cyan-900";
     if (source === "combined") return "border-violet-300 bg-violet-100 text-violet-900";
     return "border-slate-300 bg-slate-100 text-slate-700";
   }
 
-  function keywordStatusBadgeClass(status?: "missing" | "underused" | "used"): string {
+  function keywordStatusBadgeClass(
+    status: "missing" | "underused" | "used" | undefined,
+    theme: "light" | "dark",
+  ): string {
+    if (theme === "dark") {
+      if (status === "missing") return "border-rose-500 bg-rose-900/55 text-rose-100";
+      if (status === "underused") return "border-amber-500 bg-amber-900/50 text-amber-100";
+      if (status === "used") return "border-emerald-500 bg-emerald-900/55 text-emerald-100";
+      return "border-slate-600 bg-slate-800 text-slate-200";
+    }
     if (status === "missing") return "border-red-300 bg-red-100 text-red-900";
     if (status === "underused") return "border-amber-300 bg-amber-100 text-amber-900";
     if (status === "used") return "border-emerald-300 bg-emerald-100 text-emerald-900";
@@ -1971,12 +1997,21 @@ export function ComposerClient() {
   function renderYamlLine(line: string, index: number): JSX.Element {
     const keyValueMatch = /^(\s*)(-\s+)?([A-Za-z0-9_.-]+):(.*)$/.exec(line);
     const lineNumber = String(index + 1).padStart(3, " ");
+    const isDark = resolvedTheme === "dark";
+    const lineNumberClass = isDark ? "select-none text-[10px] text-slate-500" : "select-none text-[10px] text-slate-400";
+    const blankClass = isDark ? "text-xs leading-5 text-slate-500" : "text-xs leading-5 text-slate-500";
+    const commentClass = isDark ? "whitespace-pre text-xs italic leading-5 text-slate-400" : "whitespace-pre text-xs italic leading-5 text-slate-500";
+    const indentClass = isDark ? "text-slate-500" : "text-slate-500";
+    const keyClass = isDark ? "font-semibold text-sky-300" : "font-semibold text-sky-700";
+    const listClass = isDark ? "font-semibold text-fuchsia-300" : "font-semibold text-fuchsia-700";
+    const colonClass = isDark ? "text-slate-400" : "text-slate-600";
+    const fallbackLineClass = isDark ? "whitespace-pre text-xs leading-5 text-slate-300" : "whitespace-pre text-xs leading-5 text-slate-700";
 
     if (line.trim().length === 0) {
       return (
         <div key={`yaml-line-${index}`} className="grid grid-cols-[36px_1fr] gap-2">
-          <span className="select-none text-[10px] text-slate-400">{lineNumber}</span>
-          <span className="text-xs leading-5 text-slate-500">&nbsp;</span>
+          <span className={lineNumberClass}>{lineNumber}</span>
+          <span className={blankClass}>&nbsp;</span>
         </div>
       );
     }
@@ -1984,8 +2019,8 @@ export function ComposerClient() {
     if (/^\s*#/.test(line)) {
       return (
         <div key={`yaml-line-${index}`} className="grid grid-cols-[36px_1fr] gap-2">
-          <span className="select-none text-[10px] text-slate-400">{lineNumber}</span>
-          <span className="whitespace-pre text-xs italic leading-5 text-slate-500">{line}</span>
+          <span className={lineNumberClass}>{lineNumber}</span>
+          <span className={commentClass}>{line}</span>
         </div>
       );
     }
@@ -1994,22 +2029,22 @@ export function ComposerClient() {
       const [, leading, listPrefix = "", key, rawValue] = keyValueMatch;
       const value = rawValue ?? "";
       const valueTrim = value.trim();
-      let valueClass = "text-emerald-700";
+      let valueClass = isDark ? "text-emerald-300" : "text-emerald-700";
       if (/^(true|false|null)$/i.test(valueTrim)) {
-        valueClass = "text-violet-700";
+        valueClass = isDark ? "text-violet-300" : "text-violet-700";
       } else if (/^-?\d+(\.\d+)?$/.test(valueTrim)) {
-        valueClass = "text-amber-700";
+        valueClass = isDark ? "text-amber-300" : "text-amber-700";
       } else if (valueTrim.length === 0) {
-        valueClass = "text-slate-400";
+        valueClass = isDark ? "text-slate-500" : "text-slate-400";
       }
       return (
         <div key={`yaml-line-${index}`} className="grid grid-cols-[36px_1fr] gap-2">
-          <span className="select-none text-[10px] text-slate-400">{lineNumber}</span>
+          <span className={lineNumberClass}>{lineNumber}</span>
           <span className="whitespace-pre text-xs leading-5">
-            <span className="text-slate-500">{leading}</span>
-            {listPrefix ? <span className="font-semibold text-fuchsia-700">{listPrefix}</span> : null}
-            <span className="font-semibold text-sky-700">{key}</span>
-            <span className="text-slate-600">:</span>
+            <span className={indentClass}>{leading}</span>
+            {listPrefix ? <span className={listClass}>{listPrefix}</span> : null}
+            <span className={keyClass}>{key}</span>
+            <span className={colonClass}>:</span>
             <span className={` ${valueClass}`}>{value}</span>
           </span>
         </div>
@@ -2021,11 +2056,11 @@ export function ComposerClient() {
       if (listMatch) {
         return (
           <div key={`yaml-line-${index}`} className="grid grid-cols-[36px_1fr] gap-2">
-            <span className="select-none text-[10px] text-slate-400">{lineNumber}</span>
+            <span className={lineNumberClass}>{lineNumber}</span>
             <span className="whitespace-pre text-xs leading-5">
-              <span className="text-slate-500">{listMatch[1]}</span>
-              <span className="font-semibold text-fuchsia-700">{listMatch[2]}</span>
-              <span className="text-emerald-700">{listMatch[3]}</span>
+              <span className={indentClass}>{listMatch[1]}</span>
+              <span className={listClass}>{listMatch[2]}</span>
+              <span className={isDark ? "text-emerald-300" : "text-emerald-700"}>{listMatch[3]}</span>
             </span>
           </div>
         );
@@ -2034,8 +2069,8 @@ export function ComposerClient() {
 
     return (
       <div key={`yaml-line-${index}`} className="grid grid-cols-[36px_1fr] gap-2">
-        <span className="select-none text-[10px] text-slate-400">{lineNumber}</span>
-        <span className="whitespace-pre text-xs leading-5 text-slate-700">{line}</span>
+        <span className={lineNumberClass}>{lineNumber}</span>
+        <span className={fallbackLineClass}>{line}</span>
       </div>
     );
   }
@@ -2058,9 +2093,50 @@ export function ComposerClient() {
     });
   }
 
+  function extractYamlLintIssuesFromDocument(text: string): string[] {
+    const doc = parseDocument(text, { prettyErrors: false });
+    if ((doc.errors ?? []).length === 0) {
+      return [];
+    }
+    const issues = (doc.errors ?? []).map((error) => {
+      const linePos = (error as { linePos?: Array<{ line?: number }> }).linePos;
+      const line = linePos?.[0]?.line;
+      const message = String((error as { message?: string }).message ?? "Invalid YAML")
+        .replace(/\s+at line\s+\d+.*$/i, "")
+        .trim();
+      if (typeof line === "number" && Number.isFinite(line)) {
+        return `Line ${line}: ${message}`;
+      }
+      return message;
+    });
+    return Array.from(new Set(issues));
+  }
+
+  function handleYamlEditorScroll(event: UIEvent<HTMLTextAreaElement>): void {
+    if (!yamlHighlightRef.current) return;
+    yamlHighlightRef.current.scrollTop = event.currentTarget.scrollTop;
+    yamlHighlightRef.current.scrollLeft = event.currentTarget.scrollLeft;
+  }
+
   function refreshPreview() {
     setPreviewNonce(Date.now());
   }
+
+  useEffect(() => {
+    if (editorView !== "yaml") {
+      setYamlLintIssues([]);
+      return;
+    }
+    const handle = window.setTimeout(() => {
+      const trimmed = yamlDraft.trim();
+      if (!trimmed) {
+        setYamlLintIssues([]);
+        return;
+      }
+      setYamlLintIssues(extractYamlLintIssuesFromDocument(yamlDraft));
+    }, 800);
+    return () => window.clearTimeout(handle);
+  }, [editorView, yamlDraft]);
 
   function openPdf() {
     if (!pdfUrl) {
@@ -2692,6 +2768,7 @@ export function ComposerClient() {
         (hardSkillCategories.has(String(item.category ?? "")) || hardSkillRegex.test(item.keyword))
       )
       .sort((a, b) => b.weight - a.weight || a.keyword.localeCompare(b.keyword));
+    const isDark = resolvedTheme === "dark";
     const roles = keywordStudioData?.roles ?? [];
     const keywordRunActive =
       keywordRunStatus?.state === "queued" ||
@@ -2822,14 +2899,14 @@ export function ComposerClient() {
             </div>
           </div>
 
-          <div className="mt-3 rounded-md border border-indigo-200 bg-indigo-50/50 p-3">
+          <div className={`mt-3 rounded-md border p-3 ${isDark ? "border-indigo-700 bg-indigo-950/35" : "border-indigo-200 bg-indigo-50/50"}`}>
             <div className="flex items-center justify-between gap-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-indigo-900">Seniority Priority Keywords</p>
+              <p className={`text-xs font-semibold uppercase tracking-[0.08em] ${isDark ? "text-indigo-200" : "text-indigo-900"}`}>Seniority Priority Keywords</p>
               <button
                 className={`rounded-md border px-2 py-1 text-[11px] font-semibold ${
                   showSeniorityPriorityTags
-                    ? "border-indigo-300 bg-indigo-100 text-indigo-900"
-                    : "border-slate-300 bg-white text-slate-700"
+                    ? (isDark ? "border-indigo-500 bg-indigo-900/70 text-indigo-100" : "border-indigo-300 bg-indigo-100 text-indigo-900")
+                    : (isDark ? "border-slate-600 bg-slate-900 text-slate-200" : "border-slate-300 bg-white text-slate-700")
                 }`}
                 onClick={() => setShowSeniorityPriorityTags((current) => !current)}
                 type="button"
@@ -2837,69 +2914,101 @@ export function ComposerClient() {
                 {showSeniorityPriorityTags ? "Hide" : "Show"}
               </button>
             </div>
-            <p className="mt-1 text-[11px] text-indigo-800">
+            <p className={`mt-1 text-[11px] ${isDark ? "text-indigo-200/90" : "text-indigo-800"}`}>
               Always shown to enforce senior-impact language in CV content. Seniority tags are currently {showSeniorityPriorityTags ? "visible" : "hidden"} in the right panel.
             </p>
             <div className="mt-2 space-y-2">
               {seniorityPriorityKeywords.map((item) => (
-                <div key={`seniority-${item.keyword}`} className="rounded-md border border-indigo-200 bg-white p-2">
+                <div key={`seniority-${item.keyword}`} className={`rounded-md border p-2 ${isDark ? "border-indigo-700 bg-slate-900/65" : "border-indigo-200 bg-white"}`}>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="inline-flex rounded-md border border-indigo-300 bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-indigo-900">
+                    <span className={`inline-flex rounded-md border px-2 py-0.5 text-xs font-semibold ${isDark ? "border-indigo-500 bg-indigo-900/50 text-indigo-100" : "border-indigo-300 bg-indigo-50 text-indigo-900"}`}>
                       {item.keyword}
                     </span>
-                    <span className="text-xs font-bold text-indigo-900">{item.status === "used" ? "Used" : item.status === "underused" ? "Underused" : "Missing"}</span>
+                    <span className={`text-xs font-bold ${isDark ? "text-indigo-100" : "text-indigo-900"}`}>{item.status === "used" ? "Used" : item.status === "underused" ? "Underused" : "Missing"}</span>
                   </div>
-                  <p className="mt-1 text-[11px] text-indigo-800">
+                  <p className={`mt-1 text-[11px] ${isDark ? "text-indigo-200/90" : "text-indigo-800"}`}>
                     Hits {item.cvHits}/{item.targetHits} • Weight {item.weight.toFixed(1)}
                   </p>
-                  <p className="mt-1 text-[11px] text-indigo-700">{item.recommendation}</p>
+                  <p className={`mt-1 text-[11px] ${isDark ? "text-indigo-200/85" : "text-indigo-700"}`}>{item.recommendation}</p>
                 </div>
               ))}
               {seniorityPriorityKeywords.length === 0 ? (
-                <p className="text-xs text-indigo-700">No seniority keywords available in current analysis response.</p>
+                <p className={`text-xs ${isDark ? "text-indigo-200/85" : "text-indigo-700"}`}>No seniority keywords available in current analysis response.</p>
               ) : null}
             </div>
           </div>
 
-          <div className="mt-3 rounded-md border border-cyan-200 bg-cyan-50/50 p-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-cyan-900">Hard Skills Priority</p>
+          <div className={`mt-3 rounded-md border p-3 ${isDark ? "border-cyan-700 bg-cyan-950/30" : "border-cyan-200 bg-cyan-50/50"}`}>
+            <div className="flex items-center justify-between gap-2">
+              <p className={`text-xs font-semibold uppercase tracking-[0.08em] ${isDark ? "text-cyan-200" : "text-cyan-900"}`}>Hard Skills Priority</p>
+              <button
+                className={`rounded-md border px-2 py-1 text-[11px] font-semibold ${
+                  showHardPriorityTags
+                    ? (isDark ? "border-cyan-500 bg-cyan-900/60 text-cyan-100" : "border-cyan-300 bg-cyan-100 text-cyan-900")
+                    : (isDark ? "border-slate-600 bg-slate-900 text-slate-200" : "border-slate-300 bg-white text-slate-700")
+                }`}
+                onClick={() => setShowHardPriorityTags((current) => !current)}
+                type="button"
+              >
+                {showHardPriorityTags ? "Hide" : "Show"}
+              </button>
+            </div>
+            <p className={`mt-1 text-[11px] ${isDark ? "text-cyan-200/90" : "text-cyan-800"}`}>
+              Hard-skill tags are currently {showHardPriorityTags ? "visible" : "hidden"} in the right panel.
+            </p>
             <div className="mt-2 space-y-2">
               {hardPriorityKeywords.map((item) => (
-                <div key={`hard-${item.keyword}`} className="rounded-md border border-cyan-200 bg-white p-2">
+                <div key={`hard-${item.keyword}`} className={`rounded-md border p-2 ${isDark ? "border-cyan-700 bg-slate-900/65" : "border-cyan-200 bg-white"}`}>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="inline-flex rounded-md border border-cyan-300 bg-cyan-50 px-2 py-0.5 text-xs font-semibold text-cyan-900">
+                    <span className={`inline-flex rounded-md border px-2 py-0.5 text-xs font-semibold ${isDark ? "border-cyan-500 bg-cyan-900/45 text-cyan-100" : "border-cyan-300 bg-cyan-50 text-cyan-900"}`}>
                       {item.keyword}
                     </span>
-                    <span className="text-xs font-bold text-cyan-900">{item.status === "used" ? "Used" : item.status === "underused" ? "Underused" : "Missing"}</span>
+                    <span className={`text-xs font-bold ${isDark ? "text-cyan-100" : "text-cyan-900"}`}>{item.status === "used" ? "Used" : item.status === "underused" ? "Underused" : "Missing"}</span>
                   </div>
-                  <p className="mt-1 text-[11px] text-cyan-800">
+                  <p className={`mt-1 text-[11px] ${isDark ? "text-cyan-200/90" : "text-cyan-800"}`}>
                     Hits {item.cvHits}/{item.targetHits} • Weight {item.weight.toFixed(1)}
                   </p>
-                  <p className="mt-1 text-[11px] text-cyan-700">{item.recommendation}</p>
+                  <p className={`mt-1 text-[11px] ${isDark ? "text-cyan-200/85" : "text-cyan-700"}`}>{item.recommendation}</p>
                 </div>
               ))}
-              {hardPriorityKeywords.length === 0 ? <p className="text-xs text-cyan-700">No hard-skill keywords available in current analysis response.</p> : null}
+              {hardPriorityKeywords.length === 0 ? <p className={`text-xs ${isDark ? "text-cyan-200/85" : "text-cyan-700"}`}>No hard-skill keywords available in current analysis response.</p> : null}
             </div>
           </div>
 
-          <div className="mt-3 rounded-md border border-emerald-200 bg-emerald-50/50 p-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-emerald-900">Soft Skills Priority</p>
+          <div className={`mt-3 rounded-md border p-3 ${isDark ? "border-emerald-700 bg-emerald-950/30" : "border-emerald-200 bg-emerald-50/50"}`}>
+            <div className="flex items-center justify-between gap-2">
+              <p className={`text-xs font-semibold uppercase tracking-[0.08em] ${isDark ? "text-emerald-200" : "text-emerald-900"}`}>Soft Skills Priority</p>
+              <button
+                className={`rounded-md border px-2 py-1 text-[11px] font-semibold ${
+                  showSoftPriorityTags
+                    ? (isDark ? "border-emerald-500 bg-emerald-900/60 text-emerald-100" : "border-emerald-300 bg-emerald-100 text-emerald-900")
+                    : (isDark ? "border-slate-600 bg-slate-900 text-slate-200" : "border-slate-300 bg-white text-slate-700")
+                }`}
+                onClick={() => setShowSoftPriorityTags((current) => !current)}
+                type="button"
+              >
+                {showSoftPriorityTags ? "Hide" : "Show"}
+              </button>
+            </div>
+            <p className={`mt-1 text-[11px] ${isDark ? "text-emerald-200/90" : "text-emerald-800"}`}>
+              Soft-skill tags are currently {showSoftPriorityTags ? "visible" : "hidden"} in the right panel.
+            </p>
             <div className="mt-2 space-y-2">
               {softPriorityKeywords.map((item) => (
-                <div key={`soft-${item.keyword}`} className="rounded-md border border-emerald-200 bg-white p-2">
+                <div key={`soft-${item.keyword}`} className={`rounded-md border p-2 ${isDark ? "border-emerald-700 bg-slate-900/65" : "border-emerald-200 bg-white"}`}>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="inline-flex rounded-md border border-emerald-300 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-900">
+                    <span className={`inline-flex rounded-md border px-2 py-0.5 text-xs font-semibold ${isDark ? "border-emerald-500 bg-emerald-900/45 text-emerald-100" : "border-emerald-300 bg-emerald-50 text-emerald-900"}`}>
                       {item.keyword}
                     </span>
-                    <span className="text-xs font-bold text-emerald-900">{item.status === "used" ? "Used" : item.status === "underused" ? "Underused" : "Missing"}</span>
+                    <span className={`text-xs font-bold ${isDark ? "text-emerald-100" : "text-emerald-900"}`}>{item.status === "used" ? "Used" : item.status === "underused" ? "Underused" : "Missing"}</span>
                   </div>
-                  <p className="mt-1 text-[11px] text-emerald-800">
+                  <p className={`mt-1 text-[11px] ${isDark ? "text-emerald-200/90" : "text-emerald-800"}`}>
                     Hits {item.cvHits}/{item.targetHits} • Weight {item.weight.toFixed(1)}
                   </p>
-                  <p className="mt-1 text-[11px] text-emerald-700">{item.recommendation}</p>
+                  <p className={`mt-1 text-[11px] ${isDark ? "text-emerald-200/85" : "text-emerald-700"}`}>{item.recommendation}</p>
                 </div>
               ))}
-              {softPriorityKeywords.length === 0 ? <p className="text-xs text-emerald-700">No soft-skill keywords available in current analysis response.</p> : null}
+              {softPriorityKeywords.length === 0 ? <p className={`text-xs ${isDark ? "text-emerald-200/85" : "text-emerald-700"}`}>No soft-skill keywords available in current analysis response.</p> : null}
             </div>
           </div>
 
@@ -3383,23 +3492,55 @@ export function ComposerClient() {
                     {editorLoading ? (
                       <p className="text-xs text-[var(--ink-muted)]">Loading CV...</p>
                     ) : editorView === "yaml" ? (
-                      <div className="grid h-full min-h-[400px] gap-3 md:grid-cols-2">
-                        <div className="rounded-md border border-[var(--line)] bg-white p-2">
-                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">YAML Input</p>
+                      <div className="flex h-full min-h-[400px] flex-col rounded-md border border-[var(--line)] bg-white p-2">
+                        <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">YAML Editor</p>
+                        <div
+                          className={`relative min-h-0 flex-1 overflow-hidden rounded-md border ${
+                            resolvedTheme === "dark"
+                              ? "border-slate-700 bg-slate-900/85"
+                              : "border-slate-200 bg-slate-50"
+                          }`}
+                        >
+                          <div ref={yamlHighlightRef} aria-hidden className="pointer-events-none absolute inset-0 overflow-auto p-2 font-mono">
+                            {yamlDraft.split("\n").map((line, index) => renderYamlLine(line, index))}
+                          </div>
                           <textarea
-                            className="h-[calc(100%-22px)] min-h-[340px] w-full resize-none bg-transparent font-mono text-xs leading-5 outline-none"
+                            ref={yamlTextareaRef}
+                            className={`absolute inset-0 z-10 h-full w-full resize-none overflow-auto bg-transparent p-2 pl-[52px] font-mono text-xs leading-5 text-transparent outline-none ${
+                              resolvedTheme === "dark"
+                                ? "caret-slate-100 selection:bg-slate-500/50"
+                                : "caret-slate-900 selection:bg-sky-200/70"
+                            }`}
                             onChange={(event) => setYamlDraft(event.target.value.replace(/\t/g, "  "))}
                             onKeyDown={handleYamlEditorKeyDown}
+                            onScroll={handleYamlEditorScroll}
                             spellCheck={false}
                             style={{ tabSize: 2 }}
                             value={yamlDraft}
+                            wrap="off"
                           />
                         </div>
-                        <div className="rounded-md border border-[var(--line)] bg-white p-2">
-                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">Syntax Preview</p>
-                          <div className="max-h-[520px] overflow-auto rounded-md border border-slate-200 bg-slate-50 p-2 font-mono">
-                            {yamlDraft.split("\n").map((line, index) => renderYamlLine(line, index))}
-                          </div>
+                        <div
+                          className={`mt-2 rounded-md border px-2 py-1.5 text-[11px] ${
+                            yamlLintIssues.length === 0
+                              ? (resolvedTheme === "dark"
+                                ? "border-emerald-700 bg-emerald-950/30 text-emerald-200"
+                                : "border-emerald-200 bg-emerald-50 text-emerald-800")
+                              : (resolvedTheme === "dark"
+                                ? "border-rose-700 bg-rose-950/30 text-rose-200"
+                                : "border-rose-200 bg-rose-50 text-rose-800")
+                          }`}
+                        >
+                          {yamlLintIssues.length === 0 ? (
+                            <p>YAML lint: ok</p>
+                          ) : (
+                            <div className="space-y-0.5">
+                              <p className="font-semibold">YAML lint errors ({yamlLintIssues.length})</p>
+                              {yamlLintIssues.map((issue) => (
+                                <p key={issue}>• {issue}</p>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </div>
                     ) : (
@@ -3477,7 +3618,9 @@ export function ComposerClient() {
                               </p>
                             </div>
                             {(section.issues ?? []).length > 0 ? (
-                              <p className="mt-1 text-xs text-rose-700">Issues: {(section.issues ?? []).join("; ")}</p>
+                              <p className={`mt-1 text-xs ${resolvedTheme === "dark" ? "text-rose-300" : "text-rose-700"}`}>
+                                Issues: {(section.issues ?? []).join("; ")}
+                              </p>
                             ) : null}
                             {(section.improvements ?? []).length > 0 ? (
                               <p className="mt-1 text-xs text-slate-700">
@@ -3549,6 +3692,52 @@ export function ComposerClient() {
 
           {activePanel === "keywords" && renderKeywordStudio()}
 
+          {keywordHover ? (
+            <div
+              className={`pointer-events-none fixed z-[120] w-[320px] rounded-lg border p-3 shadow-2xl ${
+                resolvedTheme === "light"
+                  ? "border-slate-200 bg-white text-slate-900"
+                  : "border-slate-700 bg-slate-900 text-slate-100"
+              }`}
+              style={{ left: keywordHover.left, top: keywordHover.top }}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-sm font-semibold leading-5">{keywordHover.label}</p>
+                <span
+                  className={`inline-flex rounded-md border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] ${keywordSourceBadgeClass(keywordHover.metric.source, resolvedTheme)}`}
+                >
+                  {keywordSourceLabel(keywordHover.metric.source)}
+                </span>
+              </div>
+              <div className={`mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-[11px] ${resolvedTheme === "light" ? "text-slate-700" : "text-slate-300"}`}>
+                <p>Status</p>
+                <span
+                  className={`justify-self-end rounded-md border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] ${keywordStatusBadgeClass(keywordHover.metric.status, resolvedTheme)}`}
+                >
+                  {keywordHover.metric.status}
+                </span>
+                <p>Category</p>
+                <p className="justify-self-end text-right font-medium text-current">{prettyKey(keywordHover.metric.category ?? "general")}</p>
+                <p>Hits</p>
+                <p className="justify-self-end font-medium text-current">
+                  {keywordHover.metric.cvHits}/{keywordHover.metric.targetHits}
+                </p>
+                <p>Usage</p>
+                <p className="justify-self-end font-medium text-current">
+                  {(keywordHover.metric.usageRatio * 100).toFixed(0)}%
+                </p>
+                <p>Weight</p>
+                <p className="justify-self-end font-medium text-current">{keywordHover.metric.weight.toFixed(1)}</p>
+              </div>
+              <div className={`mt-2 rounded-md border px-2 py-1.5 text-[11px] leading-4 ${
+                resolvedTheme === "light"
+                  ? "border-slate-200 bg-slate-50 text-slate-700"
+                  : "border-slate-700 bg-slate-800 text-slate-200"
+              }`}>
+                {keywordHover.metric.recommendation}
+              </div>
+            </div>
+          ) : null}
           {syncReport?.open ? (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/45 p-4">
               <div className="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-xl border border-[var(--line)] bg-white shadow-2xl">
