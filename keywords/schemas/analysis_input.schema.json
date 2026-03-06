@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://myfreeceevee.local/keywords/analysis_input.schema.json",
+  "$id": "https://muhfweeceevee.local/keywords/analysis_input.schema.json",
   "title": "CV Keyword Analysis Input",
   "type": "object",
   "required": ["cv", "jd_corpus"],

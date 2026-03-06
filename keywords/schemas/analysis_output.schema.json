@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://myfreeceevee.local/keywords/analysis_output.schema.json",
+  "$id": "https://muhfweeceevee.local/keywords/analysis_output.schema.json",
   "title": "CV Keyword Analysis Output",
   "type": "object",
   "required": ["generated_at", "scores", "weighted_keywords", "actions", "integration_hooks"],

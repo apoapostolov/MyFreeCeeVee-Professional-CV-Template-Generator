@@ -1,6 +1,6 @@
-# MyFreeCeeVee
+# MuhFweeCeeVee
 
-MyFreeCeeVee is a self-hosted CV authoring and export platform with:
+MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
 - template-based rendering (`europass-v1`, `edinburgh-v1`)
 - form + YAML editor workflows
 - AI scoring and keyword analysis surfaces
