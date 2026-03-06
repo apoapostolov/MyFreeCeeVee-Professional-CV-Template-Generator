@@ -29,8 +29,8 @@ keywords/DEVELOPMENT_LOG.md
 
 # Personal/local CV artifacts
 data/cvs/history/
-data/cvs/cv_*_alianz.yaml
-data/template_mappings/cv_*_alianz__*.yaml
+data/cvs/cv_*_private.yaml
+data/template_mappings/cv_*_private__*.yaml
 
 # Local editor and private examples
 .vscode/
