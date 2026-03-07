@@ -47,5 +47,6 @@ keywords/outputs/*
 # Runtime caches
 data/settings/openrouter_models.yaml
 data/settings/openrouter.yaml
+data/settings/companies.personal.json
 photos/
 photos/metadata.json

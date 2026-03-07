@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { readCompanyMetadata } from "@/lib/server/companyMetadataStore";
 import { readCv } from "@/lib/server/cvStore";
 import { readOpenRouterSettings } from "@/lib/server/openRouterSettings";
 
@@ -10,21 +11,7 @@ type ScoreRequest = {
   templateId?: unknown;
   scope?: unknown;
   sectionKey?: unknown;
-};
-
-type TargetCompanyContext = {
-  company_name: string;
-  priority?: number;
-  company_details?: Record<string, unknown>;
-  target_roles?: unknown[];
-  target_functions?: unknown[];
-  target_seniority?: string;
-  tailoring_priorities?: unknown[];
-  value_proposition?: string;
-  motivation?: string;
-  keywords_to_echo?: unknown[];
-  application_context?: string;
-  interview_context?: string;
+  companyIds?: unknown;
 };
 
 function asRecord(input: unknown): Record<string, unknown> | null {
@@ -77,63 +64,18 @@ function extractFirstJsonBlock(input: string): unknown {
   };
 }
 
-function getTargetCompanyContext(cv: Record<string, unknown>): {
+function getTargetCompanyContext(selectedCompanies: unknown): {
   enabled: boolean;
-  companies: TargetCompanyContext[];
+  companies: unknown[];
   summary: string;
 } {
-  const targeting = asRecord(cv.targeting);
-  const rawCompanies = Array.isArray(targeting?.target_companies)
-    ? targeting.target_companies
-    : [];
-
-  const companies: TargetCompanyContext[] = [];
-  for (const rawEntry of rawCompanies) {
-    const entry = asRecord(rawEntry);
-    if (!entry) {
-      continue;
-    }
-    const name = typeof entry.company_name === "string" ? entry.company_name.trim() : "";
-    if (!name) {
-      continue;
-    }
-    companies.push({
-        company_name: name,
-        priority: typeof entry.priority === "number" ? entry.priority : undefined,
-        company_details: asRecord(entry.company_details) ?? undefined,
-        target_roles: Array.isArray(entry.target_roles) ? entry.target_roles : undefined,
-        target_functions: Array.isArray(entry.target_functions) ? entry.target_functions : undefined,
-        target_seniority:
-          typeof entry.target_seniority === "string" && entry.target_seniority.trim().length > 0
-            ? entry.target_seniority.trim()
-            : undefined,
-        tailoring_priorities: Array.isArray(entry.tailoring_priorities) ? entry.tailoring_priorities : undefined,
-        value_proposition:
-          typeof entry.value_proposition === "string" && entry.value_proposition.trim().length > 0
-            ? entry.value_proposition.trim()
-            : undefined,
-        motivation:
-          typeof entry.motivation === "string" && entry.motivation.trim().length > 0
-            ? entry.motivation.trim()
-            : undefined,
-        keywords_to_echo: Array.isArray(entry.keywords_to_echo) ? entry.keywords_to_echo : undefined,
-        application_context:
-          typeof entry.application_context === "string" && entry.application_context.trim().length > 0
-            ? entry.application_context.trim()
-            : undefined,
-        interview_context:
-          typeof entry.interview_context === "string" && entry.interview_context.trim().length > 0
-            ? entry.interview_context.trim()
-            : undefined,
-      });
-  }
-
+  const companies = Array.isArray(selectedCompanies) ? selectedCompanies : [];
   if (companies.length === 0) {
     return {
       enabled: false,
       companies: [],
       summary:
-        "Targeting context is unavailable because targeting.target_companies does not contain at least one valid company entry. Ignore targeting and provide generic CV analysis.",
+        "Target company context is unavailable. Ignore company targeting and provide generic CV analysis.",
     };
   }
 
@@ -141,7 +83,7 @@ function getTargetCompanyContext(cv: Record<string, unknown>): {
     enabled: true,
     companies,
     summary:
-      "Use targeting context to judge relevance and rewrite advice against the listed target companies. When feedback conflicts across companies, prefer actions that strengthen the highest-priority company without hurting the others.",
+      "Use the selected company metadata set to judge relevance and rewrite advice for these target employers. Balance advice so it helps the selected companies together, while noting tradeoffs when one company would benefit more than another.",
   };
 }
 
@@ -151,8 +93,9 @@ function buildPrompt(
   cv: Record<string, unknown>,
   sectionKey: string,
   sectionValue: unknown,
+  selectedCompanies: unknown[],
 ): string {
-  const targetingContext = getTargetCompanyContext(cv);
+  const targetingContext = getTargetCompanyContext(selectedCompanies);
   const rubric = [
     "Use this weighted rubric (total 100):",
     "- timeline_integrity_consistency: 25",
@@ -170,8 +113,8 @@ function buildPrompt(
     "- Penalize invented claims: if evidence is missing, state uncertainty explicitly.",
     "- Keep recommendations interview-safe and realistic (no fabricated metrics).",
     targetingContext.enabled
-      ? "- Relevance scoring and rewrite advice must account for the listed target companies in targeting.target_companies."
-      : "- Ignore targeting because targeting.target_companies has no valid company entries.",
+      ? "- Relevance scoring and rewrite advice must account for the selected target company metadata set."
+      : "- Ignore targeting because no target companies were selected.",
   ].join("\n");
 
   if (scope === "section") {
@@ -204,7 +147,7 @@ function buildPrompt(
       "Return STRICT JSON only. No markdown. No prose outside JSON.",
       `Template: ${templateId}`,
       `Section key: ${sectionKey}`,
-      `Target companies JSON:\n${JSON.stringify(targetingContext.companies, null, 2)}`,
+      `Selected target companies JSON:\n${JSON.stringify(targetingContext.companies, null, 2)}`,
       `Section payload JSON:\n${JSON.stringify(sectionValue ?? {}, null, 2)}`,
       `Full CV context JSON:\n${JSON.stringify(cv, null, 2)}`,
     ].join("\n");
@@ -247,7 +190,7 @@ function buildPrompt(
     "}",
     "Return STRICT JSON only. No markdown. No prose outside JSON.",
     `Template: ${templateId}`,
-    `Target companies JSON:\n${JSON.stringify(targetingContext.companies, null, 2)}`,
+    `Selected target companies JSON:\n${JSON.stringify(targetingContext.companies, null, 2)}`,
     `CV JSON:\n${JSON.stringify(cv, null, 2)}`,
   ].join("\n");
 }
@@ -265,6 +208,11 @@ export async function POST(request: Request): Promise<NextResponse> {
     typeof payload.sectionKey === "string" && payload.sectionKey.trim().length > 0
       ? payload.sectionKey.trim()
       : "positioning";
+  const companyIds = Array.isArray(payload.companyIds)
+    ? payload.companyIds
+        .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
+        .filter((entry) => entry.length > 0)
+    : [];
 
   if (!cvId) {
     return NextResponse.json({ error: "cvId is required." }, { status: 400 });
@@ -285,12 +233,15 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const sectionValue = scope === "section" ? getByPath(cv, sectionKey) : null;
+  const allCompanies = await readCompanyMetadata();
+  const selectedCompanies = allCompanies.filter((entry) => companyIds.includes(entry.id));
   const prompt = buildPrompt(
     scope,
     templateId,
     cv as Record<string, unknown>,
     sectionKey,
     sectionValue,
+    selectedCompanies as unknown[],
   );
 
   const response = await fetch(settings.baseUrl, {
@@ -327,6 +278,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     scope,
     cvId,
     templateId,
+    companyIds: companyIds.length > 0 ? companyIds : undefined,
     sectionKey: scope === "section" ? sectionKey : undefined,
     analysis: parsed,
     raw: content,

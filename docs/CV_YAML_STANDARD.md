@@ -7,7 +7,7 @@ existing standard from `git/lifestyle/job_cv/cv_versions/cv_yaml_standard.md`.
 
 - Keep one canonical machine-readable source of CV facts.
 - Support multiple rendering targets (`PDF`, `Europass`, `ATS-optimized`, role variants).
-- Preserve chronology, evidence, and targeting metadata without loss.
+- Preserve chronology and evidence without loss.
 
 ## Top-Level Structure
 
@@ -15,29 +15,6 @@ existing standard from `git/lifestyle/job_cv/cv_versions/cv_yaml_standard.md`.
 schema:
 person:
 positioning:
-targeting:
-  target_companies?:
-    - company_name: string
-      priority?: number
-      company_details?:
-        industry?: string
-        website?: string
-        headquarters?: string
-        company_size?: string
-        business_model?: string
-        products_or_domains?: string[]
-      target_roles?: string[]
-      target_functions?: string[]
-      target_seniority?: string
-      tailoring_priorities?: string[]
-      value_proposition?: string
-      motivation?: string
-      keywords_to_echo?: string[]
-      application_context?: string
-      interview_context?: string
-  positioning_strategy?: string
-  shared_tailoring_priorities?: string[]
-  shared_keywords_to_echo?: string[]
 experience:
 education:
 skills:
@@ -58,10 +35,9 @@ metadata:
 - `metadata.updated_at`
 - `metadata.language` (`bg` or `en`)
 
-> _Targeting model:_ use `targeting.target_companies[]` as the source of truth.
-> Company-specific metadata such as industry, website, roles, functions,
-> seniority, and application context should live inside each company entry.
-> Shared strategy fields can still be used for cross-company positioning.
+> _AI analysis targeting:_ target-company metadata now lives outside CV files in
+> dedicated JSON metadata files, so the CV document itself stays reusable across
+> multiple employers.
 
 ## Validation Rules
 

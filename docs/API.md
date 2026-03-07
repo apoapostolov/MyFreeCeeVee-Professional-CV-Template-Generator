@@ -157,7 +157,22 @@ Optional cache controls:
 - `POST /cvs/sync`
   - source-target sync using missing-field merge + AI translation of missing fragments
 
-## 6) OpenRouter Settings + Credit
+## 6) Companies Metadata API
+
+- `GET /companies`
+- `PUT /companies?source=example|personal`
+
+### Notes
+
+- Returns the merged company list from tracked example metadata and optional
+  personal metadata.
+- Personal metadata lives in `data/settings/companies.personal.json` and is
+  intentionally git-ignored.
+- `GET /companies?source=...` returns the editable metadata document for that
+  source.
+- `PUT /companies?source=...` saves the full metadata document for that source.
+
+## 7) OpenRouter Settings + Credit
 
 - `GET /settings/openrouter`
 - `PUT /settings/openrouter`
@@ -165,7 +180,7 @@ Optional cache controls:
 - `GET /settings/openrouter/credit`
   - returns credit/prepaid status payload from OpenRouter
 
-## 7) Keywords Data APIs
+## 8) Keywords Data APIs
 
 - `GET /analysis/keywords`
   - now returns role-aware weighted keywords and supplemental DB integration metadata
@@ -174,7 +189,7 @@ Optional cache controls:
 - `GET|POST /analysis/keywords/manage`
   - management stats and collection-run lifecycle/progress
 
-## 8) CV AI Analysis
+## 9) CV AI Analysis
 
 - `POST /analysis/cv`
 
@@ -185,16 +200,16 @@ Optional cache controls:
   "cvId": "cv_en_john_doe",
   "templateId": "cambridge-v1",
   "scope": "section",
-  "sectionKey": "positioning"
+  "sectionKey": "positioning",
+  "companyIds": ["example-tech", "northstar-cloud"]
 }
 ```
 
 ### Notes
 
-- Both section and full-CV analysis now consume `targeting.target_companies[]`
-  when at least one valid company entry is present.
-- If `targeting.target_companies[]` is missing or contains no valid company
-  names, targeting is ignored and the analysis falls back to generic CV advice.
+- Both section and full-CV analysis can consume one or more selected companies
+  from the external companies metadata store.
+- Pass no `companyIds` to run generic analysis.
 
 ## Stability
 

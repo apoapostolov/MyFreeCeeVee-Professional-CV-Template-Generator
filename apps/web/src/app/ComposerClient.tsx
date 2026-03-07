@@ -94,6 +94,7 @@ type SyncStatusResponse = {
 type ActivePanel = "workspace" | "templates" | "editor" | "keywords" | "photo_booth";
 type EditorViewMode = "form" | "yaml";
 type ThemeMode = "light" | "dark" | "system";
+type CompanySource = "example" | "personal";
 
 type KeywordSource = "jd" | "senior_leadership" | "game_generic" | "combined";
 
@@ -114,7 +115,6 @@ type KeywordTagMetric = {
 type EditorTabKey =
   | "person"
   | "positioning"
-  | "targeting"
   | "experience"
   | "education"
   | "skills"
@@ -131,6 +131,23 @@ type CvPair = {
   variants: Record<string, CvListResponse["items"][number]>;
   preferredCvId: string;
   latestTs: number;
+};
+
+type CompanyListResponse = {
+  ok?: boolean;
+  items?: Array<{
+    id: string;
+    name: string;
+    priority?: number | null;
+    source?: CompanySource | null;
+  }>;
+};
+
+type CompanyMetadataDocumentResponse = {
+  ok?: boolean;
+  error?: string;
+  source?: CompanySource;
+  document?: unknown;
 };
 
 type FieldCopy = {
@@ -492,7 +509,6 @@ const LEGACY_PHOTO_STORAGE_KEYS = [
 const EDITOR_TABS: Array<{ key: EditorTabKey; label: string; path: string }> = [
   { key: "person", label: "Person", path: "person" },
   { key: "positioning", label: "Positioning", path: "positioning" },
-  { key: "targeting", label: "Targeting", path: "targeting" },
   { key: "experience", label: "Experience", path: "experience" },
   { key: "education", label: "Education", path: "education" },
   { key: "skills", label: "Skills", path: "skills" },
@@ -525,88 +541,6 @@ const FIELD_META: Record<string, FieldMeta> = {
   positioning: {
     en: { label: "Positioning", description: "Headline and strategic profile text." },
     bg: { label: "Позициониране", description: "Заглавие и стратегически профил." },
-  },
-  targeting: {
-    en: {
-      label: "Targeting",
-      description:
-        "AI-only company targeting context used for advice and scoring. This is not rendered in CV output.",
-    },
-    bg: {
-      label: "Таргетиране",
-      description:
-        "Контекст за AI насочване към компания за анализ и съвети. Не се визуализира в CV.",
-    },
-  },
-  "targeting.target_companies": {
-    en: {
-      label: "Target Companies",
-      description: "One or more company-specific targeting profiles for AI positioning and tailoring advice.",
-    },
-    bg: {
-      label: "Целеви компании",
-      description: "Един или повече профили за таргетиране към компании за AI позициониране и насоки.",
-    },
-  },
-  "targeting.target_companies[].company_name": {
-    en: {
-      label: "Company Name",
-      description: "Employer name for this targeting profile.",
-    },
-    bg: {
-      label: "Име на компания",
-      description: "Име на работодателя за този профил на таргетиране.",
-    },
-  },
-  "targeting.target_companies[].target_roles": {
-    en: {
-      label: "Target Roles",
-      description: "Specific job titles to optimize this CV variant toward.",
-    },
-    bg: {
-      label: "Целеви роли",
-      description: "Конкретни длъжности, към които да се оптимизира този вариант на CV.",
-    },
-  },
-  "targeting.target_companies[].tailoring_priorities": {
-    en: {
-      label: "Tailoring Priorities",
-      description: "What the CV should emphasize for this company.",
-    },
-    bg: {
-      label: "Приоритети за адаптиране",
-      description: "Какво трябва да подчертае CV-то за тази компания.",
-    },
-  },
-  "targeting.target_companies[].value_proposition": {
-    en: {
-      label: "Value Proposition",
-      description: "Short statement describing why the candidate fits this company.",
-    },
-    bg: {
-      label: "Стойностно предложение",
-      description: "Кратко описание защо кандидатът пасва на тази компания.",
-    },
-  },
-  "targeting.positioning_strategy": {
-    en: {
-      label: "Positioning Strategy",
-      description: "Shared positioning angle that should remain consistent across target companies.",
-    },
-    bg: {
-      label: "Стратегия за позициониране",
-      description: "Общ ъгъл на позициониране, който трябва да остане последователен за всички компании.",
-    },
-  },
-  "targeting.shared_tailoring_priorities": {
-    en: {
-      label: "Shared Tailoring Priorities",
-      description: "Cross-company points that should be emphasized in all tailored variants.",
-    },
-    bg: {
-      label: "Общи приоритети за адаптиране",
-      description: "Общи акценти, които трябва да присъстват във всички адаптирани варианти.",
-    },
   },
   "positioning.profile_summary": {
     en: { label: "Profile Summary", description: "Core 1-2 sentence professional summary." },
@@ -762,8 +696,9 @@ function defaultFromSample(sample: unknown): unknown {
 }
 
 const ARRAY_ITEM_TEMPLATES: Record<string, unknown> = {
-  "targeting.target_companies": {
-    company_name: "",
+  companies: {
+    id: "",
+    name: "",
     priority: 1,
     company_details: {
       industry: "",
@@ -936,6 +871,16 @@ export function ComposerClient() {
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [analysisText, setAnalysisText] = useState("");
   const [analysisData, setAnalysisData] = useState<SectionAnalysis | FullAnalysis | null>(null);
+  const [analysisCompanies, setAnalysisCompanies] = useState<NonNullable<CompanyListResponse["items"]>>([]);
+  const [analysisCompanySource, setAnalysisCompanySource] = useState<CompanySource>("example");
+  const [analysisCompanyIds, setAnalysisCompanyIds] = useState<string[]>([]);
+  const [companyMetadataEditorOpen, setCompanyMetadataEditorOpen] = useState(false);
+  const [companyMetadataEditorView, setCompanyMetadataEditorView] = useState<EditorViewMode>("form");
+  const [companyMetadataDraft, setCompanyMetadataDraft] = useState<unknown>({ companies: [] });
+  const [companyMetadataYamlDraft, setCompanyMetadataYamlDraft] = useState("");
+  const [companyMetadataSaving, setCompanyMetadataSaving] = useState(false);
+  const [companyMetadataNotice, setCompanyMetadataNotice] = useState("");
+  const [companyMetadataYamlLintIssues, setCompanyMetadataYamlLintIssues] = useState<string[]>([]);
   const [analysisDrawerCollapsed, setAnalysisDrawerCollapsed] = useState(false);
   const [keywordDatasets, setKeywordDatasets] = useState<KeywordDatasetListResponse["datasets"]>([]);
   const [selectedKeywordDataset, setSelectedKeywordDataset] = useState("");
@@ -1230,6 +1175,11 @@ export function ComposerClient() {
     photoBoothItems,
   ]);
 
+  const filteredAnalysisCompanies = useMemo(
+    () => analysisCompanies.filter((company) => (company.source ?? "example") === analysisCompanySource),
+    [analysisCompanies, analysisCompanySource],
+  );
+
   const loadPhotoBoothGallery = useCallback(async (): Promise<void> => {
     try {
       const response = await fetch("/api/photos");
@@ -1242,6 +1192,30 @@ export function ComposerClient() {
     } catch (error) {
       setPhotoBoothNotice(error instanceof Error ? error.message : "Could not load photos.");
       setPhotoBoothItems([]);
+    }
+  }, []);
+
+  const loadAnalysisCompanies = useCallback(async (): Promise<void> => {
+    try {
+      const response = await fetch("/api/companies");
+      const payload = (await response.json()) as CompanyListResponse;
+      if (!response.ok || !payload.ok) {
+        setAnalysisCompanies([]);
+        setAnalysisCompanyIds([]);
+        return;
+      }
+      const items = payload.items ?? [];
+      setAnalysisCompanies(items);
+      setAnalysisCompanySource((current) => {
+        if (items.some((item) => (item.source ?? "example") === current)) {
+          return current;
+        }
+        return items.some((item) => (item.source ?? "example") === "personal") ? "personal" : "example";
+      });
+      setAnalysisCompanyIds((current) => current.filter((id) => items.some((item) => item.id === id)));
+    } catch {
+      setAnalysisCompanies([]);
+      setAnalysisCompanyIds([]);
     }
   }, []);
 
@@ -1712,6 +1686,82 @@ export function ComposerClient() {
   useEffect(() => {
     let cancelled = false;
 
+    async function loadCompanies() {
+      try {
+        const response = await fetch("/api/companies");
+        const payload = (await response.json()) as CompanyListResponse;
+        if (cancelled) return;
+        if (!response.ok || !payload.ok) {
+          setAnalysisCompanies([]);
+          setAnalysisCompanyIds([]);
+          return;
+        }
+        const items = payload.items ?? [];
+        setAnalysisCompanies(items);
+        setAnalysisCompanySource((current) =>
+          items.some((item) => (item.source ?? "example") === current)
+            ? current
+            : items.some((item) => (item.source ?? "example") === "personal")
+              ? "personal"
+              : "example",
+        );
+        setAnalysisCompanyIds((current) =>
+          current.filter((id) => items.some((item) => item.id === id)),
+        );
+      } catch {
+        if (!cancelled) {
+          setAnalysisCompanies([]);
+          setAnalysisCompanyIds([]);
+        }
+      }
+    }
+
+    void loadCompanies();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCompanyMetadataDocument() {
+      try {
+        const response = await fetch(`/api/companies?source=${encodeURIComponent(analysisCompanySource)}`);
+        const payload = (await response.json()) as CompanyMetadataDocumentResponse;
+        if (cancelled) return;
+        if (!response.ok || !payload.ok) {
+          setCompanyMetadataDraft({ companies: [] });
+          setCompanyMetadataYamlDraft(stringifyYaml({ companies: [] }));
+          return;
+        }
+        const document = payload.document ?? { companies: [] };
+        setCompanyMetadataDraft(document);
+        setCompanyMetadataYamlDraft(stringifyYaml(document));
+      } catch {
+        if (!cancelled) {
+          setCompanyMetadataDraft({ companies: [] });
+          setCompanyMetadataYamlDraft(stringifyYaml({ companies: [] }));
+        }
+      }
+    }
+
+    void loadCompanyMetadataDocument();
+    return () => {
+      cancelled = true;
+    };
+  }, [analysisCompanySource]);
+
+  useEffect(() => {
+    setAnalysisCompanyIds((current) =>
+      current.filter((id) => filteredAnalysisCompanies.some((item) => item.id === id)),
+    );
+  }, [filteredAnalysisCompanies]);
+
+  useEffect(() => {
+    let cancelled = false;
+
     async function loadKeywordDatasets() {
       setKeywordDatasetLoading(true);
       try {
@@ -1965,6 +2015,91 @@ export function ComposerClient() {
     });
   }
 
+  function toggleAnalysisCompanySelection(companyId: string) {
+    setAnalysisCompanyIds((current) =>
+      current.includes(companyId)
+        ? current.filter((entry) => entry !== companyId)
+        : [...current, companyId],
+    );
+  }
+
+  function updateCompanyMetadataDraftAt(path: PathSegment[], value: unknown) {
+    setCompanyMetadataDraft((current: unknown) => {
+      const next = setAtPath(current, path, value);
+      setCompanyMetadataYamlDraft(stringifyYaml(next ?? {}));
+      return next;
+    });
+  }
+
+  function removeCompanyMetadataDraftAt(path: PathSegment[]) {
+    setCompanyMetadataDraft((current: unknown) => {
+      const next = removeAtPath(current, path);
+      setCompanyMetadataYamlDraft(stringifyYaml(next ?? {}));
+      return next;
+    });
+  }
+
+  function addCompanyMetadataArrayEntry(path: PathSegment[], pathLabel: string, sample: unknown) {
+    setCompanyMetadataDraft((current: unknown) => {
+      const next = appendToArrayAtPath(current, path, defaultArrayEntry(pathLabel, sample));
+      setCompanyMetadataYamlDraft(stringifyYaml(next ?? {}));
+      return next;
+    });
+  }
+
+  function addCompanyMetadataCustomObjectField(path: PathSegment[]) {
+    const key = window.prompt("New field name", "custom_field");
+    if (!key || key.trim().length === 0) return;
+    const value = window.prompt("Value", "") ?? "";
+    updateCompanyMetadataDraftAt([...path, key.trim()], value);
+  }
+
+  function addCompanyMetadataCustomArrayEntry(path: PathSegment[]) {
+    const value = window.prompt("Value for new entry", "");
+    if (value === null) return;
+    setCompanyMetadataDraft((current: unknown) => {
+      const next = appendToArrayAtPath(current, path, value);
+      setCompanyMetadataYamlDraft(stringifyYaml(next ?? {}));
+      return next;
+    });
+  }
+
+  async function saveCompanyMetadataSource() {
+    let parsedDocument = companyMetadataDraft;
+    if (companyMetadataEditorView === "yaml") {
+      try {
+        parsedDocument = parseYaml(companyMetadataYamlDraft);
+      } catch {
+        setCompanyMetadataNotice("Invalid YAML.");
+        return;
+      }
+    }
+
+    setCompanyMetadataSaving(true);
+    setCompanyMetadataNotice("");
+    try {
+      const response = await fetch(`/api/companies?source=${encodeURIComponent(analysisCompanySource)}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ document: parsedDocument }),
+      });
+      const payload = (await response.json()) as CompanyMetadataDocumentResponse;
+      if (!response.ok || !payload.ok) {
+        setCompanyMetadataNotice(payload.error ?? "Failed to save company metadata.");
+        return;
+      }
+      const document = payload.document ?? { companies: [] };
+      setCompanyMetadataDraft(document);
+      setCompanyMetadataYamlDraft(stringifyYaml(document));
+      setCompanyMetadataNotice("Company metadata saved.");
+      await loadAnalysisCompanies();
+    } catch {
+      setCompanyMetadataNotice("Failed to save company metadata.");
+    } finally {
+      setCompanyMetadataSaving(false);
+    }
+  }
+
   async function saveEditorSection() {
     if (!editorCv || !selectedCvId) {
       return;
@@ -2052,6 +2187,7 @@ export function ComposerClient() {
           templateId: selectedTemplateId,
           scope,
           sectionKey: editorPath,
+          companyIds: analysisCompanyIds.length > 0 ? analysisCompanyIds : undefined,
         }),
       });
       const payload = (await response.json()) as {
@@ -2786,6 +2922,22 @@ export function ComposerClient() {
     return () => window.clearTimeout(handle);
   }, [editorView, yamlDraft]);
 
+  useEffect(() => {
+    if (companyMetadataEditorView !== "yaml") {
+      setCompanyMetadataYamlLintIssues([]);
+      return;
+    }
+    const handle = window.setTimeout(() => {
+      const trimmed = companyMetadataYamlDraft.trim();
+      if (!trimmed) {
+        setCompanyMetadataYamlLintIssues([]);
+        return;
+      }
+      setCompanyMetadataYamlLintIssues(extractYamlLintIssuesFromDocument(companyMetadataYamlDraft));
+    }, 800);
+    return () => window.clearTimeout(handle);
+  }, [companyMetadataEditorView, companyMetadataYamlDraft]);
+
   function openPdf() {
     if (!pdfUrl) {
       return;
@@ -3140,7 +3292,7 @@ export function ComposerClient() {
               <button
                 aria-label={selectedLanguage === "bg" ? "Добави елемент" : "Add item"}
                 className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
-                onClick={() => addArrayEntry(path, defaultArrayEntry(pathLabel, node[0]))}
+                onClick={() => addArrayEntry(path, defaultFromSample(node[0]))}
                 title={selectedLanguage === "bg" ? "Добави елемент" : "Add item"}
                 type="button"
               >
@@ -3302,6 +3454,205 @@ export function ComposerClient() {
           <input
             className="mt-2 w-full rounded border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
             onChange={(event) => updateDraftAt(path, event.target.value)}
+            type="text"
+            value={String(primitive)}
+          />
+        )}
+      </div>
+    );
+  }
+
+  function renderCompanyMetadataFormNode(
+    node: unknown,
+    path: PathSegment[],
+    pathLabel: string,
+    keyName: string,
+    options?: { onRemove?: () => void },
+  ): JSX.Element {
+    const copy = resolveFieldCopy(pathLabel, keyName, "en");
+    const removeButton = options?.onRemove ? (
+      <button
+        aria-label="Remove field"
+        className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+        onClick={options.onRemove}
+        title="Remove field"
+        type="button"
+      >
+        ✕
+      </button>
+    ) : null;
+
+    if (Array.isArray(node)) {
+      return (
+        <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">{copy.label}</p>
+              <p className="text-xs text-[var(--ink-muted)]">{copy.description}</p>
+            </div>
+            <div className="flex gap-2">
+              {removeButton}
+              <button
+                aria-label="Add item"
+                className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+                onClick={() => addCompanyMetadataArrayEntry(path, pathLabel, node[0])}
+                title="Add item"
+                type="button"
+              >
+                +
+              </button>
+              <button
+                aria-label="Add custom item"
+                className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+                onClick={() => addCompanyMetadataCustomArrayEntry(path)}
+                title="Add custom item"
+                type="button"
+              >
+                ✎
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            {node.length === 0 ? <p className="text-xs text-[var(--ink-muted)]">Empty list.</p> : null}
+            {node.map((item, index) => {
+              const childPath = [...path, index];
+              const childLabel = `${pathLabel}[${index}]`;
+              const primitive = item === null || ["string", "number", "boolean"].includes(typeof item);
+              if (primitive) {
+                const stringValue = String(item ?? "");
+                const useTextarea = shouldUseTextarea(stringValue);
+                return (
+                  <div key={childLabel} className="flex items-start gap-2 rounded-md border border-[var(--line)] bg-white p-2">
+                    {useTextarea ? (
+                      <textarea
+                        className="w-full rounded border border-[var(--line)] bg-white px-2 py-1 text-xs"
+                        onChange={(event) => updateCompanyMetadataDraftAt(childPath, event.target.value)}
+                        rows={estimateTextareaRows(stringValue)}
+                        value={stringValue}
+                      />
+                    ) : (
+                      <input
+                        className="w-full rounded border border-[var(--line)] bg-white px-2 py-1 text-xs"
+                        onChange={(event) => updateCompanyMetadataDraftAt(childPath, event.target.value)}
+                        value={stringValue}
+                      />
+                    )}
+                    <button
+                      aria-label="Remove item"
+                      className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+                      onClick={() => removeCompanyMetadataDraftAt(childPath)}
+                      title="Remove item"
+                      type="button"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
+                <div key={childLabel}>
+                  {renderCompanyMetadataFormNode(item, childPath, childLabel, `${keyName} ${index + 1}`, {
+                    onRemove: () => removeCompanyMetadataDraftAt(childPath),
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (node && typeof node === "object") {
+      const entries = Object.entries(node as Record<string, unknown>);
+      return (
+        <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">{copy.label}</p>
+              <p className="text-xs text-[var(--ink-muted)]">{copy.description}</p>
+            </div>
+            <div className="flex gap-2">
+              {removeButton}
+              <button
+                aria-label="Add custom field"
+                className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+                onClick={() => addCompanyMetadataCustomObjectField(path)}
+                title="Add custom field"
+                type="button"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div className="space-y-2">
+            {entries.map(([key, value]) => {
+              const childPath = [...path, key];
+              const childLabel = pathLabel ? `${pathLabel}.${key}` : key;
+              return (
+                <div key={childLabel}>
+                  {renderCompanyMetadataFormNode(value, childPath, childLabel, key, {
+                    onRemove: () => removeCompanyMetadataDraftAt(childPath),
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    const primitive = node ?? "";
+    const isBool = typeof primitive === "boolean";
+    const isNum = typeof primitive === "number";
+    const isDate = isDateLike(primitive);
+
+    return (
+      <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
+        <div className="flex items-start justify-between gap-2">
+          <label className="block text-sm font-semibold text-slate-900">{copy.label}</label>
+          {removeButton}
+        </div>
+        <p className="mt-1 text-xs text-[var(--ink-muted)]">
+          {copy.description}
+          {copy.requirement ? ` • ${copy.requirement}` : ""}
+        </p>
+
+        {isBool ? (
+          <label className="mt-2 inline-flex items-center gap-2 text-xs">
+            <input
+              checked={Boolean(primitive)}
+              onChange={(event) => updateCompanyMetadataDraftAt(path, event.target.checked)}
+              type="checkbox"
+            />
+            True/False
+          </label>
+        ) : isDate ? (
+          <input
+            className="mt-2 w-full rounded border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+            onChange={(event) => updateCompanyMetadataDraftAt(path, event.target.value)}
+            type="date"
+            value={String(primitive)}
+          />
+        ) : isNum ? (
+          <input
+            className="mt-2 w-full rounded border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+            onChange={(event) => updateCompanyMetadataDraftAt(path, Number(event.target.value))}
+            type="number"
+            value={Number(primitive)}
+          />
+        ) : shouldUseTextarea(String(primitive)) ? (
+          <textarea
+            className="mt-2 w-full rounded border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+            onChange={(event) => updateCompanyMetadataDraftAt(path, event.target.value)}
+            rows={estimateTextareaRows(String(primitive))}
+            value={String(primitive)}
+          />
+        ) : (
+          <input
+            className="mt-2 w-full rounded border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+            onChange={(event) => updateCompanyMetadataDraftAt(path, event.target.value)}
             type="text"
             value={String(primitive)}
           />
@@ -4760,71 +5111,214 @@ export function ComposerClient() {
                       {creditStatus?.label ?? "OpenRouter credit: checking..."}
                     </p>
                   </div>
+
+                  <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-semibold text-slate-800">AI Targeting</p>
+                      <button
+                        className="rounded-md border border-[var(--line)] bg-white px-2 py-1 text-xs font-semibold text-slate-700"
+                        onClick={() => setCompanyMetadataEditorOpen((value) => !value)}
+                        type="button"
+                      >
+                        {companyMetadataEditorOpen ? "Hide Editor" : "Edit"}
+                      </button>
+                    </div>
+
+                    <label className="mt-3 block text-xs font-medium text-slate-700">
+                      Metadata Source
+                      <select
+                        className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+                        onChange={(event) => setAnalysisCompanySource(event.target.value as CompanySource)}
+                        value={analysisCompanySource}
+                      >
+                        <option value="example">Example</option>
+                        <option value="personal">Personal</option>
+                      </select>
+                    </label>
+
+                    <div className="mt-3">
+                      <p className="text-xs font-medium text-slate-700">Companies</p>
+                      <label className="mt-1 flex items-center gap-2 rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs text-slate-700">
+                        <input
+                          checked={analysisCompanyIds.length === 0}
+                          onChange={() => setAnalysisCompanyIds([])}
+                          type="checkbox"
+                        />
+                        <span>None</span>
+                      </label>
+                      <div className="mt-2 space-y-2">
+                        {filteredAnalysisCompanies.length === 0 ? (
+                          <p className="text-xs text-[var(--ink-muted)]">No companies in this metadata source.</p>
+                        ) : (
+                          filteredAnalysisCompanies.map((company) => (
+                            <label
+                              key={company.id}
+                              className="flex items-center gap-2 rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs text-slate-700"
+                            >
+                              <input
+                                checked={analysisCompanyIds.includes(company.id)}
+                                onChange={() => toggleAnalysisCompanySelection(company.id)}
+                                type="checkbox"
+                              />
+                              <span>{company.name}</span>
+                            </label>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </article>
 
               <article className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-[var(--line)] bg-white p-4 pb-5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="text-lg font-bold text-slate-900">
-                    Section Editor: {EDITOR_TABS.find((tab) => tab.key === editorTab)?.label}
+                    {companyMetadataEditorOpen
+                      ? `Companies Metadata Editor: ${analysisCompanySource === "personal" ? "Personal" : "Example"}`
+                      : `Section Editor: ${EDITOR_TABS.find((tab) => tab.key === editorTab)?.label}`}
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    <div className="inline-flex overflow-hidden rounded-md border border-[var(--line)]">
-                      <button
-                        className={`px-3 py-1.5 text-xs font-semibold ${
-                          editorView === "form" ? "bg-[var(--accent)] text-white" : "bg-white text-slate-800"
-                        }`}
-                        onClick={() => setEditorView("form")}
-                        type="button"
-                      >
-                        Form View
-                      </button>
-                      <button
-                        className={`border-l border-[var(--line)] px-3 py-1.5 text-xs font-semibold ${
-                          editorView === "yaml" ? "bg-[var(--accent)] text-white" : "bg-white text-slate-800"
-                        }`}
-                        onClick={() => setEditorView("yaml")}
-                        type="button"
-                      >
-                        YAML View
-                      </button>
-                    </div>
-                    <button
-                      className="rounded-md border border-[var(--line)] bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 disabled:opacity-60"
-                      disabled={analysisLoading || !selectedCvId || !selectedTemplateId}
-                      onClick={() => runAnalysis("section")}
-                      type="button"
-                    >
-                      Score Section
-                    </button>
-                    <button
-                      className="rounded-md border border-[var(--line)] bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 disabled:opacity-60"
-                      disabled={analysisLoading || !selectedCvId || !selectedTemplateId}
-                      onClick={() => runAnalysis("full")}
-                      type="button"
-                    >
-                      Score Whole CV
-                    </button>
-                    <button
-                      className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
-                      disabled={editorSaving || editorLoading || !selectedCvId}
-                      onClick={saveEditorSection}
-                      type="button"
-                    >
-                      Save Section
-                    </button>
+                    {companyMetadataEditorOpen ? (
+                      <>
+                        <div className="inline-flex overflow-hidden rounded-md border border-[var(--line)]">
+                          <button
+                            className={`px-3 py-1.5 text-xs font-semibold ${
+                              companyMetadataEditorView === "form" ? "bg-[var(--accent)] text-white" : "bg-white text-slate-800"
+                            }`}
+                            onClick={() => setCompanyMetadataEditorView("form")}
+                            type="button"
+                          >
+                            Form
+                          </button>
+                          <button
+                            className={`border-l border-[var(--line)] px-3 py-1.5 text-xs font-semibold ${
+                              companyMetadataEditorView === "yaml" ? "bg-[var(--accent)] text-white" : "bg-white text-slate-800"
+                            }`}
+                            onClick={() => setCompanyMetadataEditorView("yaml")}
+                            type="button"
+                          >
+                            YAML
+                          </button>
+                        </div>
+                        <button
+                          className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                          disabled={companyMetadataSaving}
+                          onClick={saveCompanyMetadataSource}
+                          type="button"
+                        >
+                          Save Metadata
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="inline-flex overflow-hidden rounded-md border border-[var(--line)]">
+                          <button
+                            className={`px-3 py-1.5 text-xs font-semibold ${
+                              editorView === "form" ? "bg-[var(--accent)] text-white" : "bg-white text-slate-800"
+                            }`}
+                            onClick={() => setEditorView("form")}
+                            type="button"
+                          >
+                            Form View
+                          </button>
+                          <button
+                            className={`border-l border-[var(--line)] px-3 py-1.5 text-xs font-semibold ${
+                              editorView === "yaml" ? "bg-[var(--accent)] text-white" : "bg-white text-slate-800"
+                            }`}
+                            onClick={() => setEditorView("yaml")}
+                            type="button"
+                          >
+                            YAML View
+                          </button>
+                        </div>
+                        <button
+                          className="rounded-md border border-[var(--line)] bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 disabled:opacity-60"
+                          disabled={analysisLoading || !selectedCvId || !selectedTemplateId}
+                          onClick={() => runAnalysis("section")}
+                          type="button"
+                        >
+                          Score Section
+                        </button>
+                        <button
+                          className="rounded-md border border-[var(--line)] bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 disabled:opacity-60"
+                          disabled={analysisLoading || !selectedCvId || !selectedTemplateId}
+                          onClick={() => runAnalysis("full")}
+                          type="button"
+                        >
+                          Score Whole CV
+                        </button>
+                        <button
+                          className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                          disabled={editorSaving || editorLoading || !selectedCvId}
+                          onClick={saveEditorSection}
+                          type="button"
+                        >
+                          Save Section
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
 
-                <p className="mt-2 text-xs text-[var(--ink-muted)]">
-                  {selectedLanguage === "bg"
-                    ? "Редактирайте секцията във форма или YAML. Записът обновява YAML варианта и snapshot историята."
-                    : "Edit the section in form or YAML mode. Save updates the YAML variant and snapshot history."}
-                </p>
+                {companyMetadataEditorOpen ? (
+                  <p className="mt-2 text-xs text-[var(--ink-muted)]">
+                    Edit the selected metadata source in Form or YAML mode. Saving updates the source JSON used by AI analysis targeting.
+                  </p>
+                ) : (
+                  <>
+                    <p className="mt-2 text-xs text-[var(--ink-muted)]">
+                      {selectedLanguage === "bg"
+                        ? "Редактирайте секцията във форма или YAML. Записът обновява YAML варианта и snapshot историята."
+                        : "Edit the section in form or YAML mode. Save updates the YAML variant and snapshot history."}
+                    </p>
+                    <p className="mt-1 text-xs text-[var(--ink-muted)]">
+                      {analysisCompanyIds.length > 0
+                        ? `AI analysis targets: ${filteredAnalysisCompanies
+                            .filter((item) => analysisCompanyIds.includes(item.id))
+                            .map((item) => item.name)
+                            .join(", ")}`
+                        : "AI analysis targets: None"}
+                    </p>
+                  </>
+                )}
+                {companyMetadataEditorOpen && companyMetadataNotice ? (
+                  <p className="mt-1 text-xs text-[var(--ink-muted)]">{companyMetadataNotice}</p>
+                ) : null}
 
                 <div className="mt-3 flex min-h-0 flex-1 flex-col gap-3 md:flex-row">
                   <div className="min-h-0 flex-1 overflow-auto rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3 md:min-w-0">
-                    {editorLoading ? (
+                    {companyMetadataEditorOpen ? (
+                      companyMetadataEditorView === "yaml" ? (
+                        <div className="flex h-full min-h-[400px] flex-col rounded-md border border-[var(--line)] bg-white p-2">
+                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">YAML Editor</p>
+                          <textarea
+                            className="min-h-0 flex-1 rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-2 font-mono text-xs"
+                            onChange={(event) => setCompanyMetadataYamlDraft(event.target.value.replace(/\t/g, "  "))}
+                            value={companyMetadataYamlDraft}
+                          />
+                          <div
+                            className={`mt-2 rounded-md border px-2 py-1.5 text-[11px] ${
+                              companyMetadataYamlLintIssues.length === 0
+                                ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                                : "border-rose-200 bg-rose-50 text-rose-800"
+                            }`}
+                          >
+                            {companyMetadataYamlLintIssues.length === 0 ? (
+                              <p>YAML lint: ok</p>
+                            ) : (
+                              <div className="space-y-0.5">
+                                <p className="font-semibold">YAML lint errors ({companyMetadataYamlLintIssues.length})</p>
+                                {companyMetadataYamlLintIssues.map((issue) => (
+                                  <p key={issue}>• {issue}</p>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        renderCompanyMetadataFormNode(companyMetadataDraft ?? { companies: [] }, [], "", "Companies Metadata")
+                      )
+                    ) : editorLoading ? (
                       <p className="text-xs text-[var(--ink-muted)]">Loading CV...</p>
                     ) : editorView === "yaml" ? (
                       <div className="flex h-full min-h-[400px] flex-col rounded-md border border-[var(--line)] bg-white p-2">

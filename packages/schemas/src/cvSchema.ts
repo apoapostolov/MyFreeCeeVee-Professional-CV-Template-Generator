@@ -62,47 +62,6 @@ export const CV_V1_JSON_SCHEMA: JsonSchema = {
       },
       additionalProperties: true,
     },
-    targeting: {
-      type: "object",
-      properties: {
-        target_companies: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              company_name: { type: "string" },
-              priority: { type: "number" },
-              company_details: {
-                type: "object",
-                properties: {
-                  industry: { type: "string" },
-                  website: { type: "string", format: "uri" },
-                  headquarters: { type: "string" },
-                  company_size: { type: "string" },
-                  business_model: { type: "string" },
-                  products_or_domains: { type: "array" },
-                },
-                additionalProperties: true,
-              },
-              target_roles: { type: "array" },
-              target_functions: { type: "array" },
-              target_seniority: { type: "string" },
-              tailoring_priorities: { type: "array" },
-              value_proposition: { type: "string" },
-              motivation: { type: "string" },
-              keywords_to_echo: { type: "array" },
-              application_context: { type: "string" },
-              interview_context: { type: "string" },
-            },
-            additionalProperties: true,
-          },
-        },
-        positioning_strategy: { type: "string" },
-        shared_tailoring_priorities: { type: "array" },
-        shared_keywords_to_echo: { type: "array" },
-      },
-      additionalProperties: true,
-    },
     experience: {
       type: "array",
     },

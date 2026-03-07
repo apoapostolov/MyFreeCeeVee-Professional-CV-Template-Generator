@@ -4,7 +4,7 @@ MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
 - template-based rendering (`cambridge-v1`, `stanford-v1`, `harvard-v1`, `europass-v1`, `edinburgh-v1`)
 - form + YAML editor workflows
 - AI scoring and keyword analysis surfaces
-- CV AI analysis that can factor in one or more target companies from the targeting section
+- CV AI analysis that can target a selected company from external companies metadata
 - PDF export pipeline for print-ready output
 
 ## 1.0.1 Release Scope
@@ -12,13 +12,14 @@ MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
 Version `1.0.1` is the current public release with a stable user-facing workflow:
 - Print Room (preview + export)
 - Editor (Form/YAML)
-- AI-only targeting profiles for one or more companies, including company-specific positioning notes
+- AI analysis targeting with metadata-source selection, multi-company checkbox selection, and inline Form/YAML metadata editing
 - Dynamic language variants in Editor (add language + optional AI translation)
 - Language sync modal in Editor (pick source/target language pair with timestamp visibility)
 - Keywords workspace (gap analysis and prioritization)
 - Theme support (light/dark/system + template themes)
 - Print Room photo customization modes (default/circle/square/original-ratio/off)
 - Public fictional sample profile (`John Doe`)
+- Tracked example company metadata plus an untracked personal company metadata file
 - Privacy hardening for local/private artifacts (personal CVs, local DB/snapshots, editor/runtime files) to keep them out of git by default
 
 ## Repository Layout

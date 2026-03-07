@@ -31,8 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Template gallery previews now apply the currently approved Photo Booth selection (if present) instead of showing empty placeholder photo regions.
 - Legacy stale uploads are now auto-migrated into `/photos`, and legacy browser-cached photo galleries are imported into `/photos` on load.
 - CV photo AI analysis guidance was upgraded with a stricter professional rubric (framing, lighting, expression, background, and print/export fitness).
-- Targeting profiles now use a company array as the source of truth, keeping industry, website, roles, priorities, keywords, motivation, and application context on each listed company.
-- CV AI analysis now uses `targeting.target_companies[]` when at least one target company is present, and ignores targeting cleanly when no valid company is listed.
+- CVs are now company-agnostic again; target-company metadata lives in dedicated companies JSON files instead of inside each CV.
+- Editor AI analysis now includes a `None`/company dropdown backed by external companies metadata, so section and full-CV scoring can be aimed at a chosen employer without mutating CV YAML.
+- AI targeting in Editor now works in two levels: choose metadata source first (`example` or `personal`), then select one or more companies with checkboxes, and edit that source inline in Form or YAML mode.
 
 ## [1.0.1] - 2026-03-07
 
@@ -65,7 +66,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Contact fields now support LinkedIn/GitHub values as full URL, short domain URL, or plain identifier (for example `in/name` or `username`), with compact display used across templates.
-- Editor now includes a dedicated **Targeting** section for AI-only company-array targeting data, without mixing in a separate base-company field.
 - Public sample CV id was simplified from numbered format to `cv_en_john_doe`, and all internal docs/references now point to the new id.
 - Language management in Editor is much smoother:
   - add new language variants from a modal
