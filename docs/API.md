@@ -90,6 +90,16 @@ Base path: `/api`
 }
 ```
 
+Optional cache controls:
+
+```json
+{
+  "imageIds": ["photo-id-1.jpg", "photo-id-2.jpg"],
+  "lookupOnly": true,
+  "forceNew": false
+}
+```
+
 ### Backward-compatible pair body (still accepted)
 
 ```json
@@ -106,6 +116,7 @@ Base path: `/api`
 ```json
 {
   "ok": true,
+  "cached": false,
   "comparison": {
     "criteria": [
       { "name": "Lighting & sharpness", "summary": "..." }
@@ -125,9 +136,16 @@ Base path: `/api`
     "recommendationDetails": ["..."],
     "analyzedAt": "2026-03-07T12:00:00.000Z",
     "model": "openai/gpt-4o-mini"
-  }
+  },
+  "history": []
 }
 ```
+
+### Cache behavior
+
+- Comparison results are persisted in `/photos/metadata.json` keyed by selected image id set.
+- `lookupOnly: true` returns cached comparison (if available) without generating a new AI call.
+- `forceNew: true` forces a new comparison and appends it to comparison history.
 
 ## 5) CV Variant + Language Operations
 

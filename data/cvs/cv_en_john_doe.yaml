@@ -37,16 +37,77 @@ positioning:
   role_applicability:
     - Builds reliable systems and clear delivery workflows across cross-functional teams.
 targeting:
-  target_company: Example Tech
-  company_details:
-    industry: software
-    website: https://exampletech.com
-  target_sector: software
-  target_functions:
-    - engineering
-    - product development
-  target_seniority: senior
-  interview_context: standard
+  target_companies:
+    - company_name: Example Tech
+      priority: 1
+      company_details:
+        industry: software
+        website: https://exampletech.com
+        headquarters: London, UK
+        company_size: 500-1000
+        business_model: B2B SaaS
+        products_or_domains:
+          - analytics platforms
+          - internal productivity tooling
+      target_roles:
+        - Senior Software Engineer
+        - Staff Software Engineer
+      target_functions:
+        - engineering
+        - platform
+        - product development
+      target_seniority: senior
+      tailoring_priorities:
+        - Emphasize measurable platform reliability and API performance gains.
+        - Highlight product-minded collaboration with design and product stakeholders.
+        - Show leadership through mentoring and architecture guidance without overselling people management.
+      value_proposition: Product-minded senior engineer who improves delivery speed and reliability for customer-facing SaaS teams.
+      motivation: Strong fit for a product-led SaaS team that values execution quality, developer productivity, and measurable user impact.
+      keywords_to_echo:
+        - platform reliability
+        - analytics
+        - developer productivity
+        - architecture
+      application_context: Direct application for backend or full-stack product engineering roles.
+    - company_name: Northstar Cloud
+      priority: 2
+      company_details:
+        industry: cloud infrastructure
+        website: https://northstarcloud.example.com
+        headquarters: Remote-first
+        company_size: 150-300
+        business_model: B2B platform
+        products_or_domains:
+          - developer infrastructure
+          - workflow automation
+      target_roles:
+        - Senior Full-Stack Engineer
+        - Technical Lead
+      target_functions:
+        - engineering
+        - developer experience
+      target_seniority: senior
+      tailoring_priorities:
+        - Bring out CI/CD improvements and internal tooling work.
+        - Stress cross-functional ownership and clear technical communication.
+        - Keep examples close to platform enablement and engineering effectiveness.
+      value_proposition: Senior engineer who turns product and workflow friction into reliable internal tools and faster release pipelines.
+      motivation: Good match for a smaller platform company where broad technical ownership and delivery discipline matter.
+      keywords_to_echo:
+        - CI/CD
+        - internal tools
+        - engineering effectiveness
+        - automation
+      application_context: Secondary target for a shared CV version aimed at platform-focused companies.
+  positioning_strategy: Position as a product-minded senior engineer who can operate across customer-facing delivery and internal platform improvements.
+  shared_tailoring_priorities:
+    - Keep quantified business impact visible in the summary and experience bullets.
+    - Prioritize platform reliability, release speed, and cross-functional execution language.
+    - Preserve a strong individual-contributor narrative with light technical leadership signals.
+  shared_keywords_to_echo:
+    - scalable systems
+    - product delivery
+    - cross-functional collaboration
 experience:
   - id: exp_exampletech_senior_engineer
     employer: ExampleTech Inc.

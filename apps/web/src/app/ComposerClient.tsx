@@ -390,6 +390,8 @@ type PhotoBoothCompareResponse = {
   status?: number;
   raw?: string;
   comparison?: PhotoComparisonAnalysis;
+  history?: PhotoComparisonAnalysis[];
+  cached?: boolean;
 };
 
 type PhotoBoothListResponse = {
@@ -536,14 +538,74 @@ const FIELD_META: Record<string, FieldMeta> = {
         "Контекст за AI насочване към компания за анализ и съвети. Не се визуализира в CV.",
     },
   },
-  "targeting.target_company": {
+  "targeting.target_companies": {
     en: {
-      label: "Target Company",
-      description: "Company name used by AI for role-positioning recommendations.",
+      label: "Target Companies",
+      description: "One or more company-specific targeting profiles for AI positioning and tailoring advice.",
     },
     bg: {
-      label: "Целева компания",
-      description: "Име на компания за AI препоръки за позициониране.",
+      label: "Целеви компании",
+      description: "Един или повече профили за таргетиране към компании за AI позициониране и насоки.",
+    },
+  },
+  "targeting.target_companies[].company_name": {
+    en: {
+      label: "Company Name",
+      description: "Employer name for this targeting profile.",
+    },
+    bg: {
+      label: "Име на компания",
+      description: "Име на работодателя за този профил на таргетиране.",
+    },
+  },
+  "targeting.target_companies[].target_roles": {
+    en: {
+      label: "Target Roles",
+      description: "Specific job titles to optimize this CV variant toward.",
+    },
+    bg: {
+      label: "Целеви роли",
+      description: "Конкретни длъжности, към които да се оптимизира този вариант на CV.",
+    },
+  },
+  "targeting.target_companies[].tailoring_priorities": {
+    en: {
+      label: "Tailoring Priorities",
+      description: "What the CV should emphasize for this company.",
+    },
+    bg: {
+      label: "Приоритети за адаптиране",
+      description: "Какво трябва да подчертае CV-то за тази компания.",
+    },
+  },
+  "targeting.target_companies[].value_proposition": {
+    en: {
+      label: "Value Proposition",
+      description: "Short statement describing why the candidate fits this company.",
+    },
+    bg: {
+      label: "Стойностно предложение",
+      description: "Кратко описание защо кандидатът пасва на тази компания.",
+    },
+  },
+  "targeting.positioning_strategy": {
+    en: {
+      label: "Positioning Strategy",
+      description: "Shared positioning angle that should remain consistent across target companies.",
+    },
+    bg: {
+      label: "Стратегия за позициониране",
+      description: "Общ ъгъл на позициониране, който трябва да остане последователен за всички компании.",
+    },
+  },
+  "targeting.shared_tailoring_priorities": {
+    en: {
+      label: "Shared Tailoring Priorities",
+      description: "Cross-company points that should be emphasized in all tailored variants.",
+    },
+    bg: {
+      label: "Общи приоритети за адаптиране",
+      description: "Общи акценти, които трябва да присъстват във всички адаптирани варианти.",
     },
   },
   "positioning.profile_summary": {
@@ -699,6 +761,34 @@ function defaultFromSample(sample: unknown): unknown {
   return "";
 }
 
+const ARRAY_ITEM_TEMPLATES: Record<string, unknown> = {
+  "targeting.target_companies": {
+    company_name: "",
+    priority: 1,
+    company_details: {
+      industry: "",
+      website: "",
+      headquarters: "",
+      company_size: "",
+      business_model: "",
+      products_or_domains: [],
+    },
+    target_roles: [],
+    target_functions: [],
+    target_seniority: "",
+    tailoring_priorities: [],
+    value_proposition: "",
+    motivation: "",
+    keywords_to_echo: [],
+    application_context: "",
+    interview_context: "",
+  },
+};
+
+function defaultArrayEntry(pathLabel: string, sample: unknown): unknown {
+  return cloneValue(ARRAY_ITEM_TEMPLATES[normalizeMetaPath(pathLabel)] ?? defaultFromSample(sample));
+}
+
 function setAtPath(root: unknown, path: PathSegment[], value: unknown): unknown {
   if (path.length === 0) {
     return value;
@@ -761,6 +851,13 @@ function classifyVerdict(score: number): PhotoBoothAnalysis["verdict"] {
   return "weak";
 }
 
+function photoVerdictPillClass(verdict: PhotoBoothAnalysis["verdict"]): string {
+  if (verdict === "excellent") return "border-emerald-300 bg-emerald-100 text-emerald-900";
+  if (verdict === "good") return "border-sky-300 bg-sky-100 text-sky-900";
+  if (verdict === "usable") return "border-amber-300 bg-amber-100 text-amber-900";
+  return "border-rose-300 bg-rose-100 text-rose-900";
+}
+
 async function dataUrlToFile(
   dataUrl: string,
   name: string,
@@ -793,6 +890,7 @@ export function ComposerClient() {
   const [photoBoothCompareIds, setPhotoBoothCompareIds] = useState<string[]>([]);
   const [photoBoothCompareLoading, setPhotoBoothCompareLoading] = useState(false);
   const [photoBoothComparison, setPhotoBoothComparison] = useState<PhotoComparisonAnalysis | null>(null);
+  const [photoBoothComparisonHistory, setPhotoBoothComparisonHistory] = useState<PhotoComparisonAnalysis[]>([]);
   const [photoBoothDeleteConfirmId, setPhotoBoothDeleteConfirmId] = useState("");
   const photoBoothInputRef = useRef<HTMLInputElement | null>(null);
   const [previewNonce, setPreviewNonce] = useState(Date.now());
@@ -1264,6 +1362,51 @@ export function ComposerClient() {
   useEffect(() => {
     setPhotoBoothCompareIds((current) => current.filter((id) => photoBoothItems.some((item) => item.id === id)));
   }, [photoBoothItems]);
+
+  useEffect(() => {
+    if (photoBoothCompareIds.length < 2) {
+      setPhotoBoothComparison(null);
+      setPhotoBoothComparisonHistory([]);
+      return;
+    }
+    let cancelled = false;
+    async function loadCachedComparison(): Promise<void> {
+      try {
+        const freshGalleryResponse = await fetch("/api/photos");
+        const freshGalleryPayload = (await freshGalleryResponse.json()) as PhotoBoothListResponse;
+        if (!freshGalleryResponse.ok || !freshGalleryPayload.ok) {
+          return;
+        }
+        const freshItems = Array.isArray(freshGalleryPayload.items) ? freshGalleryPayload.items : [];
+        const selectedItems = photoBoothCompareIds
+          .map((id) => freshItems.find((item) => item.id === id) ?? null)
+          .filter((entry): entry is PhotoBoothItem => entry !== null);
+        if (selectedItems.length < 2 || cancelled) return;
+        const response = await fetch("/api/analysis/photo/compare", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            lookupOnly: true,
+            imageIds: selectedItems.map((item) => item.id),
+            images: selectedItems.map((item) => ({
+              name: item.name,
+              imageDataUrl: item.dataUrl,
+            })),
+          }),
+        });
+        const payload = (await response.json()) as PhotoBoothCompareResponse;
+        if (!response.ok || !payload.ok || cancelled) return;
+        setPhotoBoothComparison(payload.comparison ?? null);
+        setPhotoBoothComparisonHistory(Array.isArray(payload.history) ? payload.history : []);
+      } catch {
+        // no-op
+      }
+    }
+    void loadCachedComparison();
+    return () => {
+      cancelled = true;
+    };
+  }, [photoBoothCompareIds]);
 
   useEffect(() => {
     if (selectedTemplateThemeOptions.length === 0) {
@@ -1799,7 +1942,7 @@ export function ComposerClient() {
 
   function addArrayEntry(path: PathSegment[], sample: unknown) {
     setSectionDraft((current: unknown) => {
-      const next = appendToArrayAtPath(current, path, defaultFromSample(sample));
+      const next = appendToArrayAtPath(current, path, sample);
       setYamlDraft(stringifyYaml(next ?? {}));
       return next;
     });
@@ -2818,6 +2961,7 @@ export function ComposerClient() {
     }
     setPhotoBoothCompareIds((current) => current.filter((entry) => entry !== id));
     setPhotoBoothComparison(null);
+    setPhotoBoothComparisonHistory([]);
     setPhotoBoothNotice("Photo deleted from /photos.");
   }
 
@@ -2828,7 +2972,6 @@ export function ComposerClient() {
       }
       return [...current, id];
     });
-    setPhotoBoothComparison(null);
   }
 
   async function analyzePhotoBoothItem(id: string): Promise<void> {
@@ -2937,6 +3080,8 @@ export function ComposerClient() {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          forceNew: true,
+          imageIds: selectedItems.map((item) => item.id),
           images: selectedItems.map((item) => ({
             name: item.name,
             imageDataUrl: item.dataUrl,
@@ -2953,6 +3098,7 @@ export function ComposerClient() {
         throw new Error(message);
       }
       setPhotoBoothComparison(payload.comparison);
+      setPhotoBoothComparisonHistory(Array.isArray(payload.history) ? payload.history : [payload.comparison]);
       setPhotoBoothNotice("AI comparison completed.");
     } catch (error) {
       setPhotoBoothNotice(error instanceof Error ? error.message : "Photo comparison failed.");
@@ -2994,7 +3140,7 @@ export function ComposerClient() {
               <button
                 aria-label={selectedLanguage === "bg" ? "Добави елемент" : "Add item"}
                 className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
-                onClick={() => addArrayEntry(path, node[0])}
+                onClick={() => addArrayEntry(path, defaultArrayEntry(pathLabel, node[0]))}
                 title={selectedLanguage === "bg" ? "Добави елемент" : "Add item"}
                 type="button"
               >
@@ -3937,6 +4083,13 @@ export function ComposerClient() {
                     >
                       <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-slate-100">
                         <Image alt={item.name} className="h-full w-full object-cover" fill src={item.dataUrl} unoptimized />
+                        {item.analysis?.verdict ? (
+                          <span
+                            className={`absolute right-1 top-1 z-10 inline-flex items-center rounded-full border px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.06em] ${photoVerdictPillClass(item.analysis.verdict)}`}
+                          >
+                            {item.analysis.verdict}
+                          </span>
+                        ) : null}
                         <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-1 bg-gradient-to-t from-black/75 to-black/0 p-1.5">
                           <button
                             className={`inline-flex h-7 w-7 items-center justify-center rounded-md border ${
@@ -4184,6 +4337,21 @@ export function ComposerClient() {
                       <li key={`compare-recommend-${index}`}>{entry}</li>
                     ))}
                   </ul>
+                ) : null}
+                {photoBoothComparisonHistory.length > 1 ? (
+                  <div className="rounded-md bg-white p-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--ink-muted)]">
+                      Comparison History
+                    </p>
+                    <ul className="mt-1 space-y-1 text-[11px] text-slate-700">
+                      {photoBoothComparisonHistory.slice(0, 6).map((entry, index) => (
+                        <li key={`compare-history-${index}`} className="flex items-center justify-between gap-2 rounded-md border border-[var(--line)] px-2 py-1">
+                          <span>{new Date(entry.analyzedAt).toLocaleString()}</span>
+                          <span className="font-semibold">{entry.winnerName || "N/A"}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ) : null}
               </div>
             ) : (

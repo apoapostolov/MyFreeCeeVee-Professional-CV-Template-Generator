@@ -16,11 +16,28 @@ schema:
 person:
 positioning:
 targeting:
-  # new fields for AI advice
-  target_company: string
-  company_details:
-    industry?: string
-    website?: string
+  target_companies?:
+    - company_name: string
+      priority?: number
+      company_details?:
+        industry?: string
+        website?: string
+        headquarters?: string
+        company_size?: string
+        business_model?: string
+        products_or_domains?: string[]
+      target_roles?: string[]
+      target_functions?: string[]
+      target_seniority?: string
+      tailoring_priorities?: string[]
+      value_proposition?: string
+      motivation?: string
+      keywords_to_echo?: string[]
+      application_context?: string
+      interview_context?: string
+  positioning_strategy?: string
+  shared_tailoring_priorities?: string[]
+  shared_keywords_to_echo?: string[]
 experience:
 education:
 skills:
@@ -41,10 +58,10 @@ metadata:
 - `metadata.updated_at`
 - `metadata.language` (`bg` or `en`)
 
-> _New optional targeting fields:_ `targeting.target_company` and
-> `targeting.company_details` can be supplied to describe the intended
-> employer. This information is used by helper AI tools to generate
-> positioning advice.
+> _Targeting model:_ use `targeting.target_companies[]` as the source of truth.
+> Company-specific metadata such as industry, website, roles, functions,
+> seniority, and application context should live inside each company entry.
+> Shared strategy fields can still be used for cross-company positioning.
 
 ## Validation Rules
 

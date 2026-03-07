@@ -11,6 +11,7 @@ MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
 Version `1.0.1` is the current public release with a stable user-facing workflow:
 - Print Room (preview + export)
 - Editor (Form/YAML)
+- AI-only targeting profiles for one or more companies, including company-specific positioning notes
 - Dynamic language variants in Editor (add language + optional AI translation)
 - Language sync modal in Editor (pick source/target language pair with timestamp visibility)
 - Keywords workspace (gap analysis and prioritization)

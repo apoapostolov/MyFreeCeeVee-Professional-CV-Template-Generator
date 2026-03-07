@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Photo Booth now stores per-image AI analysis history on the server (`/photos/metadata.json`) and restores the latest analysis across reloads.
 - New multi-image AI comparison workflow in Photo Booth (2+ selected images) with ranked results and detailed cross-image scoring feedback.
 - New MCP wrapper package (`@muhfweeceevee/mcp-wrapper`) exposing key CV/template/keywords/photo/OpenRouter API operations as MCP tools over stdio, with setup guide in `mcp.md`.
+- Photo Booth comparison results are now persisted in metadata and auto-restored when the same image set is selected again; a manual compare request creates a fresh result and keeps history.
 
 ### Changed
 
@@ -30,12 +31,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Template gallery previews now apply the currently approved Photo Booth selection (if present) instead of showing empty placeholder photo regions.
 - Legacy stale uploads are now auto-migrated into `/photos`, and legacy browser-cached photo galleries are imported into `/photos` on load.
 - CV photo AI analysis guidance was upgraded with a stricter professional rubric (framing, lighting, expression, background, and print/export fitness).
+- Targeting profiles now use a company array as the source of truth, keeping industry, website, roles, priorities, keywords, motivation, and application context on each listed company.
 
 ## [1.0.1] - 2026-03-07
 
 ### Added
 
-- New schema `targeting.company_details` object to describe the intended employer (industry, website, etc.); useful for AI positioning advice.
 - New modern templates in the gallery:
   - **Cambridge 1.0** with a full-width blue CV header, clean date-column timeline structure, dot-rated language/skills blocks, and formal UK-style layout balance
   - **Harvard 1.0** with a bold sidebar, timeline-style sections, and star-based language/skills scoring
@@ -63,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Contact fields now support LinkedIn/GitHub values as full URL, short domain URL, or plain identifier (for example `in/name` or `username`), with compact display used across templates.
-- Editor now includes a dedicated **Targeting** section with full field editing, including `target_company`, while keeping this data AI-only and excluded from rendered CV output.
+- Editor now includes a dedicated **Targeting** section for AI-only company-array targeting data, without mixing in a separate base-company field.
 - Public sample CV id was simplified from numbered format to `cv_en_john_doe`, and all internal docs/references now point to the new id.
 - Language management in Editor is much smoother:
   - add new language variants from a modal

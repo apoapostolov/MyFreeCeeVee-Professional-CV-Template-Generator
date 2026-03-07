@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 
+import { appendPhotoComparison, getPhotoComparisonHistory } from "@/lib/server/photoAnalysisStore";
 import { readOpenRouterSettings } from "@/lib/server/openRouterSettings";
 
 export const runtime = "nodejs";
 
 type CompareRequest = {
   images?: unknown;
+  imageIds?: unknown;
+  lookupOnly?: unknown;
+  forceNew?: unknown;
   leftImageDataUrl?: unknown;
   rightImageDataUrl?: unknown;
   leftName?: unknown;
@@ -135,7 +139,12 @@ function normalizeCompare(raw: unknown, model: string): CompareAnalysis {
 
 export async function POST(request: Request): Promise<NextResponse> {
   const payload = (await request.json()) as CompareRequest;
+  const lookupOnly = payload.lookupOnly === true;
+  const forceNew = payload.forceNew === true;
   const imagesRaw = Array.isArray(payload.images) ? payload.images : [];
+  const imageIds = Array.isArray(payload.imageIds)
+    ? payload.imageIds.map((id) => String(id ?? "").trim()).filter(Boolean)
+    : [];
   const normalizedImages = imagesRaw
     .map((entry, index) => {
       const item =
@@ -180,6 +189,17 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   if (normalizedImages.length < 2) {
     return NextResponse.json({ error: "Provide at least 2 valid images." }, { status: 400 });
+  }
+
+  if (imageIds.length >= 2 && !forceNew) {
+    const cachedHistory = await getPhotoComparisonHistory(imageIds);
+    if (cachedHistory.length > 0) {
+      return NextResponse.json({ ok: true, comparison: cachedHistory[0], history: cachedHistory, cached: true });
+    }
+  }
+
+  if (lookupOnly) {
+    return NextResponse.json({ ok: true, comparison: null, history: [], cached: false });
   }
 
   const settings = await readOpenRouterSettings();
@@ -240,5 +260,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   const content = data.choices?.[0]?.message?.content ?? "";
   const parsed = extractFirstJsonBlock(content);
   const comparison = normalizeCompare(parsed, model);
-  return NextResponse.json({ ok: true, comparison });
+  let history = [comparison];
+  if (imageIds.length >= 2) {
+    history = await appendPhotoComparison(imageIds, comparison);
+  }
+  return NextResponse.json({ ok: true, comparison, history, cached: false });
 }
