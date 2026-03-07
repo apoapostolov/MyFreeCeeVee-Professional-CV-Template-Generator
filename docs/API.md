@@ -174,6 +174,28 @@ Optional cache controls:
 - `GET|POST /analysis/keywords/manage`
   - management stats and collection-run lifecycle/progress
 
+## 8) CV AI Analysis
+
+- `POST /analysis/cv`
+
+### Request body
+
+```json
+{
+  "cvId": "cv_en_john_doe",
+  "templateId": "cambridge-v1",
+  "scope": "section",
+  "sectionKey": "positioning"
+}
+```
+
+### Notes
+
+- Both section and full-CV analysis now consume `targeting.target_companies[]`
+  when at least one valid company entry is present.
+- If `targeting.target_companies[]` is missing or contains no valid company
+  names, targeting is ignored and the analysis falls back to generic CV advice.
+
 ## Stability
 
 - These APIs are internal app APIs used by the web UI.

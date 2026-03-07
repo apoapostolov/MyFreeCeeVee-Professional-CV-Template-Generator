@@ -4,6 +4,7 @@ MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
 - template-based rendering (`cambridge-v1`, `stanford-v1`, `harvard-v1`, `europass-v1`, `edinburgh-v1`)
 - form + YAML editor workflows
 - AI scoring and keyword analysis surfaces
+- CV AI analysis that can factor in one or more target companies from the targeting section
 - PDF export pipeline for print-ready output
 
 ## 1.0.1 Release Scope

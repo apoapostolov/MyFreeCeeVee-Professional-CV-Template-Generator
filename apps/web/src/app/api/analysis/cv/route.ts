@@ -12,6 +12,21 @@ type ScoreRequest = {
   sectionKey?: unknown;
 };
 
+type TargetCompanyContext = {
+  company_name: string;
+  priority?: number;
+  company_details?: Record<string, unknown>;
+  target_roles?: unknown[];
+  target_functions?: unknown[];
+  target_seniority?: string;
+  tailoring_priorities?: unknown[];
+  value_proposition?: string;
+  motivation?: string;
+  keywords_to_echo?: unknown[];
+  application_context?: string;
+  interview_context?: string;
+};
+
 function asRecord(input: unknown): Record<string, unknown> | null {
   if (!input || typeof input !== "object" || Array.isArray(input)) {
     return null;
@@ -62,6 +77,74 @@ function extractFirstJsonBlock(input: string): unknown {
   };
 }
 
+function getTargetCompanyContext(cv: Record<string, unknown>): {
+  enabled: boolean;
+  companies: TargetCompanyContext[];
+  summary: string;
+} {
+  const targeting = asRecord(cv.targeting);
+  const rawCompanies = Array.isArray(targeting?.target_companies)
+    ? targeting.target_companies
+    : [];
+
+  const companies: TargetCompanyContext[] = [];
+  for (const rawEntry of rawCompanies) {
+    const entry = asRecord(rawEntry);
+    if (!entry) {
+      continue;
+    }
+    const name = typeof entry.company_name === "string" ? entry.company_name.trim() : "";
+    if (!name) {
+      continue;
+    }
+    companies.push({
+        company_name: name,
+        priority: typeof entry.priority === "number" ? entry.priority : undefined,
+        company_details: asRecord(entry.company_details) ?? undefined,
+        target_roles: Array.isArray(entry.target_roles) ? entry.target_roles : undefined,
+        target_functions: Array.isArray(entry.target_functions) ? entry.target_functions : undefined,
+        target_seniority:
+          typeof entry.target_seniority === "string" && entry.target_seniority.trim().length > 0
+            ? entry.target_seniority.trim()
+            : undefined,
+        tailoring_priorities: Array.isArray(entry.tailoring_priorities) ? entry.tailoring_priorities : undefined,
+        value_proposition:
+          typeof entry.value_proposition === "string" && entry.value_proposition.trim().length > 0
+            ? entry.value_proposition.trim()
+            : undefined,
+        motivation:
+          typeof entry.motivation === "string" && entry.motivation.trim().length > 0
+            ? entry.motivation.trim()
+            : undefined,
+        keywords_to_echo: Array.isArray(entry.keywords_to_echo) ? entry.keywords_to_echo : undefined,
+        application_context:
+          typeof entry.application_context === "string" && entry.application_context.trim().length > 0
+            ? entry.application_context.trim()
+            : undefined,
+        interview_context:
+          typeof entry.interview_context === "string" && entry.interview_context.trim().length > 0
+            ? entry.interview_context.trim()
+            : undefined,
+      });
+  }
+
+  if (companies.length === 0) {
+    return {
+      enabled: false,
+      companies: [],
+      summary:
+        "Targeting context is unavailable because targeting.target_companies does not contain at least one valid company entry. Ignore targeting and provide generic CV analysis.",
+    };
+  }
+
+  return {
+    enabled: true,
+    companies,
+    summary:
+      "Use targeting context to judge relevance and rewrite advice against the listed target companies. When feedback conflicts across companies, prefer actions that strengthen the highest-priority company without hurting the others.",
+  };
+}
+
 function buildPrompt(
   scope: "full" | "section",
   templateId: string,
@@ -69,6 +152,7 @@ function buildPrompt(
   sectionKey: string,
   sectionValue: unknown,
 ): string {
+  const targetingContext = getTargetCompanyContext(cv);
   const rubric = [
     "Use this weighted rubric (total 100):",
     "- timeline_integrity_consistency: 25",
@@ -85,12 +169,16 @@ function buildPrompt(
     "- Reward ATS-safe structure (clear headings, consistent chronology, parse-friendly bullets).",
     "- Penalize invented claims: if evidence is missing, state uncertainty explicitly.",
     "- Keep recommendations interview-safe and realistic (no fabricated metrics).",
+    targetingContext.enabled
+      ? "- Relevance scoring and rewrite advice must account for the listed target companies in targeting.target_companies."
+      : "- Ignore targeting because targeting.target_companies has no valid company entries.",
   ].join("\n");
 
   if (scope === "section") {
     return [
       "You are a senior CV reviewer and recruiter-screening analyst.",
       "Analyze only the requested CV section while considering full CV context.",
+      targetingContext.summary,
       rubric,
       "Output schema:",
       "{",
@@ -116,6 +204,7 @@ function buildPrompt(
       "Return STRICT JSON only. No markdown. No prose outside JSON.",
       `Template: ${templateId}`,
       `Section key: ${sectionKey}`,
+      `Target companies JSON:\n${JSON.stringify(targetingContext.companies, null, 2)}`,
       `Section payload JSON:\n${JSON.stringify(sectionValue ?? {}, null, 2)}`,
       `Full CV context JSON:\n${JSON.stringify(cv, null, 2)}`,
     ].join("\n");
@@ -124,6 +213,7 @@ function buildPrompt(
   return [
     "You are a senior CV reviewer and recruiter-screening analyst.",
     "Analyze the whole CV and return strict JSON with weighted scoring and prioritized fixes.",
+    targetingContext.summary,
     rubric,
     "Output schema:",
     "{",
@@ -157,6 +247,7 @@ function buildPrompt(
     "}",
     "Return STRICT JSON only. No markdown. No prose outside JSON.",
     `Template: ${templateId}`,
+    `Target companies JSON:\n${JSON.stringify(targetingContext.companies, null, 2)}`,
     `CV JSON:\n${JSON.stringify(cv, null, 2)}`,
   ].join("\n");
 }

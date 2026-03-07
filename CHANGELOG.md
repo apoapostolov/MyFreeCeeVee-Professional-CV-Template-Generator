@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Legacy stale uploads are now auto-migrated into `/photos`, and legacy browser-cached photo galleries are imported into `/photos` on load.
 - CV photo AI analysis guidance was upgraded with a stricter professional rubric (framing, lighting, expression, background, and print/export fitness).
 - Targeting profiles now use a company array as the source of truth, keeping industry, website, roles, priorities, keywords, motivation, and application context on each listed company.
+- CV AI analysis now uses `targeting.target_companies[]` when at least one target company is present, and ignores targeting cleanly when no valid company is listed.
 
 ## [1.0.1] - 2026-03-07
 
