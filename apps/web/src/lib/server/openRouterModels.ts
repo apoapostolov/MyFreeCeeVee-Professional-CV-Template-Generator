@@ -13,6 +13,7 @@ export type OpenRouterModelOption = {
   completionPricePer1M: number | null;
   mixedPricePer1M: number | null;
   isFree: boolean;
+  supportsImageGeneration: boolean;
 };
 
 type ModelCacheFile = {
@@ -65,6 +66,7 @@ async function readModelCache(): Promise<ModelCacheFile | null> {
               completionPricePer1M: parseNumberish(model.completionPricePer1M),
               mixedPricePer1M: parseNumberish(model.mixedPricePer1M),
               isFree: Boolean(model.isFree),
+              supportsImageGeneration: Boolean(model.supportsImageGeneration),
             } satisfies OpenRouterModelOption;
           })
           .filter((item): item is OpenRouterModelOption => Boolean(item))
@@ -110,7 +112,7 @@ async function fetchModelsFromOpenRouter(apiKey?: string): Promise<OpenRouterMod
     throw new Error(`OpenRouter models request failed (${response.status}).`);
   }
   const payload = (await response.json()) as {
-    data?: Array<{
+    data?: Array<Record<string, unknown> & {
       id?: string;
       name?: string;
       context_length?: number;
@@ -122,6 +124,36 @@ async function fetchModelsFromOpenRouter(apiKey?: string): Promise<OpenRouterMod
       };
     }>;
   };
+
+  function asStringArray(value: unknown): string[] {
+    if (!Array.isArray(value)) return [];
+    return value.map((entry) => String(entry ?? "").trim().toLowerCase()).filter(Boolean);
+  }
+
+  function supportsImageGenerationFromModel(item: Record<string, unknown>): boolean {
+    const directOutputModalities = asStringArray(item.output_modalities);
+    if (directOutputModalities.includes("image")) return true;
+
+    const architecture = item.architecture;
+    if (architecture && typeof architecture === "object" && !Array.isArray(architecture)) {
+      const architectureRecord = architecture as Record<string, unknown>;
+      const outputModalities = asStringArray(
+        architectureRecord.output_modalities ?? architectureRecord.modalities_out,
+      );
+      if (outputModalities.includes("image")) return true;
+      const modality = String(architectureRecord.modality ?? "").toLowerCase();
+      if (modality.includes("image->image") || modality.includes("text->image")) return true;
+    }
+
+    const endpoints = asStringArray(item.endpoints);
+    if (endpoints.some((endpoint) => endpoint.includes("image"))) return true;
+
+    const supportedGenerationTypes = asStringArray(item.supported_generation_types);
+    if (supportedGenerationTypes.includes("image")) return true;
+
+    const id = String(item.id ?? "").toLowerCase();
+    return id.includes("image") && !id.includes("vision");
+  }
 
   const models = (payload.data ?? [])
     .map((item) => {
@@ -149,6 +181,7 @@ async function fetchModelsFromOpenRouter(apiKey?: string): Promise<OpenRouterMod
         completionPricePer1M,
         mixedPricePer1M,
         isFree,
+        supportsImageGeneration: supportsImageGenerationFromModel(item),
       } satisfies OpenRouterModelOption;
     })
     .filter((item): item is OpenRouterModelOption => Boolean(item))

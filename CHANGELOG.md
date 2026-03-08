@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New multi-image AI comparison workflow in Photo Booth (2+ selected images) with ranked results and detailed cross-image scoring feedback.
 - New MCP wrapper package (`@muhfweeceevee/mcp-wrapper`) exposing key CV/template/keywords/photo/OpenRouter API operations as MCP tools over stdio, with setup guide in `mcp.md`.
 - Photo Booth comparison results are now persisted in metadata and auto-restored when the same image set is selected again; a manual compare request creates a fresh result and keeps history.
+- New `Settings` tab (right-aligned at the end of the tab row) that now hosts OpenRouter configuration and credit status.
 
 ### Changed
 
@@ -34,6 +35,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CVs are now company-agnostic again; target-company metadata lives in dedicated companies JSON files instead of inside each CV.
 - Editor AI analysis now includes a `None`/company dropdown backed by external companies metadata, so section and full-CV scoring can be aimed at a chosen employer without mutating CV YAML.
 - AI targeting in Editor now works in two levels: choose metadata source first (`example` or `personal`), then select one or more companies with checkboxes, and edit that source inline in Form or YAML mode.
+- OpenRouter login/configuration controls were moved out of Editor into the dedicated `Settings` tab.
+- `Settings` tab button now shows OpenRouter state with icon feedback (`not configured`, `configured`, `error`) plus remaining credit summary.
+- In OpenRouter settings, `Model` is now labeled as `Analysis Model`.
+- Analysis-model dropdown entries no longer include per-check estimate text; per-check estimates are now shown in a dedicated cost section.
+- Settings now shows approximate per-check costs for CV AI analysis, single-image photo analysis, and 2-image photo comparison.
+- Settings now includes an `Image Generation Model` selector filtered to models that advertise image-generation support (future-facing; not used in runtime flows yet).
 
 ## [1.0.1] - 2026-03-07
 

@@ -42,6 +42,7 @@ type OpenRouterSettingsResponse = {
     completionPricePer1M: number | null;
     mixedPricePer1M: number | null;
     isFree: boolean;
+    supportsImageGeneration: boolean;
   }>;
   modelsFetchedAt?: string;
   modelsFromCache?: boolean;
@@ -91,7 +92,7 @@ type SyncStatusResponse = {
   }>;
 };
 
-type ActivePanel = "workspace" | "templates" | "editor" | "keywords" | "photo_booth";
+type ActivePanel = "workspace" | "templates" | "editor" | "keywords" | "photo_booth" | "settings";
 type EditorViewMode = "form" | "yaml";
 type ThemeMode = "light" | "dark" | "system";
 type CompanySource = "example" | "personal";
@@ -499,6 +500,7 @@ const STORAGE_KEYS = {
   selectedTemplateTheme: "mfcv_selected_template_theme",
   selectedPhotoMode: "mfcv_selected_photo_mode",
   approvedPhotoId: "mfcv_photo_booth_approved_id",
+  imageGenerationModel: "mfcv_image_generation_model",
 } as const;
 const LEGACY_PHOTO_STORAGE_KEYS = [
   "mfcv_photo_booth_gallery_v1",
@@ -855,6 +857,7 @@ export function ComposerClient() {
   const [creditStatus, setCreditStatus] = useState<OpenRouterCreditResponse | null>(null);
   const [apiKeyInput, setApiKeyInput] = useState("");
   const [modelInput, setModelInput] = useState("openai/gpt-4o-mini");
+  const [imageGenerationModelInput, setImageGenerationModelInput] = useState("");
   const [baseUrlInput, setBaseUrlInput] = useState("https://openrouter.ai/api/v1/chat/completions");
   const [modelOptions, setModelOptions] = useState<
     Array<{
@@ -865,6 +868,7 @@ export function ComposerClient() {
       completionPricePer1M: number | null;
       mixedPricePer1M: number | null;
       isFree: boolean;
+      supportsImageGeneration: boolean;
     }>
   >([]);
 
@@ -1061,6 +1065,30 @@ export function ComposerClient() {
     );
   }
 
+  function SettingsStatusIcon({ state }: { state: "not_configured" | "configured" | "error" }): JSX.Element {
+    if (state === "configured") {
+      return (
+        <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 24 24">
+          <path d="M5 12.5 9.3 17 19 7.8" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.1" />
+        </svg>
+      );
+    }
+    if (state === "error") {
+      return (
+        <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M12 7.5v6.2M12 17.6h.01" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
+        </svg>
+      );
+    }
+    return (
+      <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M8.8 8.8 15.2 15.2M15.2 8.8 8.8 15.2" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
+      </svg>
+    );
+  }
+
   function modelOptionLabel(model: {
     id: string;
     name: string;
@@ -1070,19 +1098,27 @@ export function ComposerClient() {
     isFree: boolean;
   }): string {
     const mixed = model.mixedPricePer1M ?? model.promptPricePer1M ?? model.completionPricePer1M;
-    const overhead = 1.2;
-    const inputTokensWithOverhead = cvSizeTokenEstimate * overhead;
-    const outputTokensWithOverhead = fullCvOutputTokenEstimate * overhead;
-    const promptPrice = model.promptPricePer1M ?? mixed;
-    const completionPrice = model.completionPricePer1M ?? mixed;
-    const estimatedCost =
-      promptPrice !== null && completionPrice !== null
-        ? (inputTokensWithOverhead / 1_000_000) * promptPrice + (outputTokensWithOverhead / 1_000_000) * completionPrice
-        : null;
     const labelName = model.name || model.id;
     const mixedLabel = model.isFree ? "FREE" : mixed !== null ? `avg ${formatUsd(mixed)}/1M` : "avg N/A";
-    const estimatedLabel = model.isFree ? "est $0.00/check" : estimatedCost !== null ? `est ${formatUsd(estimatedCost)}/check` : "est N/A";
-    return `${labelName}${model.isFree ? " FREE" : ""} • ${mixedLabel} • ${estimatedLabel}`;
+    return `${labelName}${model.isFree ? " FREE" : ""} • ${mixedLabel}`;
+  }
+
+  function estimateOpenRouterCost(
+    model: {
+      promptPricePer1M: number | null;
+      completionPricePer1M: number | null;
+      mixedPricePer1M: number | null;
+      isFree: boolean;
+    } | null,
+    inputTokens: number,
+    outputTokens: number,
+  ): number | null {
+    if (!model) return null;
+    if (model.isFree) return 0;
+    const promptPrice = model.promptPricePer1M ?? model.mixedPricePer1M;
+    const completionPrice = model.completionPricePer1M ?? model.mixedPricePer1M;
+    if (promptPrice === null || completionPrice === null) return null;
+    return (inputTokens / 1_000_000) * promptPrice + (outputTokens / 1_000_000) * completionPrice;
   }
 
   const orderedTemplateItems = useMemo(() => {
@@ -1179,6 +1215,47 @@ export function ComposerClient() {
     () => analysisCompanies.filter((company) => (company.source ?? "example") === analysisCompanySource),
     [analysisCompanies, analysisCompanySource],
   );
+
+  const selectedAnalysisModelOption = useMemo(
+    () => modelOptions.find((item) => item.id === modelInput) ?? null,
+    [modelOptions, modelInput],
+  );
+
+  const imageGenerationModelOptions = useMemo(
+    () => modelOptions.filter((item) => item.supportsImageGeneration),
+    [modelOptions],
+  );
+
+  const selectedImageGenerationModelOption = useMemo(
+    () => imageGenerationModelOptions.find((item) => item.id === imageGenerationModelInput) ?? null,
+    [imageGenerationModelInput, imageGenerationModelOptions],
+  );
+
+  const analysisCostEstimate = useMemo(() => {
+    const overhead = 1.4;
+    const analysisInputTokens = Math.round((cvSizeTokenEstimate + 1100) * overhead);
+    const analysisOutputTokens = Math.round(fullCvOutputTokenEstimate * overhead);
+    const photoAnalysisInputTokens = Math.round((850 + 1100) * overhead);
+    const photoAnalysisOutputTokens = Math.round(420 * overhead);
+    const photoComparisonInputTokens = Math.round((950 + (1100 * 2)) * overhead);
+    const photoComparisonOutputTokens = Math.round(900 * overhead);
+    return {
+      overhead,
+      analysisInputTokens,
+      analysisOutputTokens,
+      photoAnalysisInputTokens,
+      photoAnalysisOutputTokens,
+      photoComparisonInputTokens,
+      photoComparisonOutputTokens,
+      analysisCost: estimateOpenRouterCost(selectedAnalysisModelOption, analysisInputTokens, analysisOutputTokens),
+      photoAnalysisCost: estimateOpenRouterCost(selectedAnalysisModelOption, photoAnalysisInputTokens, photoAnalysisOutputTokens),
+      photoComparisonCost: estimateOpenRouterCost(selectedAnalysisModelOption, photoComparisonInputTokens, photoComparisonOutputTokens),
+    };
+  }, [
+    cvSizeTokenEstimate,
+    fullCvOutputTokenEstimate,
+    selectedAnalysisModelOption,
+  ]);
 
   const loadPhotoBoothGallery = useCallback(async (): Promise<void> => {
     try {
@@ -1872,7 +1949,30 @@ export function ComposerClient() {
         setSettings(payload);
         setModelInput(payload.model || "openai/gpt-4o-mini");
         setBaseUrlInput(payload.baseUrl || "https://openrouter.ai/api/v1/chat/completions");
-        setModelOptions(payload.models ?? []);
+        const incomingModels = payload.models ?? [];
+        setModelOptions(incomingModels);
+        try {
+          const persistedImageModelId = window.localStorage.getItem(STORAGE_KEYS.imageGenerationModel) ?? "";
+          const hasPersistedModel = incomingModels.some(
+            (item) => item.id === persistedImageModelId && item.supportsImageGeneration,
+          );
+          if (hasPersistedModel) {
+            setImageGenerationModelInput(persistedImageModelId);
+          } else {
+            setImageGenerationModelInput(
+              incomingModels.find((item) => item.supportsImageGeneration)?.id ?? "",
+            );
+          }
+        } catch {
+          setImageGenerationModelInput(
+            incomingModels.find((item) => item.supportsImageGeneration)?.id ?? "",
+          );
+        }
+      } catch {
+        if (!cancelled) {
+          setSettings(null);
+          setSettingsNotice("Failed to load OpenRouter settings.");
+        }
       } finally {
         if (!cancelled) {
           setSettingsLoading(false);
@@ -1884,6 +1984,32 @@ export function ComposerClient() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!imageGenerationModelInput) return;
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.imageGenerationModel, imageGenerationModelInput);
+    } catch {
+      // no-op
+    }
+  }, [imageGenerationModelInput]);
+
+  const settingsTabState = useMemo<"not_configured" | "configured" | "error">(() => {
+    const hasRuntimeError =
+      /error|failed|invalid|unauthorized/i.test(settingsNotice) ||
+      (Boolean(settings?.hasApiKey) && creditStatus?.available === false);
+    if (hasRuntimeError) return "error";
+    if (settings?.hasApiKey) return "configured";
+    return "not_configured";
+  }, [creditStatus, settings?.hasApiKey, settingsNotice]);
+
+  const settingsCreditCompact = useMemo<string>(() => {
+    if (typeof creditStatus?.remainingUsd === "number") {
+      return `${formatUsd(creditStatus.remainingUsd)} left`;
+    }
+    if (settingsLoading) return "checking...";
+    return creditStatus?.available ? "credit ready" : "credit n/a";
+  }, [creditStatus, settingsLoading]);
 
   function switchLanguage(language: string) {
     setSelectedLanguage(language);
@@ -2157,7 +2283,13 @@ export function ComposerClient() {
       }
       setSettings(payload);
       setApiKeyInput("");
-      setModelOptions(payload.models ?? []);
+      const updatedModels = payload.models ?? [];
+      setModelOptions(updatedModels);
+      if (!updatedModels.some((item) => item.id === imageGenerationModelInput && item.supportsImageGeneration)) {
+        setImageGenerationModelInput(
+          updatedModels.find((item) => item.supportsImageGeneration)?.id ?? "",
+        );
+      }
       setSettingsNotice("Settings saved.");
       try {
         const creditResponse = await fetch("/api/settings/openrouter/credit");
@@ -4020,6 +4152,120 @@ export function ComposerClient() {
     );
   }
 
+  function renderOpenRouterSettingsCard(): JSX.Element {
+    return (
+      <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-sm font-semibold text-slate-800">OpenRouter Settings</p>
+          <button
+            className="rounded-md border border-[var(--line)] bg-white px-2 py-1 text-xs font-semibold text-slate-700"
+            onClick={() => setShowAiSettings((value) => !value)}
+            type="button"
+          >
+            {showAiSettings ? "Hide" : "Show"}
+          </button>
+        </div>
+        <p
+          className={`mt-1 break-all text-xs ${
+            settings?.hasApiKey ? "font-semibold text-[var(--ink-muted)]" : "text-[var(--ink-muted)]"
+          }`}
+        >
+          {settingsLoading
+            ? "Loading..."
+            : settings?.hasApiKey
+              ? `OpenRouter API configured (${settings.apiKeyMasked})`
+              : "No API key saved"}
+        </p>
+
+        {showAiSettings && (
+          <div className="mt-3 space-y-2">
+            <label className="block text-xs font-medium text-slate-700">
+              API Key
+              <input
+                className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+                onChange={(event) => setApiKeyInput(event.target.value)}
+                placeholder={settings?.hasApiKey ? "Configured. Enter new key to replace." : "or-..."}
+                type="password"
+                value={apiKeyInput}
+              />
+            </label>
+            <label className="block text-xs font-medium text-slate-700">
+              Analysis Model
+              <select
+                className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+                onChange={(event) => setModelInput(event.target.value)}
+                value={modelInput}
+              >
+                {!modelOptions.some((item) => item.id === modelInput) ? (
+                  <option value={modelInput}>{modelInput}</option>
+                ) : null}
+                {modelOptions.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {modelOptionLabel(item)}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="rounded-md border border-[var(--line)] bg-white p-2">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">
+                Selected Analysis Model Pricing
+              </p>
+              <p className="mt-1 text-xs text-slate-700">
+                {selectedAnalysisModelOption
+                  ? selectedAnalysisModelOption.isFree
+                    ? "FREE model"
+                    : `Input ${selectedAnalysisModelOption.promptPricePer1M !== null ? `${formatUsd(selectedAnalysisModelOption.promptPricePer1M)}/1M` : "N/A"} • Output ${selectedAnalysisModelOption.completionPricePer1M !== null ? `${formatUsd(selectedAnalysisModelOption.completionPricePer1M)}/1M` : "N/A"}`
+                  : "Model pricing unavailable."}
+              </p>
+            </div>
+            <label className="block text-xs font-medium text-slate-700">
+              Image Generation Model
+              <select
+                className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+                onChange={(event) => setImageGenerationModelInput(event.target.value)}
+                value={imageGenerationModelInput}
+              >
+                {imageGenerationModelOptions.length === 0 ? (
+                  <option value="">No image generation models in current catalog</option>
+                ) : null}
+                {imageGenerationModelOptions.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {modelOptionLabel(item)}
+                  </option>
+                ))}
+              </select>
+              <p className="mt-1 text-[11px] text-slate-600">
+                {selectedImageGenerationModelOption
+                  ? `Prepared for future image features: ${selectedImageGenerationModelOption.name || selectedImageGenerationModelOption.id}`
+                  : "Not used yet. This is a future-facing selection."}
+              </p>
+            </label>
+            <label className="block text-xs font-medium text-slate-700">
+              Base URL
+              <input
+                className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
+                onChange={(event) => setBaseUrlInput(event.target.value)}
+                value={baseUrlInput}
+              />
+            </label>
+            <button
+              className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+              disabled={settingsSaving}
+              onClick={saveAiSettings}
+              type="button"
+            >
+              Save Settings
+            </button>
+            {settingsNotice ? <p className="text-xs text-[var(--ink-muted)]">{settingsNotice}</p> : null}
+          </div>
+        )}
+        <p className="mt-2 text-xs text-[var(--ink-muted)]">
+          {creditStatus?.label ?? "OpenRouter credit: checking..."}
+        </p>
+      </div>
+    );
+  }
+
   function renderKeywordStudio(): JSX.Element {
     if (keywordStudioLoading) {
       return <p className="text-sm text-[var(--ink-muted)]">Loading keyword analysis and CV render...</p>;
@@ -4755,51 +5001,66 @@ export function ComposerClient() {
             </div>
           </div>
 
-          <div className="mb-4 flex flex-wrap gap-2">
+          <div className="mb-4 flex items-center gap-2">
+            <div className="flex flex-wrap gap-2">
+              <button
+                className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                  activePanel === "workspace" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
+                }`}
+                onClick={() => setActivePanel("workspace")}
+                type="button"
+              >
+                Print Room
+              </button>
+              <button
+                className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                  activePanel === "editor" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
+                }`}
+                onClick={() => setActivePanel("editor")}
+                type="button"
+              >
+                Editor
+              </button>
+              <button
+                className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                  activePanel === "keywords" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
+                }`}
+                onClick={() => setActivePanel("keywords")}
+                type="button"
+              >
+                Keywords
+              </button>
+              <button
+                className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                  activePanel === "templates" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
+                }`}
+                onClick={() => setActivePanel("templates")}
+                type="button"
+              >
+                Templates
+              </button>
+              <button
+                className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                  activePanel === "photo_booth" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
+                }`}
+                onClick={() => setActivePanel("photo_booth")}
+                type="button"
+              >
+                Photo Booth
+              </button>
+            </div>
             <button
-              className={`rounded-md px-4 py-2 text-sm font-semibold ${
-                activePanel === "workspace" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
+              className={`ml-auto inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold ${
+                activePanel === "settings" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
               }`}
-              onClick={() => setActivePanel("workspace")}
+              onClick={() => setActivePanel("settings")}
               type="button"
             >
-              Print Room
-            </button>
-            <button
-              className={`rounded-md px-4 py-2 text-sm font-semibold ${
-                activePanel === "editor" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
-              }`}
-              onClick={() => setActivePanel("editor")}
-              type="button"
-            >
-              Editor
-            </button>
-            <button
-              className={`rounded-md px-4 py-2 text-sm font-semibold ${
-                activePanel === "keywords" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
-              }`}
-              onClick={() => setActivePanel("keywords")}
-              type="button"
-            >
-              Keywords
-            </button>
-            <button
-              className={`rounded-md px-4 py-2 text-sm font-semibold ${
-                activePanel === "templates" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
-              }`}
-              onClick={() => setActivePanel("templates")}
-              type="button"
-            >
-              Templates
-            </button>
-            <button
-              className={`rounded-md px-4 py-2 text-sm font-semibold ${
-                activePanel === "photo_booth" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-2)] text-slate-800"
-              }`}
-              onClick={() => setActivePanel("photo_booth")}
-              type="button"
-            >
-              Photo Booth
+              <SettingsStatusIcon state={settingsTabState} />
+              <span>Settings</span>
+              <span className={`rounded border px-1.5 py-0.5 text-[10px] font-semibold ${activePanel === "settings" ? "border-white/60 text-white" : "border-[var(--line)] text-slate-700"}`}>
+                {settingsCreditCompact}
+              </span>
             </button>
           </div>
 
@@ -5034,82 +5295,6 @@ export function ComposerClient() {
                         </button>
                       ))}
                     </div>
-                  </div>
-
-                  <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-semibold text-slate-800">OpenRouter Settings</p>
-                      <button
-                        className="rounded-md border border-[var(--line)] bg-white px-2 py-1 text-xs font-semibold text-slate-700"
-                        onClick={() => setShowAiSettings((value) => !value)}
-                        type="button"
-                      >
-                        {showAiSettings ? "Hide" : "Show"}
-                      </button>
-                    </div>
-                    <p
-                      className={`mt-1 break-all text-xs ${
-                        settings?.hasApiKey ? "font-semibold text-[var(--ink-muted)]" : "text-[var(--ink-muted)]"
-                      }`}
-                    >
-                      {settingsLoading
-                        ? "Loading..."
-                        : settings?.hasApiKey
-                          ? `OpenRouter API configured (${settings.apiKeyMasked})`
-                          : "No API key saved"}
-                    </p>
-
-                    {showAiSettings && (
-                      <div className="mt-3 space-y-2">
-                        <label className="block text-xs font-medium text-slate-700">
-                          API Key
-                          <input
-                            className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
-                            onChange={(event) => setApiKeyInput(event.target.value)}
-                            placeholder={settings?.hasApiKey ? "Configured. Enter new key to replace." : "or-..."}
-                            type="password"
-                            value={apiKeyInput}
-                          />
-                        </label>
-                        <label className="block text-xs font-medium text-slate-700">
-                          Model
-                          <select
-                            className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
-                            onChange={(event) => setModelInput(event.target.value)}
-                            value={modelInput}
-                          >
-                            {!modelOptions.some((item) => item.id === modelInput) ? (
-                              <option value={modelInput}>{modelInput}</option>
-                            ) : null}
-                            {modelOptions.map((item) => (
-                              <option key={item.id} value={item.id}>
-                                {modelOptionLabel(item)}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
-                        <label className="block text-xs font-medium text-slate-700">
-                          Base URL
-                          <input
-                            className="mt-1 w-full rounded-md border border-[var(--line)] bg-white px-2 py-1.5 text-xs"
-                            onChange={(event) => setBaseUrlInput(event.target.value)}
-                            value={baseUrlInput}
-                          />
-                        </label>
-                        <button
-                          className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
-                          disabled={settingsSaving}
-                          onClick={saveAiSettings}
-                          type="button"
-                        >
-                          Save Settings
-                        </button>
-                        {settingsNotice && <p className="text-xs text-[var(--ink-muted)]">{settingsNotice}</p>}
-                      </div>
-                    )}
-                    <p className="mt-2 text-xs text-[var(--ink-muted)]">
-                      {creditStatus?.label ?? "OpenRouter credit: checking..."}
-                    </p>
                   </div>
 
                   <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
@@ -5561,6 +5746,65 @@ export function ComposerClient() {
 
           {activePanel === "keywords" && renderKeywordStudio()}
           {activePanel === "photo_booth" && renderPhotoBooth()}
+          {activePanel === "settings" && (
+            <div className="grid min-h-0 flex-1 gap-4 md:grid-cols-[340px_1fr]">
+              <article className="min-h-0 overflow-auto rounded-xl border border-[var(--line)] bg-white p-4">
+                <h2 className="text-xl font-bold text-slate-900">Settings</h2>
+                <p className="mt-2 text-sm text-[var(--ink-muted)]">
+                  Configure external model access and monitor remaining OpenRouter credit.
+                </p>
+                <div className="mt-4">
+                  {renderOpenRouterSettingsCard()}
+                </div>
+                <div className="mt-4 rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
+                  <p className="text-sm font-semibold text-slate-800">Approximate Cost per Check</p>
+                  <p className="mt-1 text-[11px] text-slate-600">
+                    Estimates use live CV size + prompt/output heuristics with {analysisCostEstimate.overhead.toFixed(1)}x overhead.
+                  </p>
+                  <div className="mt-2 grid gap-2">
+                    <div className="rounded-md border border-[var(--line)] bg-white p-2">
+                      <p className="text-xs font-semibold text-slate-900">AI Analysis (CV section/full scoring)</p>
+                      <p className="mt-1 text-[11px] text-slate-600">
+                        Input ~{analysisCostEstimate.analysisInputTokens.toLocaleString()} tok • Output ~{analysisCostEstimate.analysisOutputTokens.toLocaleString()} tok
+                      </p>
+                      <p className="mt-1 text-xs font-semibold text-slate-800">
+                        {analysisCostEstimate.analysisCost === null ? "Estimated cost: N/A" : `Estimated cost: ${formatUsd(analysisCostEstimate.analysisCost)}`}
+                      </p>
+                    </div>
+                    <div className="rounded-md border border-[var(--line)] bg-white p-2">
+                      <p className="text-xs font-semibold text-slate-900">Photo Analysis (single image)</p>
+                      <p className="mt-1 text-[11px] text-slate-600">
+                        Input ~{analysisCostEstimate.photoAnalysisInputTokens.toLocaleString()} tok • Output ~{analysisCostEstimate.photoAnalysisOutputTokens.toLocaleString()} tok
+                      </p>
+                      <p className="mt-1 text-xs font-semibold text-slate-800">
+                        {analysisCostEstimate.photoAnalysisCost === null ? "Estimated cost: N/A" : `Estimated cost: ${formatUsd(analysisCostEstimate.photoAnalysisCost)}`}
+                      </p>
+                    </div>
+                    <div className="rounded-md border border-[var(--line)] bg-white p-2">
+                      <p className="text-xs font-semibold text-slate-900">Photo Comparison (2 images baseline)</p>
+                      <p className="mt-1 text-[11px] text-slate-600">
+                        Input ~{analysisCostEstimate.photoComparisonInputTokens.toLocaleString()} tok • Output ~{analysisCostEstimate.photoComparisonOutputTokens.toLocaleString()} tok
+                      </p>
+                      <p className="mt-1 text-xs font-semibold text-slate-800">
+                        {analysisCostEstimate.photoComparisonCost === null ? "Estimated cost: N/A" : `Estimated cost: ${formatUsd(analysisCostEstimate.photoComparisonCost)}`}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article className="min-h-0 overflow-auto rounded-xl border border-[var(--line)] bg-[#fcfcfd] p-5">
+                <div className="rounded-lg border border-[var(--line)] bg-white p-4">
+                  <p className="text-sm font-semibold text-slate-900">OpenRouter Status</p>
+                  <p className="mt-2 text-xs text-[var(--ink-muted)]">
+                    Tab indicator reflects configuration state, runtime errors, and latest remaining credit.
+                  </p>
+                  <p className="mt-2 text-xs text-[var(--ink-muted)]">
+                    {creditStatus?.label ?? "OpenRouter credit: checking..."}
+                  </p>
+                </div>
+              </article>
+            </div>
+          )}
 
           {photoBoothDeleteConfirmId ? (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4">
