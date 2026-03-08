@@ -1,5 +1,50 @@
 # MuhFweeCeeVee
 
+MuhFweeCeeVee started as a practical “enough is enough” project: paying recurring CV-tool subscriptions for features that can be built and customized in a few focused days did not make sense anymore.
+
+The core goal is simple:
+- save roughly **$15-$20 per month** (or more) versus common CV SaaS plans
+- keep full control of your data and workflow
+- quickly customize the product to fit your own job-search style
+
+In short: why rent your resume workflow forever, when you can own it and make it **fwee**.
+
+## Why This Exists (Cost Comparison)
+
+| Service | Typical Paid Cost | Paid Features | Vs MuhFweeCeeVee |
+| --- | ---: | --- | --- |
+| Resume.io | $29.95 / 4 weeks (after $2.95 7-day trial) | Resume builder, cover letters, templates, PDF downloads | MuhFweeCeeVee has local-first CV editing/export; cover letters are **Coming Soon** |
+| Kickresume | $24/mo monthly, $18/mo quarterly, $8/mo yearly | Resume + cover letter templates, ATS checker, AI writer | MuhFweeCeeVee has AI analysis and template workflow; ATS-style checker polish is **Coming Soon** |
+| VisualCV | $16/mo billed quarterly | Resume templates, unlimited resumes, PDFs, share links, website profile | MuhFweeCeeVee has customizable local workflow; public profile website flow is **Coming Soon** |
+| Teal+ | $13/week | Resume builder, keyword matching, job tracking, AI credits | MuhFweeCeeVee has keyword analysis; integrated job-tracker workflow is **Coming Soon** |
+| **MuhFweeCeeVee** | **fwee** | Local self-hosted CV composer, template rendering, YAML/Form editing, PDF export, AI scoring, keyword workspace, photo analysis | Built to be owned + customized; Companies and Cover Letters tabs are in progress (**Coming Soon**) |
+
+## Features
+
+### 1) Print, preview, and theme confidence
+Use Print Room to configure CV/template output and immediately validate readability in both light and dark visual modes before export.
+
+<p align="center">
+  <img src="images/SCREENSHOT_01.png" width="49%" />
+  <img src="images/SCREENSHOT_02.png" width="49%" />
+</p>
+
+### 2) Edit precision + job-fit diagnostics
+Combine structured section editing with AI scoring and keyword-gap analysis so every change can be checked for recruiter relevance and missing signal.
+
+<p align="center">
+  <img src="images/SCREENSHOT_03.png" width="49%" />
+  <img src="images/SCREENSHOT_04.png" width="49%" />
+</p>
+
+### 3) Presentation polish and profile quality
+Review available CV templates side-by-side, then finalize profile-photo quality using Photo Booth analysis and recommendations.
+
+<p align="center">
+  <img src="images/SCREENSHOT_05.png" width="49%" />
+  <img src="images/SCREENSHOT_06.png" width="49%" />
+</p>
+
 MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
 - template-based rendering (`cambridge-v1`, `stanford-v1`, `harvard-v1`, `europass-v1`, `edinburgh-v1`)
 - form + YAML editor workflows
@@ -7,14 +52,18 @@ MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
 - CV AI analysis that can target a selected company from external companies metadata
 - PDF export pipeline for print-ready output
 
-## 1.0.1 Release Scope
+## 1.0.2 Release Scope
 
-Version `1.0.1` is the current public release with a stable user-facing workflow:
+Version `1.0.2` is the current public release with a stable user-facing workflow:
 - Print Room (preview + export)
 - Editor (Form/YAML)
+- Editor Form View includes collapsible nested containers (collapsed by default for deep structures) with compact summary metadata for faster navigation.
+- Experience entries in Form View are labeled with role-first titles and period/company subtitles instead of generic numbered labels.
 - Settings (OpenRouter login, Analysis Model, Image Generation Model for future use, base URL, credit status, and per-check cost estimates)
 - AI analysis targeting with metadata-source selection, multi-company checkbox selection, and inline Form/YAML metadata editing
 - Dynamic language variants in Editor (add language + optional AI translation)
+- Variant auto-resolution supports both id styles:
+  `cv_<language>_<target>` and `cv_<language>_<iteration>_<target>`.
 - Language sync modal in Editor (pick source/target language pair with timestamp visibility)
 - Keywords workspace (gap analysis and prioritization)
 - Theme support (light/dark/system + template themes)
@@ -149,5 +198,5 @@ Steps:
 
 ## License
 
-Repository-level licensing should be set according to your distribution policy.
+This project is licensed under the MIT License. See [`LICENSE`](LICENSE).
 Template-specific license metadata lives under each template folder.
