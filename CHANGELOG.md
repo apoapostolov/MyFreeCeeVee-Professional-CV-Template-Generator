@@ -7,40 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-03-08
+
 ### Added
 
-- New **Photo Booth** tab (last in navigation order) with drag-and-drop image upload, polished gallery cards, and per-image approval controls for CV use.
-- Photo Booth approval is now persisted in browser storage, so the selected photo stays active across reloads.
-- New dedicated **Analyze Photo** action in the right analysis pane, with quality scoring and actionable headshot recommendations for the currently selected image.
-- Photo Booth now stores per-image AI analysis history on the server (`/photos/metadata.json`) and restores the latest analysis across reloads.
-- New multi-image AI comparison workflow in Photo Booth (2+ selected images) with ranked results and detailed cross-image scoring feedback.
-- New MCP wrapper package (`@muhfweeceevee/mcp-wrapper`) exposing key CV/template/keywords/photo/OpenRouter API operations as MCP tools over stdio, with setup guide in `mcp.md`.
-- Photo Booth comparison results are now persisted in metadata and auto-restored when the same image set is selected again; a manual compare request creates a fresh result and keeps history.
-- New `Settings` tab (right-aligned at the end of the tab row) that now hosts OpenRouter configuration and credit status.
+- New **Photo Booth** tab with drag-and-drop upload, per-image approval, and dedicated AI photo analysis actions.
+- New multi-image AI comparison workflow in Photo Booth (2+ selected images) with ranked results and recommendation details.
+- New `Settings` tab (right-aligned in the tab row) for OpenRouter setup and account credit visibility.
+- New MCP wrapper package (`@muhfweeceevee/mcp-wrapper`) exposing key internal API operations as MCP tools.
 
 ### Changed
 
-- Preview/export pipeline now accepts approved Photo Booth image overrides and injects them into the `profile.photo` render slot without editing CV YAML.
-- Sidebar-to-content width ratio is now standardized across major two-column tabs for a more consistent workspace feel.
-- Templates tab preview cards now render using the CV currently selected in Print Room (with fallback to latest CV when no selection is active).
-- Photo Booth drop zone copy now explicitly advertises clipboard paste support.
-- Photo Booth gallery now uses compact 2-up cards with action buttons overlaid on the image bottom edge.
-- Photo Booth right column is now a dedicated AI analysis pane with a small thumbnail and expanded feedback content.
-- Photo Booth AI analysis now uses a multimodal OpenRouter model request; UI warns when the currently selected model is likely non-multimodal.
-- Photo Booth storage is now filesystem-backed in `/photos`; removing an image confirms deletion and then removes it from disk.
-- Photo Booth action controls now use icon-only buttons, and approval toggles on/off when clicked again.
-- Template gallery previews now apply the currently approved Photo Booth selection (if present) instead of showing empty placeholder photo regions.
-- Legacy stale uploads are now auto-migrated into `/photos`, and legacy browser-cached photo galleries are imported into `/photos` on load.
-- CV photo AI analysis guidance was upgraded with a stricter professional rubric (framing, lighting, expression, background, and print/export fitness).
-- CVs are now company-agnostic again; target-company metadata lives in dedicated companies JSON files instead of inside each CV.
-- Editor AI analysis now includes a `None`/company dropdown backed by external companies metadata, so section and full-CV scoring can be aimed at a chosen employer without mutating CV YAML.
-- AI targeting in Editor now works in two levels: choose metadata source first (`example` or `personal`), then select one or more companies with checkboxes, and edit that source inline in Form or YAML mode.
-- OpenRouter login/configuration controls were moved out of Editor into the dedicated `Settings` tab.
-- `Settings` tab button now shows OpenRouter state with icon feedback (`not configured`, `configured`, `error`) plus remaining credit summary.
-- In OpenRouter settings, `Model` is now labeled as `Analysis Model`.
-- Analysis-model dropdown entries no longer include per-check estimate text; per-check estimates are now shown in a dedicated cost section.
-- Settings now shows approximate per-check costs for CV AI analysis, single-image photo analysis, and 2-image photo comparison.
-- Settings now includes an `Image Generation Model` selector filtered to models that advertise image-generation support (future-facing; not used in runtime flows yet).
+- Preview/export pipeline now applies approved Photo Booth image overrides without mutating CV YAML.
+- Template preview cards now render using the currently selected Print Room CV and approved photo when available.
+- CV targeting is now company-agnostic at CV level; target company metadata is managed in dedicated company metadata files.
+- Editor AI targeting now supports metadata source selection and multi-company selection with inline metadata editing.
+- OpenRouter configuration was moved from Editor to Settings with status icon states and compact remaining-credit display in the tab button.
+- OpenRouter `Analysis Model` selection now separates pricing details from dropdown labels and shows approximate per-check cost estimates in a dedicated block.
+- Settings now includes an image-generation model selector filtered to models with image-generation capability (future-ready; not yet wired to runtime generation flows).
+- Editor Form View for nested structures now uses collapsible containers with collapsed-by-default nested sections and summary metadata headers.
+- Experience entries in Form View now use semantic container naming (job title header, period/company subtitle) instead of generic numbered labels.
+- Photo Booth UX was polished with compact gallery cards, overlay actions, clipboard paste support, and right-side analysis layout.
+- Photo assets and analysis metadata now use filesystem-backed storage with safe migration from legacy browser-cached gallery data.
+- Language-variant auto-resolution now accepts both CV id formats:
+  `cv_<language>_<target>` and `cv_<language>_<iteration>_<target>`, removing the hard requirement for `iteration` in translation flows.
+
+### Fixed
+
+- Fixed Keywords analysis false-empty dataset behavior when sqlite binary resolution differs by runtime environment, preventing silent zero-item core rebuilds.
 
 ## [1.0.1] - 2026-03-07
 
@@ -89,7 +83,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed Keywords analysis false-empty dataset behavior when the web runtime could not resolve `sqlite3` from PATH; core dataset refresh now uses binary fallbacks and no longer silently reports zero JD items in this case.
 - Fixed theme-toggle hydration warnings in the browser.
 - Improved OpenRouter error feedback so invalid/unauthorized key issues are clearer.
 - Removed driving-license row from sidebar personal details in Edinburgh for a cleaner layout.

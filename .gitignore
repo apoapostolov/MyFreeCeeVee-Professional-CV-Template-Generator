@@ -51,5 +51,12 @@ data/settings/companies.personal.json
 photos/
 photos/metadata.json
 
-# Local planning docs
+# Local API planning docs
 /companies_api.md
+/Companies_API.md
+
+# Local copied skills
+/skills/
+
+# Raw screenshot drops (keep curated SCREENSHOT_XX.png files)
+/images/Screenshot_*.png

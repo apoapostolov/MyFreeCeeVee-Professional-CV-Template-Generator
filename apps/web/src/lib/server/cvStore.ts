@@ -6,9 +6,10 @@ import { parse, stringify } from "yaml";
 
 import { repoPath } from "./repoPaths";
 import {
-  buildCvVariantId,
+  buildCvVariantIdLoose,
   isSupportedLanguage,
   parseCvVariantId,
+  parseCvVariantIdLoose,
   type CvLanguage,
 } from "./cvVariants";
 import { readOpenRouterSettings } from "./openRouterSettings";
@@ -64,7 +65,7 @@ function withUpdatedMetadata(input: CvDocument): CvDocument {
       ? (metadataRaw as Record<string, unknown>)
       : {};
 
-  const parsed = parseCvVariantId(String(input.id ?? ""));
+  const parsed = parseCvVariantIdLoose(String(input.id ?? ""));
   const inferred = parsed ?? null;
 
   return {
@@ -78,7 +79,7 @@ function withUpdatedMetadata(input: CvDocument): CvDocument {
       variant:
         inferred
           ? {
-              cv_id: buildCvVariantId(inferred),
+              cv_id: buildCvVariantIdLoose(inferred),
               iteration: inferred.iteration,
               target: inferred.target,
               language: inferred.language,
@@ -342,10 +343,10 @@ export async function ensureLanguageVariant(
   targetLanguage: CvLanguage,
   options?: { autoTranslate?: boolean },
 ): Promise<{ cvId: string; created: boolean }> {
-  const parsed = parseCvVariantId(sourceCvId);
+  const parsed = parseCvVariantIdLoose(sourceCvId);
   if (!parsed) {
     throw new Error(
-      "Language variant auto-resolution requires cvId format cv_<language>_<iteration>_<target>.",
+      "Language variant auto-resolution requires cvId format cv_<language>_<target> or cv_<language>_<iteration>_<target>.",
     );
   }
   const normalizedTargetLanguage = targetLanguage.trim().toLowerCase();
@@ -353,7 +354,7 @@ export async function ensureLanguageVariant(
     throw new Error("Target language code is invalid. Use 2-8 alphabetic characters.");
   }
 
-  const requestedCvId = buildCvVariantId({
+  const requestedCvId = buildCvVariantIdLoose({
     language: normalizedTargetLanguage,
     iteration: parsed.iteration,
     target: parsed.target,

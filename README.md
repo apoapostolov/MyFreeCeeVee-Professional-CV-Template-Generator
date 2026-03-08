@@ -22,7 +22,7 @@ In short: why rent your resume workflow forever, when you can own it and make it
 ## Features
 
 ### 1) Print, preview, and theme confidence
-Use Print Room to configure CV/template output and immediately validate readability in both light and dark visual modes before export.
+Use Print Room to configure template-based rendering (`cambridge-v1`, `stanford-v1`, `harvard-v1`, `europass-v1`, `edinburgh-v1`) and immediately validate readability in both light and dark visual modes before export. This is the print-ready PDF export path.
 
 <p align="center">
   <img src="images/SCREENSHOT_01.png" width="49%" />
@@ -30,7 +30,7 @@ Use Print Room to configure CV/template output and immediately validate readabil
 </p>
 
 ### 2) Edit precision + job-fit diagnostics
-Combine structured section editing with AI scoring and keyword-gap analysis so every change can be checked for recruiter relevance and missing signal.
+Combine Form + YAML editing with AI scoring, keyword-gap analysis, and selected-company targeting from external companies metadata so every change can be checked for recruiter relevance and missing signal.
 
 <p align="center">
   <img src="images/SCREENSHOT_03.png" width="49%" />
@@ -38,19 +38,12 @@ Combine structured section editing with AI scoring and keyword-gap analysis so e
 </p>
 
 ### 3) Presentation polish and profile quality
-Review available CV templates side-by-side, then finalize profile-photo quality using Photo Booth analysis and recommendations.
+Review available CV templates side-by-side, then finalize profile-photo quality using Photo Booth analysis and recommendations as part of the full self-hosted CV authoring workflow.
 
 <p align="center">
   <img src="images/SCREENSHOT_05.png" width="49%" />
   <img src="images/SCREENSHOT_06.png" width="49%" />
 </p>
-
-MuhFweeCeeVee is a self-hosted CV authoring and export platform with:
-- template-based rendering (`cambridge-v1`, `stanford-v1`, `harvard-v1`, `europass-v1`, `edinburgh-v1`)
-- form + YAML editor workflows
-- AI scoring and keyword analysis surfaces
-- CV AI analysis that can target a selected company from external companies metadata
-- PDF export pipeline for print-ready output
 
 ## 1.0.2 Release Scope
 

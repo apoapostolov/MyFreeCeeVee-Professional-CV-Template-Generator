@@ -841,6 +841,7 @@ export function ComposerClient() {
   const [editorView, setEditorView] = useState<EditorViewMode>("form");
   const [editorCv, setEditorCv] = useState<Record<string, unknown> | null>(null);
   const [sectionDraft, setSectionDraft] = useState<unknown>(null);
+  const [expandedFormNodes, setExpandedFormNodes] = useState<Record<string, boolean>>({});
   const [yamlDraft, setYamlDraft] = useState("");
   const [yamlLintIssues, setYamlLintIssues] = useState<string[]>([]);
   const [editorLoading, setEditorLoading] = useState(false);
@@ -1931,11 +1932,13 @@ export function ComposerClient() {
     if (!editorCv) {
       setSectionDraft(null);
       setYamlDraft("");
+      setExpandedFormNodes({});
       return;
     }
     const section = cloneValue(getByPath(editorCv, editorPath) ?? {});
     setSectionDraft(section);
     setYamlDraft(stringifyYaml(section ?? {}));
+    setExpandedFormNodes({});
   }, [editorCv, editorPath]);
 
   useEffect(() => {
@@ -3396,9 +3399,140 @@ export function ComposerClient() {
     path: PathSegment[],
     pathLabel: string,
     keyName: string,
-    options?: { onRemove?: () => void },
+    options?: { onRemove?: () => void; headingTitle?: string; headingSubtitle?: string },
   ): JSX.Element {
+    function formPathKey(targetPath: PathSegment[]): string {
+      if (targetPath.length === 0) return "__root__";
+      return targetPath
+        .map((segment) => (typeof segment === "number" ? `[${segment}]` : segment))
+        .join(".");
+    }
+
+    function setFormNodeExpanded(targetPath: PathSegment[], value: boolean): void {
+      const key = formPathKey(targetPath);
+      setExpandedFormNodes((current) => ({ ...current, [key]: value }));
+    }
+
+    function isFormNodeExpanded(targetPath: PathSegment[]): boolean {
+      const key = formPathKey(targetPath);
+      if (typeof expandedFormNodes[key] === "boolean") {
+        return expandedFormNodes[key];
+      }
+      return targetPath.length === 0;
+    }
+
+    function firstInformativePrimitive(record: Record<string, unknown>): string {
+      const preferredKeys = [
+        "title",
+        "role",
+        "position",
+        "job_title",
+        "company",
+        "organization",
+        "institution",
+        "name",
+        "skill",
+        "summary",
+      ];
+      for (const key of preferredKeys) {
+        const value = record[key];
+        if (typeof value === "string" && value.trim().length > 0) return value.trim();
+      }
+      for (const value of Object.values(record)) {
+        if (typeof value === "string" && value.trim().length > 0) return value.trim();
+        if (typeof value === "number" || typeof value === "boolean") return String(value);
+      }
+      return "";
+    }
+
+    function summarizeContainer(value: unknown): string {
+      if (Array.isArray(value)) {
+        if (value.length === 0) return selectedLanguage === "bg" ? "Празен списък" : "Empty list";
+        const first = value[0];
+        let firstSummary = "";
+        if (first && typeof first === "object" && !Array.isArray(first)) {
+          const described = describeContainerHeading(
+            first as Record<string, unknown>,
+            keyName,
+            `${pathLabel}[0]`,
+          );
+          firstSummary = described.subtitle
+            ? `${described.title} — ${described.subtitle}`
+            : described.title;
+        } else if (first !== null && first !== undefined) {
+          firstSummary = String(first);
+        }
+        const countLabel = selectedLanguage === "bg" ? `${value.length} записа` : `${value.length} items`;
+        return firstSummary ? `${countLabel} • ${firstSummary}` : countLabel;
+      }
+      if (value && typeof value === "object") {
+        const record = value as Record<string, unknown>;
+        const keys = Object.keys(record);
+        const core = firstInformativePrimitive(record);
+        const keysLabel = selectedLanguage === "bg" ? `${keys.length} полета` : `${keys.length} fields`;
+        return core ? `${keysLabel} • ${core}` : keysLabel;
+      }
+      return "";
+    }
+
+    function readStringField(record: Record<string, unknown>, keys: string[]): string {
+      for (const key of keys) {
+        const value = record[key];
+        if (typeof value === "string" && value.trim().length > 0) {
+          return value.trim();
+        }
+      }
+      return "";
+    }
+
+    function formatPeriod(record: Record<string, unknown>): string {
+      const start = readStringField(record, ["date_start", "start_date", "start", "from", "begin", "started_at"]);
+      const end = readStringField(record, ["date_end", "end_date", "end", "to", "ended_at"]);
+      const isCurrent = Boolean(record.is_current ?? record.current ?? record.present);
+      const endLabel = isCurrent ? "Present" : (end || "");
+      if (start && endLabel) return `${start} - ${endLabel}`;
+      if (start) return start;
+      if (endLabel) return endLabel;
+      return "";
+    }
+
+    function describeContainerHeading(
+      record: Record<string, unknown>,
+      fallbackTitle: string,
+      hintPath: string,
+    ): { title: string; subtitle: string } {
+      const hint = hintPath.toLowerCase();
+      const period = formatPeriod(record);
+      const role = readStringField(record, ["title", "role", "position", "job_title"]);
+      const company = readStringField(record, ["company", "employer", "organization", "studio"]);
+      const institution = readStringField(record, ["institution", "school", "university", "academy"]);
+      const name = readStringField(record, ["name", "label"]);
+      const location = readStringField(record, ["location", "city", "country"]);
+      const type = readStringField(record, ["type", "employment_type", "contract_type"]);
+
+      if (hint.includes("experience") || (role && (company || period))) {
+        const title = role || company || name || fallbackTitle;
+        const subtitle = [period, company].filter(Boolean).join(" • ");
+        return { title, subtitle };
+      }
+
+      if (hint.includes("education") || institution.length > 0) {
+        const educationTitle = readStringField(record, ["degree", "qualification", "program", "field_of_study", "title"]) || institution || name || fallbackTitle;
+        const subtitle = [period, institution].filter(Boolean).join(" • ");
+        return { title: educationTitle, subtitle };
+      }
+
+      const title = role || name || company || institution || readStringField(record, ["title"]) || fallbackTitle;
+      const subtitle = [period, company || institution, location || type].filter(Boolean).join(" • ");
+      return { title, subtitle };
+    }
+
     const copy = resolveFieldCopy(pathLabel, keyName, selectedLanguage);
+    const isContainer = Array.isArray(node) || (node !== null && typeof node === "object");
+    const expanded = isContainer ? isFormNodeExpanded(path) : true;
+    const summary = isContainer ? summarizeContainer(node) : "";
+    const headerTitle = options?.headingTitle ?? copy.label;
+    const headerSubtitle = options?.headingSubtitle ?? copy.description;
     const removeButton = options?.onRemove ? (
       <button
         aria-label={selectedLanguage === "bg" ? "Премахни поле" : "Remove field"}
@@ -3416,10 +3550,21 @@ export function ComposerClient() {
         <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
           <div className="mb-2 flex items-center justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold text-slate-900">{copy.label}</p>
-              <p className="text-xs text-[var(--ink-muted)]">{copy.description}</p>
+              <p className="text-sm font-semibold text-slate-900">{headerTitle}</p>
+              <p className="text-xs text-[var(--ink-muted)]">{headerSubtitle}</p>
+              {summary ? <p className="mt-1 text-[11px] text-slate-600">{summary}</p> : null}
             </div>
             <div className="flex gap-2">
+              <button
+                aria-expanded={expanded}
+                aria-label={expanded ? (selectedLanguage === "bg" ? "Свий секцията" : "Collapse section") : (selectedLanguage === "bg" ? "Разгъни секцията" : "Expand section")}
+                className="inline-flex h-6 min-w-6 items-center justify-center rounded border border-[var(--line)] bg-white px-1 text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+                onClick={() => setFormNodeExpanded(path, !expanded)}
+                title={expanded ? (selectedLanguage === "bg" ? "Свий" : "Collapse") : (selectedLanguage === "bg" ? "Разгъни" : "Expand")}
+                type="button"
+              >
+                {expanded ? "▾" : "▸"}
+              </button>
               {removeButton}
               <button
                 aria-label={selectedLanguage === "bg" ? "Добави елемент" : "Add item"}
@@ -3442,57 +3587,68 @@ export function ComposerClient() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            {node.length === 0 && (
-              <p className="text-xs text-[var(--ink-muted)]">
-                {selectedLanguage === "bg" ? "Празен списък." : "Empty list."}
-              </p>
-            )}
-            {node.map((item, index) => {
-              const childPath = [...path, index];
-              const childLabel = `${pathLabel}[${index}]`;
-              const primitive = item === null || ["string", "number", "boolean"].includes(typeof item);
-              if (primitive) {
-                const stringValue = String(item ?? "");
-                const useTextarea = shouldUseTextarea(stringValue);
+          {expanded ? (
+            <div className="space-y-2">
+              {node.length === 0 && (
+                <p className="text-xs text-[var(--ink-muted)]">
+                  {selectedLanguage === "bg" ? "Празен списък." : "Empty list."}
+                </p>
+              )}
+              {node.map((item, index) => {
+                const childPath = [...path, index];
+                const childLabel = `${pathLabel}[${index}]`;
+                const primitive = item === null || ["string", "number", "boolean"].includes(typeof item);
+                if (primitive) {
+                  const stringValue = String(item ?? "");
+                  const useTextarea = shouldUseTextarea(stringValue);
+                  return (
+                    <div key={childLabel} className="flex items-start gap-2 rounded-md border border-[var(--line)] bg-white p-2">
+                      {useTextarea ? (
+                        <textarea
+                          className="w-full rounded border border-[var(--line)] bg-white px-2 py-1 text-xs"
+                          onChange={(event) => updateDraftAt(childPath, event.target.value)}
+                          rows={estimateTextareaRows(stringValue)}
+                          value={stringValue}
+                        />
+                      ) : (
+                        <input
+                          className="w-full rounded border border-[var(--line)] bg-white px-2 py-1 text-xs"
+                          onChange={(event) => updateDraftAt(childPath, event.target.value)}
+                          value={stringValue}
+                        />
+                      )}
+                      <button
+                        aria-label={selectedLanguage === "bg" ? "Премахни елемент" : "Remove item"}
+                        className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+                        onClick={() => removeDraftAt(childPath)}
+                        title={selectedLanguage === "bg" ? "Премахни елемент" : "Remove item"}
+                        type="button"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  );
+                }
+
                 return (
-                  <div key={childLabel} className="flex items-start gap-2 rounded-md border border-[var(--line)] bg-white p-2">
-                    {useTextarea ? (
-                      <textarea
-                        className="w-full rounded border border-[var(--line)] bg-white px-2 py-1 text-xs"
-                        onChange={(event) => updateDraftAt(childPath, event.target.value)}
-                        rows={estimateTextareaRows(stringValue)}
-                        value={stringValue}
-                      />
-                    ) : (
-                      <input
-                        className="w-full rounded border border-[var(--line)] bg-white px-2 py-1 text-xs"
-                        onChange={(event) => updateDraftAt(childPath, event.target.value)}
-                        value={stringValue}
-                      />
-                    )}
-                    <button
-                      aria-label={selectedLanguage === "bg" ? "Премахни елемент" : "Remove item"}
-                      className="inline-flex h-6 w-6 items-center justify-center rounded border border-[var(--line)] bg-white text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
-                      onClick={() => removeDraftAt(childPath)}
-                      title={selectedLanguage === "bg" ? "Премахни елемент" : "Remove item"}
-                      type="button"
-                    >
-                      ✕
-                    </button>
+                  <div key={childLabel}>
+                    {(() => {
+                      const fallbackItemTitle = `${copy.label} ${index + 1}`;
+                      const heading =
+                        item && typeof item === "object" && !Array.isArray(item)
+                          ? describeContainerHeading(item as Record<string, unknown>, fallbackItemTitle, childLabel)
+                          : { title: fallbackItemTitle, subtitle: "" };
+                      return renderFormNode(item, childPath, childLabel, `${keyName} ${index + 1}`, {
+                        onRemove: () => removeDraftAt(childPath),
+                        headingTitle: heading.title,
+                        headingSubtitle: heading.subtitle || copy.description,
+                      });
+                    })()}
                   </div>
                 );
-              }
-
-              return (
-                <div key={childLabel}>
-                  {renderFormNode(item, childPath, childLabel, `${keyName} ${index + 1}`, {
-                    onRemove: () => removeDraftAt(childPath),
-                  })}
-                </div>
-              );
-            })}
-          </div>
+              })}
+            </div>
+          ) : null}
         </div>
       );
     }
@@ -3503,10 +3659,21 @@ export function ComposerClient() {
         <div className="rounded-md border border-[var(--line)] bg-[var(--surface-1)] p-3">
           <div className="mb-2 flex items-center justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold text-slate-900">{copy.label}</p>
-              <p className="text-xs text-[var(--ink-muted)]">{copy.description}</p>
+              <p className="text-sm font-semibold text-slate-900">{headerTitle}</p>
+              <p className="text-xs text-[var(--ink-muted)]">{headerSubtitle}</p>
+              {summary ? <p className="mt-1 text-[11px] text-slate-600">{summary}</p> : null}
             </div>
             <div className="flex gap-2">
+              <button
+                aria-expanded={expanded}
+                aria-label={expanded ? (selectedLanguage === "bg" ? "Свий секцията" : "Collapse section") : (selectedLanguage === "bg" ? "Разгъни секцията" : "Expand section")}
+                className="inline-flex h-6 min-w-6 items-center justify-center rounded border border-[var(--line)] bg-white px-1 text-xs font-bold text-slate-700 hover:bg-[var(--surface-2)]"
+                onClick={() => setFormNodeExpanded(path, !expanded)}
+                title={expanded ? (selectedLanguage === "bg" ? "Свий" : "Collapse") : (selectedLanguage === "bg" ? "Разгъни" : "Expand")}
+                type="button"
+              >
+                {expanded ? "▾" : "▸"}
+              </button>
               {removeButton}
               <button
                 aria-label={selectedLanguage === "bg" ? "Добави custom поле" : "Add custom field"}
@@ -3519,19 +3686,21 @@ export function ComposerClient() {
               </button>
             </div>
           </div>
-          <div className="space-y-2">
-            {entries.map(([key, value]) => {
-              const childPath = [...path, key];
-              const childLabel = pathLabel ? `${pathLabel}.${key}` : key;
-              return (
-                <div key={childLabel}>
-                  {renderFormNode(value, childPath, childLabel, key, {
-                    onRemove: () => removeDraftAt(childPath),
-                  })}
-                </div>
-              );
-            })}
-          </div>
+          {expanded ? (
+            <div className="space-y-2">
+              {entries.map(([key, value]) => {
+                const childPath = [...path, key];
+                const childLabel = pathLabel ? `${pathLabel}.${key}` : key;
+                return (
+                  <div key={childLabel}>
+                    {renderFormNode(value, childPath, childLabel, key, {
+                      onRemove: () => removeDraftAt(childPath),
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
       );
     }
